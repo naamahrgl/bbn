@@ -1,0 +1,26 @@
+---
+// orderconfirmation.astro
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import OrderConfirmation from '../../components/OrderConfirmation';
+
+export function getStaticPaths() {
+  return [
+    { params: { lang: 'he' } },
+    { params: { lang: 'en' } },
+  ];
+}
+
+interface Params {
+  lang: 'he' | 'en';
+}
+
+const { params } = Astro;
+const lang = (params as Params).lang;
+const title = lang === 'he' ? 'אישור ההזמנה' : 'Order Confirmation';
+---
+
+<BaseLayout>
+  <div class="container mx-auto px-4 py-12">
+    <OrderConfirmation client:only="react" lang = {lang}/>
+  </div>
+</BaseLayout>

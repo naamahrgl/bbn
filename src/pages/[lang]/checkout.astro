@@ -1,0 +1,25 @@
+---
+// checkout.astro
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CheckoutForm from '../../components/CheckoutForm';
+import CheckoutPage from '../../components/CheckoutPage';
+
+export function getStaticPaths() {
+  return [
+    { params: { lang: 'he' } },
+    { params: { lang: 'en' } },
+  ];
+}
+
+interface Params {
+  lang: 'he' | 'en';
+}
+
+const { params } = Astro;
+const lang = (params as Params).lang;
+const title = lang === 'he' ? 'סיכום ההזמנה' : 'Checkout';
+---
+
+<BaseLayout currentPageName = {title}>
+        <CheckoutPage client:only = "react" lang={lang} />
+</BaseLayout>

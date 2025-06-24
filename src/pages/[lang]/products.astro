@@ -1,0 +1,22 @@
+---
+import ProductsPage from '../../components/ProductsPage';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export function getStaticPaths() {
+  return [
+    { params: { lang: 'he' } },
+    { params: { lang: 'en' } },
+  ];
+}
+
+interface Params {
+  lang: 'he' | 'en';
+}
+
+const { params } = Astro;
+const lang = (params as Params).lang;
+const title = lang === 'he' ? 'חם מהתנור' : 'Our daily Bakes';---
+
+<BaseLayout>
+  <ProductsPage client:only="react" lang={lang}/>
+</BaseLayout>

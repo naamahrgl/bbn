@@ -1,0 +1,25 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import HomePage from '../../components/HomePage.tsx';
+
+export function getStaticPaths() {
+  return [
+    { params: { lang: 'he' } },
+    { params: { lang: 'en' } },
+  ];
+}
+
+interface Params {
+  lang: 'he' | 'en';
+}
+
+const { params } = Astro;
+const lang = (params as Params).lang;
+const defaultLang = 'he';
+Astro.redirect(`/${defaultLang}/`);
+
+---
+
+<BaseLayout>
+  <HomePage client:only="react" lang = {lang}/>
+</BaseLayout>

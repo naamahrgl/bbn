@@ -1,0 +1,56 @@
+---
+// src/pages/[lang]/about.astro
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export function getStaticPaths() {
+  return [
+    { params: { lang: 'he' } },
+    { params: { lang: 'en' } },
+  ];
+}
+
+
+const content = {
+  he: {
+    title: 'הסיפור שלנו',
+    subtitle: "איך הגעתי לפה?",
+    paragraphs: [
+      "גיליתי שאני צליאקית רק בגיל 28. לפני זה אכלתי מלא גלוטן. הכל הכל בפיתה.",
+      "כשניסיתי להיגמל מגלוטן היה לי קשה למצוא לחם שאהבתי לאכול...",
+      "אז ככה קרה שאני פה היום, מאוד מתרגשת מהזכות להכין לכם לחם באמת שווה ומזין! תודה שאתם נהנים! ואיזה כיף לי להיות כאן איתכם 🙏"
+    ]
+  },
+  en: {
+    title: 'Our Story',
+    subtitle: "How did I get here?",
+    paragraphs: [
+      "I only discovered I had celiac disease at the age of 28...",
+      "When I tried to quit gluten, it was hard to find a bread I liked...",
+      "So that's how I'm here today, very excited for the privilege of making you truly worthy and nutritious bread! 🙏"
+    ]
+  }
+};
+const lang = (Astro.params.lang === 'en' || Astro.params.lang === 'he') ? Astro.params.lang : 'he';
+const { title, subtitle, paragraphs } = content[lang];
+---
+
+<BaseLayout currentPageName={title}>
+  <section class="bg-brand-background">
+    <div class="container mx-auto px-4 py-16 md:py-24">
+      <div class="grid md:grid-cols-2 gap-12 items-center">
+        <div class="prose prose-lg max-w-none text-brand-dark text-start">
+          <h2 class="text-sm font-semibold uppercase tracking-wide text-brand-secondary">{title}</h2>
+          <h1 class="mt-2 font-serif text-4xl font-bold tracking-tight text-brand-dark sm:text-5xl">{subtitle}</h1>
+          {paragraphs.map(p => <p class="leading-relaxed text-brand-light">{p}</p>)}
+        </div>
+        <div class="aspect-[4/3] rounded-lg overflow-hidden shadow-xl">
+          <img 
+            src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?q=80&w=2000" 
+            alt="Baker kneading dough"
+            class="w-full h-full object-cover"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

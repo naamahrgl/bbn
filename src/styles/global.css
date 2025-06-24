@@ -1,0 +1,9 @@
+@import "tailwindcss";
+
+      :root {
+        --brand-primary: #f8f0e3;
+        --brand-secondary: #8c4c3e;
+        --brand-text-dark: #3a241e;
+        --brand-text-light: #6d5d59;
+        --brand-background: #fdfaf6;
+      }

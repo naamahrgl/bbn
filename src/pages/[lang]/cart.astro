@@ -1,0 +1,23 @@
+---
+import CartPage from '../../components/CartPage';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export function getStaticPaths() {
+  return [
+    { params: { lang: 'he' } },
+    { params: { lang: 'en' } },
+  ];
+}
+
+interface Params {
+  lang: 'he' | 'en';
+}
+
+const { params } = Astro;
+const lang = (params as Params).lang;
+const title = lang === 'he' ? 'העגלה שלי' : 'My Cart';
+---
+
+<BaseLayout>
+  <CartPage client:only="react" lang={lang} />
+</BaseLayout>

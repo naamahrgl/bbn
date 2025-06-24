@@ -1,0 +1,50 @@
+import { v4 as uuid } from 'uuid';
+
+
+export type OrderItem = {
+  productId: string;
+  name: string;
+  quantity: number;
+  price: number;
+};
+
+export type OrderData = {
+  id?: string;
+  customerName: string;
+  customerEmail: string;
+  customerPhone?: string;
+  notes?: string;
+  totalAmount: number;
+  items: OrderItem[];
+};
+
+export function createOrder(data: OrderData): OrderData {
+  const id = Math.random().toString(36).substring(2, 10);
+  const order = { ...data, id };
+  const existing = JSON.parse(localStorage.getItem("orders") || "[]");
+  localStorage.setItem("orders", JSON.stringify([...existing, order]));
+  localStorage.setItem("lastOrder", JSON.stringify(order));
+  return order;
+}
+
+
+export function getAllOrders(): OrderData[] {
+  if (typeof window === 'undefined') return [];
+  try {
+    const raw = localStorage.getItem('orders');
+    return raw ? JSON.parse(raw) : [];
+  } catch {
+    return [];
+  }
+}
+
+export function getOrderById(id: string): Promise<OrderData> {
+  const orders = getAllOrders();
+  const found = orders.find(order => order.id === id);
+  if (!found) {
+    return Promise.reject(new Error('Order not found'));
+  }
+  return Promise.resolve(found);
+}
+
+

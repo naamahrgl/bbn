@@ -1,0 +1,198 @@
+---
+// src/components/Header.astro
+import CartIndicator from './CartIndicator.tsx'
+
+
+const lang = (Astro.url.pathname.split("/")[1] ?? "he") as "he" | "en";
+const isHebrew = lang === "he";
+
+const translations = {
+  he: { home: "בית", products: "מוצרים", about: "על הלחם" },
+  en: { home: "Home", products: "Products", about: "About" }
+};
+
+const t = translations[lang];
+---
+
+<style>
+    @reference "tailwindcss";
+.sticky-header {
+  @apply fixed top-0 left-0 right-0 z-50 bg-white shadow-sm border-b border-[var(--brand-secondary)];
+}
+
+  .header-content {
+    @apply flex justify-between items-center h-14 px-4 md:px-6;
+  }
+
+  .icon-button {
+    @apply w-6 h-6 text-[var(--brand-dark)] hover:text-[var(--brand-secondary)];
+  }
+
+.cart-indicator {
+  @apply absolute -top-1 -right-1 w-2 h-2 rounded-full bg-red-500;
+  display: none;
+}
+
+
+  .logo-toggle {
+    position: fixed;
+    top: 0.75rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 50;
+    height: auto;
+  }
+
+  .logo-toggle img {
+    height: 24px;
+    width: auto;
+  }
+
+  .cart-toggle {
+    position: fixed;
+    top: 0.75rem;
+    left: 1rem;
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--brand-text-dark)
+  }
+
+  .cart-toggle a {
+  position: relative;
+  display: inline-block;
+  }
+
+  .lang-toggle {
+    display: flex;
+    align-items: center;
+  }
+
+  .lang-toggle a {
+    text-decoration: none;
+    color: var(--brand-secondary);
+    font-weight: bold;
+    font-size: 0.875rem;
+    margin-left: 0.25rem;
+    margin-right: 0.25rem;
+  }
+  
+  .ham-toggle {
+    position: fixed;
+    top: 0.75rem;
+    right: 1rem;
+    z-index: 50;
+        color: var(--brand-text-dark)
+  }
+
+  .hamburger-toggle {
+    display: none;
+  }
+
+  .hamburger-menu {
+    display: none;
+    position: absolute;
+    top: 2.5rem;
+    right: 0;
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    width: max-content;
+    min-width: 8rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    z-index: 40;
+    text-align: start;
+  }
+
+  .hamburger-menu a {
+    display: block;
+    padding: 0.5rem 1rem;
+    color: var(--brand-dark);
+    text-decoration: none;
+    font-size: 0.9rem;
+    border-radius: 0.25rem;
+  }
+
+  .hamburger-menu a:hover {
+    background-color: #f3f3f3;
+    color: var(--brand-secondary);
+  }
+    /* Show menu when checkbox is checked */
+  .hamburger-toggle:checked ~ .hamburger-menu {
+    display: block;
+  }
+
+  .icon-button {
+    width: 24px;
+    height: 24px;
+    color: var(--brand-dark);
+  }
+
+</style>
+
+<script is:inline>
+  window.addEventListener('DOMContentLoaded', () => {
+    const cartIndicator = document.querySelector('.cart-indicator');
+    if (!(cartIndicator instanceof HTMLElement)) return;
+
+    const cartRaw = localStorage.getItem('cart');
+    if (!cartRaw) return;
+
+    try {
+      const cart = JSON.parse(cartRaw) || [];
+      const totalItems = Array.isArray(cart)
+        ? cart.reduce((sum, item) => sum + (item?.quantity || 0), 0)
+        : 0;
+
+      cartIndicator.style.display = totalItems > 0 ? 'block' : 'none';
+    } catch (e) {
+      cartIndicator.style.display = 'none';
+    }
+  });
+</script>
+
+
+
+<header class="sticky-header">
+  <div class="header-content relative">
+    <!-- Hamburger -->
+<div class="ham-toggle">
+  <input type="checkbox" id="menu-toggle" class="hamburger-toggle" />
+  
+  <label for="menu-toggle" class="cursor-pointer">
+    <svg class="icon-button" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+        d="M4 6h16M4 12h16M4 18h16" />
+    </svg>
+  </label>
+
+  <nav class="hamburger-menu">
+    <a href={`/${lang}/`}>{t.home}</a>
+    <a href={`/${lang}/products`}>{t.products}</a>
+    <a href={`/${lang}/about`}>{t.about}</a>
+  </nav>
+</div>
+
+    <!-- Logo -->
+    <div class="logo-toggle">
+      <a href={`/${lang}/`}>
+        <img src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/4d2bda0bd_bbn_logo.jpg" alt="Logo" />
+      </a>
+    </div>
+
+    <!-- Cart + Language -->
+    <div class="cart-toggle">
+            <div class="lang-toggle">
+        <a href={Astro.url.pathname.replace(/^\/he|\/en/, "/he")}>עברית</a> |
+        <a href={Astro.url.pathname.replace(/^\/he|\/en/, "/en")}>EN</a>
+      </div>
+        <a href={`/${lang}/cart`} class="relative">
+          <img src="/download.svg" alt="Cart" class="icon-button" />
+          <CartIndicator client:only="react" />
+        </a>
+
+    </div>
+  </div>
+</header>

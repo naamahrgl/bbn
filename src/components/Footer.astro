@@ -1,0 +1,88 @@
+---
+const lang = Astro.url.pathname.split('/')[1] ?? 'he';
+const translations = {
+  he: {
+    hero_title: 'לחם נעמה',
+    hero_slogan: 'מחמצת ללא גלוטן',
+    footer_quickLinks: 'קישורים מהירים',
+    nav_Home: 'דף הבית',
+    nav_Products: 'מוצרים',
+    nav_About: 'אודות',
+    footer_contactUs: 'דברו איתנו',
+    footer_contactText: 'אפשר לשלוח לנו מייל בכל שאלה, הערה או המלצה :)',
+    footer_copyright: 'כל הזכויות שמורות ללחם נעמה © 2025'
+  },
+  en: {
+    hero_title: 'Lechem Naama',
+    hero_slogan: 'Gluten Free Sourdough',
+    footer_quickLinks: 'Quick Links',
+    nav_Home: 'Home',
+    nav_Products: 'Products',
+    nav_About: 'About',
+    footer_contactUs: 'Contact Us',
+    footer_contactText: 'Feel free to email us with any question, comment, or suggestion :)',
+    footer_copyright: 'All rights reserved to Lechem Naama © 2025'
+  },
+} as const;
+const t = translations[lang as keyof typeof translations];
+---
+<style>
+.footer-content {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  padding: 1rem;
+  gap: 1rem;
+}
+
+.footer-section {
+  flex: 1 1 30%;
+  color: var(--brand-text-dark);
+  font-size: 0.9rem;
+}
+
+.footer-section h4 {
+  margin-bottom: 0.5rem;
+  color: var(--brand-secondary);
+  font-size: 1rem;
+}
+
+  </style>
+<footer class="bg-brand-primary border-t border-brand-secondary/20 text-sm">
+  <div class="container mx-auto px-4 py-8 md:px-6">
+    <div class="footer-content">
+      <div class="footer-section socials" >
+        <h3 class="text-xl font-bold text-brand-dark">{t.hero_title}</h3>
+        <p class="text-brand-light">{t.hero_slogan}</p>
+        <div >
+          <a href="your-link-here">
+            <img src='/Instagram_Glyph_White.png' alt="My clickable public image" width="100px" height="100px" />
+          </a>
+
+                    <a href="your-link-here">
+            <img src='/Facebook_Logo_Secondary.png' alt="My clickable public image" width="100px" height="100px" />
+          </a>
+
+        </div>
+      </div>
+      <div class = "footer-section quick-links" style="text-align: center;">
+        <h4 class="font-semibold text-brand-dark">{t.footer_quickLinks}</h4>
+        <ul class="mt-2 space-y-1">
+          <p><a href={`/${lang}/about`} class="text-brand-light hover:text-brand-dark">{t.nav_About}</a></p>
+          <p><a href={`/${lang}/`} class="text-brand-light hover:text-brand-dark">{t.nav_Home}</a></p>
+          <p><a href={`/${lang}/products`} class="text-brand-light hover:text-brand-dark">{t.nav_Products}</a></p>
+        </ul>
+      </div>
+      <div class = "footer-section contact" style="text-align: end;">
+        <h4 class="font-semibold text-brand-dark">{t.footer_contactUs}</h4>
+        <p class="mt-2 text-brand-light">{t.footer_contactText}</p>
+        <a href="mailto:hello@lechemnaama.com" class="mt-2 inline-block text-brand-secondary hover:text-brand-secondary/80 font-medium">hello@lechemnaama.com</a>
+      </div>
+    </div>
+    <div class = "footer-section copyrights" style="text-align: center;">
+      <p>{t.footer_copyright}</p>
+    </div>
+  </div>
+</footer>
