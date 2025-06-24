@@ -48,3 +48,15 @@ export function getOrderById(id: string): Promise<OrderData> {
 }
 
 
+export const DAILY_LIMITS = {
+  buckwheat: 10,
+  sourdough: 15,
+  cinnamon: 12,
+};
+
+export const EXISTING_ORDERS: Record<string, Record<string, number>> = {
+  '2025-06-27': { buckwheat: 9 },
+  '2025-06-28': { buckwheat: 10, sourdough: 5 },
+  '2025-06-29': { sourdough: 15 },
+};
+
