@@ -18,19 +18,12 @@ export default function CartIndicator() {
 
   if (!show) return null;
 
-return (
-  <span
-    style={{
-      position: "absolute",
-      top: "-0.25rem",
-      right: "-0.25rem",
-      width: "0.5rem",
-      height: "0.5rem",
-      borderRadius: "9999px",
-      backgroundColor: "#f00",
-    }}
-    aria-label="Items in cart"
-  />
-);
+
+  return (
+    <span
+      className="absolute -top-1 -right-1 w-3 h-3 rounded-full bg-red-500 border border-black"
+      aria-label="Items in cart"
+    />
+  );
 
 }
