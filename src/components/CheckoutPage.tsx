@@ -31,6 +31,10 @@ const translations = {
 };
 
 export default function CheckoutPage({ lang }: CheckoutPageProps) {
+   const [selectedDate, setSelectedDate] = useState<Date | undefined>();
+  const [deliveryMethod, setDeliveryMethod] = useState<'pickup' | 'delivery' | undefined>();
+  const [dayColors, setDayColors] = useState<Record<string, 'green' | 'orange' | 'red'>>({});
+
     const [isSubmitting, setIsSubmitting] = useState(false);
   
   const t = (key: keyof typeof translations['he']) => translations[lang][key];
@@ -45,26 +49,28 @@ export default function CheckoutPage({ lang }: CheckoutPageProps) {
     );
   }
 
-  return (
-    <div className="bg-brand-background py-8 px-4 max-w-4xl mx-auto space-y-8">
-      <h1 className="text-2xl sm:text-3xl font-bold text-center">
-        {t('checkout')}
-      </h1>
 
-      {/* Order summary first on mobile */}
-      <OrderSummary lang={lang} />
-
-              {/* delivery date third */}
-      <DeliveryDateSelector  lang={lang} />
-
-        {/* delivery method foourth */}
-      <DeliveryMethodSelector lang={lang}/>    
-
-      {/* Checkout form second */}
-      <CheckoutForm lang={lang} />
-
-
-
-      </div>
+    return (
+    <div className="checkout-container space-y-6">
+      <DeliveryMethodSelector
+        lang={lang}
+        selectedMethod={deliveryMethod}
+        onSelect={setDeliveryMethod}
+      />
+      <DeliveryDateSelector
+        lang={lang}
+        selectedDate={selectedDate}
+        setSelectedDate={setSelectedDate}
+        dayColors={dayColors}
+        setDayColors={setDayColors}
+      />
+      <CheckoutForm
+        lang={lang}
+        selectedDate={selectedDate}
+        deliveryMethod={deliveryMethod}
+        dayColors={dayColors}
+      />
+    </div>
   );
+  
 }

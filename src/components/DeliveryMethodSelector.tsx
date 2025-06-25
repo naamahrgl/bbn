@@ -7,7 +7,7 @@ interface Props {
   onSelect?: (method: DeliveryMethod) => void; // אפשרות לחיווי למעלה
 }
 
-const labels = {
+const translations = {
   he: {
     title: 'שיטת משלוח',
     pickup: 'איסוף עצמי',
@@ -20,30 +20,43 @@ const labels = {
   },
 };
 
-export default function DeliveryMethodSelector({ lang, onSelect }: Props) {
-  const [method, setMethod] = useState<DeliveryMethod>('pickup');
-  const t = labels[lang];
-
-  useEffect(() => {
-    if (onSelect) onSelect(method);
-  }, [method]);
+export default function DeliveryMethodSelector({
+  lang,
+  selectedMethod,
+  onSelect,
+}: {
+  lang: 'he' | 'en';
+  selectedMethod: 'pickup' | 'delivery' | undefined;
+  onSelect: (method: 'pickup' | 'delivery') => void;
+}) {
+  const t = translations[lang];
 
   return (
-    
-    <div className="grid grid-cols-1 gap-4 max-w-xl mx-auto bg-white p-4 sm:p-6 rounded-md shadow-md">
-              <h2 className="text-lg font-bold mb-2">{t.title}</h2>
-      {(['pickup', 'delivery'] as DeliveryMethod[]).map(option => (
-        <label key={option} className="flex items-center gap-2 cursor-pointer">
+    <div className="p-4">
+      <h2 className="text-lg font-bold mb-2">{t.title}</h2>
+      <div className="space-y-2">
+        <label className="flex items-center space-x-2">
           <input
             type="radio"
             name="deliveryMethod"
-            value={option}
-            checked={method === option}
-            onChange={() => setMethod(option)}
+            value="pickup"
+            checked={selectedMethod === 'pickup'}
+            onChange={() => onSelect('pickup')}
           />
-          <span>{t[option]}</span>
+          <span>{t.pickup}</span>
         </label>
-      ))}
+        <label className="flex items-center space-x-2">
+          <input
+            type="radio"
+            name="deliveryMethod"
+            value="delivery"
+            checked={selectedMethod === 'delivery'}
+            onChange={() => onSelect('delivery')}
+          />
+          <span>{t.delivery}</span>
+        </label>
+      </div>
     </div>
   );
 }
+

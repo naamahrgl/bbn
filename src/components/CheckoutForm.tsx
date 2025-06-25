@@ -11,10 +11,15 @@ import { Alert } from './ui/alert';
 import type { OrderData } from '../lib/orders';
 import OrderSummary from './OrderSummary';
 import { createOrder } from '../lib/orders';
+import { isOrderLegal } from '../lib/isOrderLegal';
 
 type CheckoutFormProps = {
   lang: 'he' | 'en';
+  selectedDate: Date | undefined;
+  deliveryMethod: 'pickup' | 'delivery' | undefined;
+  dayColors: Record<string, 'green' | 'orange' | 'red'>;
 };
+
 
 const translations = {
   he: {
@@ -41,7 +46,7 @@ const translations = {
   }
 };
 
-export default function CheckoutForm({ lang }: CheckoutFormProps) {
+export default function CheckoutForm({ lang, selectedDate, deliveryMethod, dayColors }: CheckoutFormProps) {
   const t = (key: keyof typeof translations['he']) => translations[lang][key];
   const [formData, setFormData] = useState({ name: '', email: '', phone: '', notes: '' });
   const [error, setError] = useState('');
@@ -52,45 +57,72 @@ export default function CheckoutForm({ lang }: CheckoutFormProps) {
     setFormData(prev => ({ ...prev, [id]: value }));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!formData.name || !formData.email) {
-      setError(t('fullName') + ' & ' + t('email'));
-      return;
-    }
-    setError('');
-    setIsSubmitting(true);
+ const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
 
-    const items = getCart().map(item => {
-      const product = getProductById(item.id);
-      return {
-        productId: item.id,
-        name: product.name[lang],
-        quantity: item.quantity,
-        price: product.price,
-      };
-    });
+  if (!formData.name || !formData.email) {
+    setError(t('fullName') + ' & ' + t('email'));
+    return;
+  }
 
-    const order: OrderData = {
-      customerName: formData.name,
-      customerEmail: formData.email,
-      customerPhone: formData.phone,
-      totalAmount: cartTotal(),
-      items,
-      notes: formData.notes,
+  setError('');
+  setIsSubmitting(true);
+
+  const items = getCart().map(item => {
+    const product = getProductById(item.id);
+    return {
+      productId: item.id,
+      name: product.name[lang],
+      quantity: item.quantity,
+      price: product.price,
     };
+  });
 
-    try {
-      const created = await createOrder(order);
-      clearCart();
-      window.location.href = `/${lang}/orderconfirmation?id=${created.id}`;
-    } catch (e) {
-      console.error(e);
-      setError(t('order_failed'));
-    } finally {
-      setIsSubmitting(false);
-    }
+  const order: OrderData = {
+    customerName: formData.name,
+    customerEmail: formData.email,
+    customerPhone: formData.phone,
+    totalAmount: cartTotal(),
+    items,
+    notes: formData.notes,
   };
+if (!deliveryMethod) {
+  alert(lang === 'he' ? 'יש לבחור שיטת משלוח' : 'Please choose a delivery method');
+  setIsSubmitting(false);
+  return;
+}
+
+if (!selectedDate) {
+  alert(lang === 'he' ? 'יש לבחור תאריך' : 'Please choose a delivery date');
+  setIsSubmitting(false);
+  return;
+}
+  const orderError = isOrderLegal({
+    selectedDate,
+    deliveryMethod,
+    dayColors,
+  });
+
+  if (orderError) {
+    alert(orderError);
+      setIsSubmitting(false);
+
+    return;
+  }
+
+  try {
+    const created = await createOrder(order);
+    clearCart();
+          window.location.href = `/${lang}/orderconfirmation?id=${created.id}&date=${selectedDate?.toISOString()}&method=${deliveryMethod}`;
+  } catch (e) {
+    console.error(e);
+    setError(t('order_failed'));
+  } finally {
+    setIsSubmitting(false);
+  }
+};
+
+  
 
   return (
     <form onSubmit={handleSubmit} className="grid grid-cols-1 gap-4 max-w-xl mx-auto bg-white p-4 sm:p-6 rounded-md shadow-md">
@@ -116,5 +148,7 @@ export default function CheckoutForm({ lang }: CheckoutFormProps) {
         {isSubmitting ? t('placing_order') : t('place_order')}
       </Button>
     </form>
+    
   );
+
 }

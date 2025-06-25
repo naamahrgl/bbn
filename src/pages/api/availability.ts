@@ -3,6 +3,7 @@ import type { APIRoute } from 'astro';
 import { addDays } from 'date-fns';
 import { DAILY_LIMITS, EXISTING_ORDERS } from '../../lib/orders';
 import type { ProductId } from '../../lib/products';
+export const prerender = false;
 
 interface CartItem {
   id: ProductId;

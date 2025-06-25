@@ -5,6 +5,14 @@ import { getOrderById, type OrderData } from '../lib/orders';
 import { CheckCircle2 } from 'lucide-react';
 import { Button } from './ui/button';
 import { Alert } from './ui/alert';
+import { format } from 'date-fns';
+
+const searchParams = new URLSearchParams(window.location.search);
+const method = searchParams.get('method'); // 'pickup' or 'delivery'
+const dateStr = searchParams.get('date');
+const formattedDate = dateStr ? format(new Date(dateStr), 'dd/MM/yyyy') : '';
+
+
 
 type Props = {
   lang: 'he' | 'en';
@@ -82,6 +90,12 @@ export default function OrderConfirmation({ lang }: Props) {
               </div>
             ))}
           </div>
+          {formattedDate && method && (
+  <div className="mt-4 p-4 bg-brand-light rounded-md text-sm text-brand-dark text-start">
+    <p><strong>{lang === 'he' ? 'תאריך משלוח:' : 'Delivery Date:'}</strong> {formattedDate}</p>
+    <p><strong>{lang === 'he' ? 'אופן מסירה:' : 'Delivery Method:'}</strong> {method === 'pickup' ? (lang === 'he' ? 'איסוף עצמי' : 'Pickup') : (lang === 'he' ? 'משלוח' : 'Delivery')}</p>
+  </div>
+)}
           <div className="font-bold mt-4 flex justify-between border-t pt-4 text-lg">
             <span>{t('total')}</span>
             <span>₪{order.totalAmount.toFixed(2)}</span>

@@ -59,6 +59,7 @@ export const DAILY_LIMITS: Record<ProductId, number> = {
 };
 
 export const EXISTING_ORDERS: Record<string, Record<string, number>> = {
+  '2025-06-26': { buckwheat: 9 },
   '2025-06-27': { buckwheat: 9 },
   '2025-06-28': { buckwheat: 10, sourdough: 5 },
   '2025-06-29': { sourdough: 15 },
