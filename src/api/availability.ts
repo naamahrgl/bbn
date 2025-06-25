@@ -2,13 +2,15 @@
 import type { APIRoute } from 'astro';
 import { addDays } from 'date-fns';
 import { DAILY_LIMITS, EXISTING_ORDERS } from '../lib/orders';
+import type { ProductId } from '../lib/orders';
+import type { CartItem } from '../lib/cart';
 
 
 
 
 export const POST: APIRoute = async ({ request }) => {
   const body = await request.json();
-  const cart: { id: string; quantity: number }[] = body.cart;
+  const cart: CartItem[] = body.cart;
   const result: Record<string, 'green' | 'orange' | 'red'> = {};
 
   for (let i = 0; i < 14; i++) {

@@ -1,6 +1,8 @@
 // lib/deliveryRules.ts
 import { isSameDay, addDays } from 'date-fns';
 import { DAILY_LIMITS, EXISTING_ORDERS } from '../lib/orders';
+import type { ProductId } from './orders';
+
 
 
 type DailyLimits = {
@@ -13,13 +15,11 @@ type OrdersMap = {
   };
 };
 
-type CartItem = {
-  id: string;
-  quantity: number;
-};
+type CartItem = { id: ProductId; quantity: number };
 
 
-function getAvailability(cart: CartItem[], date: Date): 'green' | 'orange' | 'red' {
+
+export function getAvailability(cart: CartItem[], date: Date): 'green' | 'orange' | 'red' {
   const dateStr = date.toISOString().split('T')[0];
   const orders = EXISTING_ORDERS[dateStr] || {};
 

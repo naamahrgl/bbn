@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { DayPicker } from 'react-day-picker';
 import 'react-day-picker/dist/style.css';
-
 import { getCart } from '../lib/cart';
-import { isDateAvailableForCart, getDisabledDaysForCart } from '../lib/deliveryRules';
+import { getAvailability } from '../lib/deliveryRules';
+import type { ProductId } from '../lib/orders';
+import type { CartItem } from '../lib/cart';
+
 
 export type DeliveryDateSelectorProps = {
   lang: 'he' | 'en';
@@ -12,14 +14,29 @@ export type DeliveryDateSelectorProps = {
 
 const translations = {
   he: { selectDate: 'בחרי תאריך משלוח או איסוף' },
-  en: { selectDate: 'Select a delivery or pickup date' }
+  en: { selectDate: 'Select a delivery or pickup date' },
 };
 
-export default function DeliveryDateSelector({ lang, onDateSelect }: DeliveryDateSelectorProps) {
+export default function DeliveryMethodSelector({ lang, onDateSelect }: DeliveryDateSelectorProps) {
   const [selected, setSelected] = useState<Date | undefined>();
+  const [disabledDays, setDisabledDays] = useState<Date[]>([]);
   const cart = getCart();
-
   const t = translations[lang];
+
+  useEffect(() => {
+    const today = new Date();
+    const next14 = Array.from({ length: 14 }, (_, i) => {
+      const date = new Date();
+      date.setDate(today.getDate() + i);
+      return date;
+    });
+
+    const result = next14.filter(
+      (day) => getAvailability(cart, day) === 'red'
+    );
+
+    setDisabledDays(result);
+  }, [JSON.stringify(cart)]); // לצורך עדכון כשעגלה משתנה
 
   const handleDaySelect = (day: Date | undefined) => {
     if (!day) return;
@@ -34,7 +51,7 @@ export default function DeliveryDateSelector({ lang, onDateSelect }: DeliveryDat
         mode="single"
         selected={selected}
         onSelect={handleDaySelect}
-        disabled={getDisabledDaysForCart(cart)}
+        disabled={disabledDays}
       />
     </div>
   );

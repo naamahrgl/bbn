@@ -12,7 +12,7 @@ export type Product = {
 };
 
 
-const mockProducts = [
+export const PRODUCTS = [
   {
     id: '1',
     name: { he: 'לחם כוסמת', en: 'Buckwheat Bread' },
@@ -77,16 +77,16 @@ const mockProducts = [
 ];
 
 export function getProducts(lang: string) {
-  return Promise.resolve(mockProducts);
+  return Promise.resolve(PRODUCTS);
 }
 
 export function getProductById(id: string) {
-  const product = mockProducts.find(p => p.id === id);
+  const product = PRODUCTS.find(p => p.id === id);
   if (!product) throw new Error('Product not found');
   return Promise.resolve(product);
 }
 
 export function getFeaturedProducts(limit: number = 4) {
-  const featured = mockProducts.filter(p => p.isFeatured).slice(0, limit);
+  const featured = PRODUCTS.filter(p => p.isFeatured).slice(0, limit);
   return Promise.resolve(featured);
 }

@@ -1,8 +1,10 @@
 import { v4 as uuid } from 'uuid';
 
+export type ProductId = 'buckwheat' | 'sourdough' | 'cinnamon';
+
 
 export type OrderItem = {
-  productId: string;
+  productId: ProductId;
   name: string;
   quantity: number;
   price: number;
@@ -48,7 +50,8 @@ export function getOrderById(id: string): Promise<OrderData> {
 }
 
 
-export const DAILY_LIMITS = {
+
+export const DAILY_LIMITS: Record<ProductId, number> = {
   buckwheat: 10,
   sourdough: 15,
   cinnamon: 12,

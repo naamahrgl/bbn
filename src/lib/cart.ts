@@ -1,13 +1,17 @@
 // lib/cart.ts
+import type { ProductId } from './orders';
+import { PRODUCTS } from './products'; // או איפה שאת מחזיקה את רשימת המוצרים המלאה
 
-export type Product = {
-  id: string;
+
+
+type Product = {
+  id: ProductId;
   name: Record<string, string>;
   price: number;
   imageUrl: string;
 };
 
-export type CartItem = Product & { quantity: number };
+export type CartItem = { id: ProductId; quantity: number };
 
 function safeLocalStorage<T>(key: string, fallback: T): T {
   if (typeof window === 'undefined') return fallback;
@@ -35,7 +39,11 @@ export function addToCart(product: Product, quantity: number) {
   if (existing) {
     existing.quantity += quantity;
   } else {
-    cart.push({ ...product, quantity });
+    const cartItem: CartItem = {
+      id: product.id as ProductId, // ✅ כאן אנחנו אומרים למנוע שהמזהה בטוח חוקי
+      quantity,
+    };
+    cart.push(cartItem);
   }
   setLocalStorage('cart', cart);
 }
@@ -53,7 +61,13 @@ export function removeFromCart(productId: string) {
 }
 
 export function cartTotal(): number {
-  return getCart().reduce((total, item) => total + item.price * item.quantity, 0);
+  const cart = getCart();
+
+  return cart.reduce((total, item) => {
+    const product = PRODUCTS.find(p => p.id === item.id);
+    if (!product) return total; // מוצר לא קיים – דלג
+    return total + product.price * item.quantity;
+  }, 0);
 }
 
 export function cartCount(): number {
