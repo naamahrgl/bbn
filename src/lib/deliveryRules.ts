@@ -1,27 +1,14 @@
 // lib/deliveryRules.ts
 import { isSameDay, addDays } from 'date-fns';
-import { DAILY_LIMITS, EXISTING_ORDERS } from '../lib/orders';
+import { DAILY_LIMITS, getExistingOrdersMap } from '../lib/orders';
 import type { ProductId } from './products';
-
-
-
-type DailyLimits = {
-  [productId: string]: number;
-};
-
-type OrdersMap = {
-  [date: string]: {
-    [productId: string]: number; // כמות שכבר הוזמנה
-  };
-};
 
 type CartItem = { id: ProductId; quantity: number };
 
-
-
 export function getAvailability(cart: CartItem[], date: Date): 'green' | 'orange' | 'red' {
   const dateStr = date.toISOString().split('T')[0];
-  const orders = EXISTING_ORDERS[dateStr] || {};
+  const existingOrders = getExistingOrdersMap();
+  const orders = existingOrders[dateStr] || {};
 
   let hasSoldOut = false;
   let needsAdjustment = false;

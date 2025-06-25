@@ -1,8 +1,9 @@
 // src/pages/api/availability.ts
 import type { APIRoute } from 'astro';
 import { addDays } from 'date-fns';
-import { DAILY_LIMITS, EXISTING_ORDERS } from '../../lib/orders';
+import { DAILY_LIMITS, getExistingOrdersMap } from '../../lib/orders';
 import type { ProductId } from '../../lib/products';
+
 export const prerender = false;
 
 interface CartItem {
@@ -23,10 +24,14 @@ export const POST: APIRoute = async ({ request }) => {
     const cart: CartItem[] = body.cart;
     const result: Record<string, 'green' | 'orange' | 'red'> = {};
 
+    // ✅ קריאה לנתוני הזמנות
+    //const existingOrders = getExistingOrders();
+
     for (let i = 0; i < 14; i++) {
       const date = addDays(new Date(), i);
       const key = date.toISOString().split('T')[0];
-      const orders = EXISTING_ORDERS[key] || {};
+const allOrders = getExistingOrdersMap();
+const orders = allOrders[key] || {};
 
       let hasSoldOut = false;
       let needsAdjustment = false;

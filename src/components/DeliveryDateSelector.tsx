@@ -40,16 +40,22 @@ export default function DeliveryDateSelector({
   const cart = getCart();
   const t = translations[lang];
 
-  useEffect(() => {
-    fetch('/api/availability', {
-      method: 'POST',
-      body: JSON.stringify({ cart }),
-      headers: { 'Content-Type': 'application/json' },
+useEffect(() => {
+  fetch('/api/availability', {
+    method: 'POST',
+    body: JSON.stringify({ cart }),
+    headers: { 'Content-Type': 'application/json' },
+  })
+    .then((res) => res.json())
+    .then((result) => {
+      console.log('[📅 availability result]', result); // ⬅️ כאן נוסיף את הלוג
+      setDayColors(result);
     })
-      .then((res) => res.json())
-      .then(setDayColors)
-      .catch(console.error);
-  }, [JSON.stringify(cart)]);
+    .catch(console.error);
+}, [JSON.stringify(cart)]);
+
+  
+
 
   return (
     <div className="p-4">

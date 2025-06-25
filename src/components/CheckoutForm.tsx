@@ -27,6 +27,7 @@ const translations = {
     fullName: 'שם מלא',
     email: 'אימייל',
     phone_optional: 'טלפון (לא חובה)',
+    address_optional: 'כתובת (לא חובה)',
     order_notes_optional: 'הערות להזמנה (לא חובה)',
     place_order: 'בצע הזמנה',
     placing_order: 'שולח הזמנה...',
@@ -38,6 +39,7 @@ const translations = {
     fullName: 'Full Name',
     email: 'Email',
     phone_optional: 'Phone (optional)',
+    address_optional: 'Address (optional)',
     order_notes_optional: 'Order notes (optional)',
     place_order: 'Place Order',
     placing_order: 'Placing Order...',
@@ -48,7 +50,7 @@ const translations = {
 
 export default function CheckoutForm({ lang, selectedDate, deliveryMethod, dayColors }: CheckoutFormProps) {
   const t = (key: keyof typeof translations['he']) => translations[lang][key];
-  const [formData, setFormData] = useState({ name: '', email: '', phone: '', notes: '' });
+  const [formData, setFormData] = useState({ name: '', email: '', phone: '', notes: '', address: '' });
   const [error, setError] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -78,14 +80,6 @@ export default function CheckoutForm({ lang, selectedDate, deliveryMethod, dayCo
     };
   });
 
-  const order: OrderData = {
-    customerName: formData.name,
-    customerEmail: formData.email,
-    customerPhone: formData.phone,
-    totalAmount: cartTotal(),
-    items,
-    notes: formData.notes,
-  };
 if (!deliveryMethod) {
   alert(lang === 'he' ? 'יש לבחור שיטת משלוח' : 'Please choose a delivery method');
   setIsSubmitting(false);
@@ -97,6 +91,19 @@ if (!selectedDate) {
   setIsSubmitting(false);
   return;
 }
+
+  const order: OrderData = {
+    customerName: formData.name,
+    customerEmail: formData.email,
+    customerPhone: formData.phone,
+    customerAddress:formData.address,
+    totalAmount: cartTotal(),
+    deliveryDate: selectedDate,
+     deliveryMethod: deliveryMethod,
+    items,
+    notes: formData.notes,
+  };
+
   const orderError = isOrderLegal({
     selectedDate,
     deliveryMethod,
@@ -111,6 +118,7 @@ if (!selectedDate) {
   }
 
   try {
+    console.log('[order being created]', order);
     const created = await createOrder(order);
     clearCart();
           window.location.href = `/${lang}/orderconfirmation?id=${created.id}&date=${selectedDate?.toISOString()}&method=${deliveryMethod}`;
@@ -139,6 +147,10 @@ if (!selectedDate) {
       <div>
         <Label htmlFor="phone">{t('phone_optional')}</Label>
         <Input id="phone" type="tel" value={formData.phone} onChange={handleChange} />
+      </div>
+            <div>
+        <Label htmlFor="address">{t('address_optional')}</Label>
+        <Input id="address" type="address" value={formData.address} onChange={handleChange} />
       </div>
       <div>
         <Label htmlFor="notes">{t('order_notes_optional')}</Label>
