@@ -1,15 +1,10 @@
 // lib/cart.ts
-import type { ProductId } from './orders';
+import type { ProductId } from './products';
 import { PRODUCTS } from './products'; // או איפה שאת מחזיקה את רשימת המוצרים המלאה
+import type { Product } from './products';
 
 
 
-type Product = {
-  id: ProductId;
-  name: Record<string, string>;
-  price: number;
-  imageUrl: string;
-};
 
 export type CartItem = { id: ProductId; quantity: number };
 

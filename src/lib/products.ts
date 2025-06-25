@@ -1,8 +1,10 @@
 // lib/products.ts
 
+export type ProductId = 'buckwheat' | 'sourdough' | 'cinnamon' | 'cracker' | 'brownie' ;
+
 
 export type Product = {
-  id: string;
+  id: ProductId;
   name: Record<string, string>;
   description: Record<string, string>;
   category: Record<string, string>;
@@ -12,9 +14,9 @@ export type Product = {
 };
 
 
-export const PRODUCTS = [
+export const PRODUCTS :Product[]= [
   {
-    id: '1',
+    id: 'buckwheat',
     name: { he: 'לחם כוסמת', en: 'Buckwheat Bread' },
     description: {
       he: 'לחם רך ועשיר מקמח כוסמת.',
@@ -26,7 +28,7 @@ export const PRODUCTS = [
     isFeatured: true,
   },
   {
-    id: '2',
+    id: 'sourdough',
     name: { he: 'פוקצ׳ה רוזמרין', en: 'Rosemary Focaccia' },
     description: {
       he: 'פוקצ׳ה עם שמן זית ורוזמרין טרי.',
@@ -38,7 +40,7 @@ export const PRODUCTS = [
     isFeatured: true,
   },
     {
-    id: '3',
+    id: 'cracker',
     name: { he: 'קרקר 80%', en: '80% Cracker' },
     description: {
       he: 'קרקר מחמצת ממכר, מכיל 80% מחמצת',
@@ -50,7 +52,7 @@ export const PRODUCTS = [
     isFeatured: true,
   },
     {
-    id: '4',
+    id: 'brownie',
     name: { he: "בראוני", en: 'brownie' },
     description: {
       he: 'פוקצ׳ה עם שמן זית ורוזמרין טרי.',
@@ -62,7 +64,7 @@ export const PRODUCTS = [
     isFeatured: false,
   },
     {
-    id: '5',
+    id: 'cinnamon',
     name: { he: 'פוקצ׳ה ', en: ' Focaccia' },
     description: {
       he: 'פוקצ׳ה עם שמן זית ורוזמרין טרי.',
@@ -76,6 +78,8 @@ export const PRODUCTS = [
   // Add more products as needed
 ];
 
+
+
 export function getProducts(lang: string) {
   return Promise.resolve(PRODUCTS);
 }
@@ -83,8 +87,9 @@ export function getProducts(lang: string) {
 export function getProductById(id: string) {
   const product = PRODUCTS.find(p => p.id === id);
   if (!product) throw new Error('Product not found');
-  return Promise.resolve(product);
+  return product;
 }
+
 
 export function getFeaturedProducts(limit: number = 4) {
   const featured = PRODUCTS.filter(p => p.isFeatured).slice(0, limit);

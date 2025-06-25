@@ -42,18 +42,26 @@ export default function ProductsPage({ lang }: ProductsPageProps) {
   const [activeCategory, setActiveCategory] = useState(categories[0]);
   const [selectedProducts, setSelectedProducts] = useState<Product[]>([]);
 
-  useEffect(() => {
-    getProducts(lang).then(products => {
-      setAllProducts(products);
-      if (!productId) {
-        setSelectedProducts(products);
-      }
-    });
-
-    if (productId) {
-      getProductById(productId).then(setProduct).catch(() => setProduct(null));
+useEffect(() => {
+  // getProducts כן עדיין אסינכרונית, אז זה תקין:
+  getProducts(lang).then(products => {
+    setAllProducts(products);
+    if (!productId) {
+      setSelectedProducts(products);
     }
-  }, [lang, productId]);
+  });
+
+  // אבל getProductById היא סינכרונית, אז לא צריך then
+  if (productId) {
+    try {
+      const found = getProductById(productId);
+      setProduct(found);
+    } catch {
+      setProduct(null);
+    }
+  }
+}, [lang, productId]);
+;
 
   const filterProducts = (category: string) => {
     setActiveCategory(category);

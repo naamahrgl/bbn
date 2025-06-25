@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { getCart, cartTotal, clearCart } from '../lib/cart';
+import { getProductById } from '../lib/products';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Label } from './ui/label';
@@ -10,8 +11,6 @@ import { Alert } from './ui/alert';
 import type { OrderData } from '../lib/orders';
 import OrderSummary from './OrderSummary';
 import { createOrder } from '../lib/orders';
-
-console.log("CheckoutForm loaded");
 
 type CheckoutFormProps = {
   lang: 'he' | 'en';
@@ -62,17 +61,22 @@ export default function CheckoutForm({ lang }: CheckoutFormProps) {
     setError('');
     setIsSubmitting(true);
 
+    const items = getCart().map(item => {
+      const product = getProductById(item.id);
+      return {
+        productId: item.id,
+        name: product.name[lang],
+        quantity: item.quantity,
+        price: product.price,
+      };
+    });
+
     const order: OrderData = {
       customerName: formData.name,
       customerEmail: formData.email,
       customerPhone: formData.phone,
       totalAmount: cartTotal(),
-      items: getCart().map(item => ({
-        productId: item.id,
-        name: item.name[lang],
-        quantity: item.quantity,
-        price: item.price,
-      })),
+      items,
       notes: formData.notes,
     };
 
@@ -111,7 +115,6 @@ export default function CheckoutForm({ lang }: CheckoutFormProps) {
       <Button type="submit" disabled={isSubmitting} className="w-full">
         {isSubmitting ? t('placing_order') : t('place_order')}
       </Button>
-      <OrderSummary lang={lang} />
     </form>
   );
 }

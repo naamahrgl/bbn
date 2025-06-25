@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { DayPicker } from 'react-day-picker';
 import 'react-day-picker/dist/style.css';
 import { format } from 'date-fns';
-import type { ProductId } from '../lib/orders';
+import type { ProductId } from '../lib/products';
+import { getCart } from '../lib/cart';
 
 
 type CartItem = {
@@ -10,10 +11,6 @@ type CartItem = {
   quantity: number;
 };
 
-type Props = {
-  cart: CartItem[];
-  lang: 'he' | 'en';
-};
 
 const translations = {
   he: {
@@ -30,25 +27,29 @@ const translations = {
   },
 };
 
-export default function DeliveryDateSelector({ cart, lang }: Props) {
+export default function DeliveryDateSelector({ lang }: { lang: 'he' | 'en' })  {
+      const cart = getCart();
+
   const [selected, setSelected] = useState<Date | undefined>();
   const [dayColors, setDayColors] = useState<Record<string, 'green' | 'orange' | 'red'>>({});
 
-  useEffect(() => {
-    fetch('/api/availability', {
-      method: 'POST',
-      body: JSON.stringify({ cart }),
-      headers: { 'Content-Type': 'application/json' },
-    })
-      .then((res) => res.json())
-      .then(setDayColors)
-      .catch(console.error);
-  }, [JSON.stringify(cart)]); // כדי להגיב לשינויים בעגלה
+useEffect(() => {
+    console.log('🛒 Sending cart to availability API:', cart);
+
+  fetch('/api/availability', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ cart }), // נוודא שזה לא undefined
+  })
+    .then((res) => res.json())
+    .then(setDayColors)
+    .catch(console.error);
+}, [JSON.stringify(cart)]);
 
   const t = translations[lang];
 
   return (
-    <div className="p-4">
+    <div className="grid grid-cols-1 gap-4 max-w-xl mx-auto bg-white p-4 sm:p-6 rounded-md shadow-md">
       <h2 className="text-lg font-bold mb-2">{t.title}</h2>
             <DayPicker
             mode="single"

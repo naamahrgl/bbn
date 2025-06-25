@@ -1,7 +1,7 @@
 // lib/deliveryRules.ts
 import { isSameDay, addDays } from 'date-fns';
 import { DAILY_LIMITS, EXISTING_ORDERS } from '../lib/orders';
-import type { ProductId } from './orders';
+import type { ProductId } from './products';
 
 
 

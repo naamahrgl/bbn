@@ -1,6 +1,5 @@
 import { v4 as uuid } from 'uuid';
-
-export type ProductId = 'buckwheat' | 'sourdough' | 'cinnamon';
+import type { ProductId } from './products';
 
 
 export type OrderItem = {
@@ -55,6 +54,8 @@ export const DAILY_LIMITS: Record<ProductId, number> = {
   buckwheat: 10,
   sourdough: 15,
   cinnamon: 12,
+  cracker: 1000,
+  brownie: 6
 };
 
 export const EXISTING_ORDERS: Record<string, Record<string, number>> = {

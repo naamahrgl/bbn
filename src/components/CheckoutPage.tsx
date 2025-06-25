@@ -1,8 +1,13 @@
 // src/components/CheckoutPage.tsx
-import React from 'react';
+import React, { useState } from 'react';
+
 import { getCart, cartTotal } from '../lib/cart';
 import OrderSummary from './OrderSummary';
 import CheckoutForm from './CheckoutForm';
+import DeliveryDateSelector from './DeliveryDateSelector';
+import DeliveryMethodSelector from './DeliveryMethodSelector';
+import { Button } from './ui/button';
+
 
 export type CheckoutPageProps = {
   lang: 'he' | 'en';
@@ -12,16 +17,22 @@ const translations = {
   he: {
     checkout: 'לתשלום',
     empty_cart: 'העגלה ריקה.',
-    go_shopping: 'לכל המוצרים'
+    go_shopping: 'לכל המוצרים',
+        place_order: 'בצע הזמנה',
+    placing_order: 'שולח הזמנה...',
   },
   en: {
     checkout: 'Checkout',
     empty_cart: 'Your cart is empty.',
-    go_shopping: 'Go Shopping'
+    go_shopping: 'Go Shopping',
+        place_order: 'Place Order',
+    placing_order: 'Placing Order...',
   }
 };
 
 export default function CheckoutPage({ lang }: CheckoutPageProps) {
+    const [isSubmitting, setIsSubmitting] = useState(false);
+  
   const t = (key: keyof typeof translations['he']) => translations[lang][key];
   const cartItems = getCart();
 
@@ -43,8 +54,17 @@ export default function CheckoutPage({ lang }: CheckoutPageProps) {
       {/* Order summary first on mobile */}
       <OrderSummary lang={lang} />
 
+              {/* delivery date third */}
+      <DeliveryDateSelector  lang={lang} />
+
+        {/* delivery method foourth */}
+      <DeliveryMethodSelector lang={lang}/>    
+
       {/* Checkout form second */}
       <CheckoutForm lang={lang} />
-    </div>
+
+
+
+      </div>
   );
 }

@@ -1,6 +1,7 @@
 // src/components/CartPage.tsx
 import React, { useState, useEffect } from 'react';
 import { getCart, updateQuantity, removeFromCart, cartTotal, cartCount } from '../lib/cart';
+import { getProductById } from '../lib/products';
 import { ArrowLeft, Minus, Plus, ShoppingCart, Trash2 } from 'lucide-react';
 
 type Lang = 'he' | 'en';
@@ -58,7 +59,7 @@ export default function CartPage({ lang }: CartPageProps) {
         <ShoppingCart className="mx-auto h-16 w-16 text-stone-300" />
         <h1 className="mt-4 font-serif text-3xl font-bold text-brand-dark">{t.emptyTitle}</h1>
         <p className="mt-2 text-brand-light">{t.emptyDesc}</p>
-                <a
+        <a
           href={`/${lang}/products`}
           className="inline-block bg-brand-secondary text-white px-6 py-2 rounded hover:bg-[#703c31]"
         >
@@ -74,26 +75,29 @@ export default function CartPage({ lang }: CartPageProps) {
         <h1 className="font-serif text-3xl md:text-4xl font-bold text-brand-dark mb-8 text-center">{t.title}</h1>
         <div className="grid lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2 bg-white p-4 md:p-6 rounded-lg shadow-sm border border-brand-primary">
-            {cartItems.map(item => (
-              <div key={item.id} className="flex items-center gap-4 py-4 border-b">
-                <img src={item.imageUrl} alt={item.name[lang]} className="w-20 h-20 md:w-24 md:h-24 rounded-md object-cover" />
-                <div className="flex-grow text-start">
-                  <h3 className="font-semibold text-brand-dark">{item.name[lang]}</h3>
-                  <p className="text-sm text-brand-light">₪{item.price.toFixed(2)}</p>
-                  <div className="flex items-center rounded-md border border-stone-300 w-fit mt-2">
-                    <button onClick={() => handleQuantityChange(item.id, item.quantity - 1)}><Minus className="h-4 w-4" /></button>
-                    <span className="w-10 text-center text-sm font-medium">{item.quantity}</span>
-                    <button onClick={() => handleQuantityChange(item.id, item.quantity + 1)}><Plus className="h-4 w-4" /></button>
+            {cartItems.map(item => {
+              const product = getProductById(item.id);
+              return (
+                <div key={item.id} className="flex items-center gap-4 py-4 border-b">
+                  <img src={product.imageUrl} alt={product.name[lang]} className="w-20 h-20 md:w-24 md:h-24 rounded-md object-cover" />
+                  <div className="flex-grow text-start">
+                    <h3 className="font-semibold text-brand-dark">{product.name[lang]}</h3>
+                    <p className="text-sm text-brand-light">₪{product.price.toFixed(2)}</p>
+                    <div className="flex items-center rounded-md border border-stone-300 w-fit mt-2">
+                      <button onClick={() => handleQuantityChange(item.id, item.quantity - 1)}><Minus className="h-4 w-4" /></button>
+                      <span className="w-10 text-center text-sm font-medium">{item.quantity}</span>
+                      <button onClick={() => handleQuantityChange(item.id, item.quantity + 1)}><Plus className="h-4 w-4" /></button>
+                    </div>
+                  </div>
+                  <div className="text-end">
+                    <p className="font-semibold text-brand-dark">₪{(product.price * item.quantity).toFixed(2)}</p>
+                    <button className="text-brand-light hover:text-red-500 mt-2" onClick={() => handleRemove(item.id)}>
+                      <Trash2 className="h-4 w-4" />
+                    </button>
                   </div>
                 </div>
-                <div className="text-end">
-                  <p className="font-semibold text-brand-dark">₪{(item.price * item.quantity).toFixed(2)}</p>
-                  <button className="text-brand-light hover:text-red-500 mt-2" onClick={() => handleRemove(item.id)}>
-                    <Trash2 className="h-4 w-4" />
-                  </button>
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
           <div className="lg:col-span-1">
             <div className="bg-white p-4 md:p-6 rounded-lg shadow-sm border border-brand-primary sticky top-24 text-start">

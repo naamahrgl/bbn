@@ -1,58 +1,49 @@
 import React, { useState, useEffect } from 'react';
-import { DayPicker } from 'react-day-picker';
-import 'react-day-picker/dist/style.css';
-import { getCart } from '../lib/cart';
-import { getAvailability } from '../lib/deliveryRules';
-import type { ProductId } from '../lib/orders';
-import type { CartItem } from '../lib/cart';
 
+type DeliveryMethod = 'pickup' | 'delivery';
 
-export type DeliveryDateSelectorProps = {
+interface Props {
   lang: 'he' | 'en';
-  onDateSelect: (date: Date) => void;
+  onSelect?: (method: DeliveryMethod) => void; // אפשרות לחיווי למעלה
+}
+
+const labels = {
+  he: {
+    title: 'שיטת משלוח',
+    pickup: 'איסוף עצמי',
+    delivery: 'משלוח',
+  },
+  en: {
+    title: 'Delivery Method',
+    pickup: 'Pickup',
+    delivery: 'Delivery',
+  },
 };
 
-const translations = {
-  he: { selectDate: 'בחרי תאריך משלוח או איסוף' },
-  en: { selectDate: 'Select a delivery or pickup date' },
-};
-
-export default function DeliveryMethodSelector({ lang, onDateSelect }: DeliveryDateSelectorProps) {
-  const [selected, setSelected] = useState<Date | undefined>();
-  const [disabledDays, setDisabledDays] = useState<Date[]>([]);
-  const cart = getCart();
-  const t = translations[lang];
+export default function DeliveryMethodSelector({ lang, onSelect }: Props) {
+  const [method, setMethod] = useState<DeliveryMethod>('pickup');
+  const t = labels[lang];
 
   useEffect(() => {
-    const today = new Date();
-    const next14 = Array.from({ length: 14 }, (_, i) => {
-      const date = new Date();
-      date.setDate(today.getDate() + i);
-      return date;
-    });
-
-    const result = next14.filter(
-      (day) => getAvailability(cart, day) === 'red'
-    );
-
-    setDisabledDays(result);
-  }, [JSON.stringify(cart)]); // לצורך עדכון כשעגלה משתנה
-
-  const handleDaySelect = (day: Date | undefined) => {
-    if (!day) return;
-    setSelected(day);
-    onDateSelect(day);
-  };
+    if (onSelect) onSelect(method);
+  }, [method]);
 
   return (
-    <div className="p-4 bg-white rounded shadow-sm border text-start">
-      <h2 className="text-sm font-semibold mb-2">{t.selectDate}</h2>
-      <DayPicker
-        mode="single"
-        selected={selected}
-        onSelect={handleDaySelect}
-        disabled={disabledDays}
-      />
+    
+    <div className="grid grid-cols-1 gap-4 max-w-xl mx-auto bg-white p-4 sm:p-6 rounded-md shadow-md">
+              <h2 className="text-lg font-bold mb-2">{t.title}</h2>
+      {(['pickup', 'delivery'] as DeliveryMethod[]).map(option => (
+        <label key={option} className="flex items-center gap-2 cursor-pointer">
+          <input
+            type="radio"
+            name="deliveryMethod"
+            value={option}
+            checked={method === option}
+            onChange={() => setMethod(option)}
+          />
+          <span>{t[option]}</span>
+        </label>
+      ))}
     </div>
   );
 }
