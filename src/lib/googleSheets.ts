@@ -1,29 +1,21 @@
 // src/lib/googleSheets.ts
-import { google } from 'googleapis';
-import { readFileSync } from 'fs';
-import path from 'path';
-
-const SCOPES = ['https://www.googleapis.com/auth/spreadsheets'];
-const CREDENTIALS_PATH = path.join(process.cwd(), 'src/lib/sheets-credentials.json');
-
-const auth = new google.auth.GoogleAuth({
-  keyFile: CREDENTIALS_PATH,
-  scopes: SCOPES,
-});
 
 
-export async function appendOrderRow(rowData: any[]) {
-  const sheets = google.sheets({ version: 'v4', auth: await auth.getClient() });
 
-  const spreadsheetId = '1SRd9BYvt8bffS2VXYZgS73gfc7jy2WkTGlzvVT_uIdE'; // BreadbyNaama
 
-  await sheets.spreadsheets.values.append({
-    spreadsheetId,
-    range: 'orders!A1', // שם הטאב + תא התחלה
-    valueInputOption: 'USER_ENTERED',
-    insertDataOption: 'INSERT_ROWS',
-    requestBody: {
-      values: [rowData],
-    },
-  });
+
+
+
+const APPS_SCRIPT_BASE = 'https://script.google.com/macros/s/AKfycbz8KegmHjmbNPj5BxcVhf5aq4K9-3-OzklDJMdaRUbfumEG0F5db6BRBWrqbMvdSBT1/exec';
+
+export async function getExistingOrdersMap(): Promise<Record<string, Record<string, number>>> {
+  const response = await fetch(`${APPS_SCRIPT_BASE}?action=getInventoryAndLimits`);
+  const data = await response.json();
+  return data.ordersMap || {};
+}
+
+export async function getDailyLimits(): Promise<Record<string, number>> {
+  const response = await fetch(`${APPS_SCRIPT_BASE}?action=getInventoryAndLimits`);
+  const data = await response.json();
+  return data.limits || {};
 }

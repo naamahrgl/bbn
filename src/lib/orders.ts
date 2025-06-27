@@ -1,7 +1,6 @@
 import { v4 as uuid } from 'uuid';
 import type { ProductId } from './products';
 import { format } from 'date-fns';
-import { appendOrderRow } from './googlesheets';
 
 
 
@@ -38,48 +37,6 @@ export const DAILY_LIMITS: Record<ProductId, number> = {
 
 // orders.ts
 
-export function getExistingOrdersMap(): Record<string, Record<string, number>> {
-  const result: Record<string, Record<string, number>> = {};
-
-  const orders = getAllOrders();
-  for (const order of orders) {
-    if (!order.deliveryDate) continue;
-
-    const deliveryDate =
-      order.deliveryDate instanceof Date
-        ? order.deliveryDate
-        : new Date(order.deliveryDate);
-
-    const dateKey = deliveryDate.toISOString().split('T')[0];
-
-    if (!result[dateKey]) result[dateKey] = {};
-
-    for (const item of order.items) {
-      result[dateKey][item.productId] =
-        (result[dateKey][item.productId] || 0) + item.quantity;
-    }
-  }
-
-  return result;
-}
-
-
-
-export function updateExistingOrders(order: OrderData): void {
-  const existing = getExistingOrdersMap();
-  const dateKey = format(order.deliveryDate, 'yyyy-MM-dd');
-
-  if (!existing[dateKey]) {
-    existing[dateKey] = {};
-  }
-
-  for (const item of order.items) {
-    existing[dateKey][item.productId] =
-      (existing[dateKey][item.productId] || 0) + item.quantity;
-  }
-
-  localStorage.setItem('existing_orders', JSON.stringify(existing));
-}
 
 
 // ✅ רשימת הזמנות בריצה הנוכחית (לא זמינות!)
@@ -97,23 +54,19 @@ export async function createOrder(data: OrderData): Promise<OrderData> {
   localStorage.setItem("orders", JSON.stringify([...existing, order]));
   localStorage.setItem("lastOrder", JSON.stringify(order));
 
-try {
-  await appendOrderRow([
-    new Date().toISOString(),
-    order.customerName,
-    order.customerEmail,
-    order.customerPhone || '',
-    order.customerAddress || '',
-    format(order.deliveryDate, 'yyyy-MM-dd'),
-    order.deliveryMethod,
-    order.paymentMethod || '',
-    order.notes || '',
-    order.totalAmount,
-    JSON.stringify(order.items)
-  ]);
-} catch (err) {
-  console.error('[❌ Failed to write to Google Sheets]', err);
+const response = await fetch('/api/create-order', {
+  method: 'POST',
+  body: JSON.stringify(order),
+  headers: { 'Content-Type': 'application/json' },
+});
+
+const result = await response.json();
+console.log('[📤 create-order response]', result);
+
+if (!response.ok) {
+  throw new Error('Failed to write to Google Sheet');
 }
+
 
   
 

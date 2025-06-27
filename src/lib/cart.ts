@@ -28,6 +28,9 @@ export function getCart(): CartItem[] {
   return safeLocalStorage<CartItem[]>('cart', []);
 }
 
+
+
+
 export function addToCart(product: Product, quantity: number) {
   const cart = getCart();
   const existing = cart.find(item => item.id === product.id);
@@ -39,9 +42,13 @@ export function addToCart(product: Product, quantity: number) {
       quantity,
     };
     cart.push(cartItem);
+    window.dispatchEvent(new Event("storage"));
   }
   setLocalStorage('cart', cart);
 }
+
+
+
 
 export function updateQuantity(productId: string, quantity: number) {
   const cart = getCart().map(item =>
