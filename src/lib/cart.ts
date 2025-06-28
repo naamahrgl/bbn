@@ -45,6 +45,7 @@ export function addToCart(product: Product, quantity: number) {
     window.dispatchEvent(new Event("storage"));
   }
   setLocalStorage('cart', cart);
+   window.dispatchEvent(new Event("storage"));
 }
 
 
