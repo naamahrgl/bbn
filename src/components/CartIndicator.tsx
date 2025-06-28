@@ -1,29 +1,31 @@
+// CartIndicator.tsx
 import { useEffect, useState } from "react";
 
 export default function CartIndicator() {
-  const [show, setShow] = useState(false);
+  const [count, setCount] = useState(0);
+
+  const updateCount = () => {
+    try {
+      const cart: Array<{ quantity?: number }> = JSON.parse(localStorage.getItem("cart") || "[]");
+      const total = cart.reduce((sum, item) => sum + (item.quantity || 0), 0);
+      setCount(total);
+    } catch {
+      setCount(0);
+    }
+  };
 
   useEffect(() => {
-    const cartRaw = localStorage.getItem("cart");
-    if (!cartRaw) return;
-
-    try {
-      const cart: Array<{ quantity?: number }> = JSON.parse(cartRaw);
-      const total = cart.reduce((sum, item) => sum + (item.quantity || 0), 0);
-      setShow(total > 0);
-    } catch {
-      setShow(false);
-    }
+    updateCount();
+    window.addEventListener("storage", updateCount);
+    return () => window.removeEventListener("storage", updateCount);
   }, []);
 
-  if (!show) return null;
-
+  if (count === 0) return null;
 
   return (
     <span
       className="absolute -top-1 -right-1 w-3 h-3 rounded-full bg-red-500 border border-black"
-      aria-label="Items in cart"
+      aria-label={`${count} items in cart`}
     />
   );
-
 }
