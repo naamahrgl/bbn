@@ -5,6 +5,7 @@ import { getProducts, getProductById, type Product } from '../lib/products';
 import { addToCart } from '../lib/cart';
 import { ArrowLeft, Plus, Minus } from 'lucide-react';
 import { Button } from './ui/button';
+import { Alert } from './ui/alert';
 
 const translations = {
   he: {
@@ -98,8 +99,8 @@ useEffect(() => {
                   <Plus className="h-4 w-4" />
                 </Button>
               </div>
-              <Button type="button" className="flex-1 bg-brand-secondary hover:bg-[#703c31] text-white px-4 py-2 rounded-md font-semibold"
-                onClick={() => addToCart(product, quantity)}>
+              <Button type="button" className="flex-1 bg-[var(--brand-text-light)] hover:bg-[#703c31] text-white px-4 py-2 rounded-md font-semibold"
+                onClick={() => {addToCart(product, quantity); alert(lang === 'he' ? 'המוצר נוסף לעגלה' : 'Item added to cart')} }  >
                 {t('addToCart')}
               </Button>
             </div>
@@ -112,14 +113,14 @@ useEffect(() => {
   return (
     <div className="px-4 py-8 sm:py-12">
       <div className="text-center mb-10">
-        <h1 className="font-serif text-3xl sm:text-4xl font-bold tracking-tight text-brand-dark">{t('ourDailyBakes')}</h1>
+        <h1 className="font-serif text-3xl sm:text-4xl font-bold tracking-tight " style= {{ color: 'var(--brand-text-title)' }}>{t('ourDailyBakes')}</h1>
       </div>
       <div className="flex justify-center mb-8 gap-2 flex-wrap">
         {categories.map((category: string) => (
           <Button
             key={category}
             type="button"
-            className={`px-4 py-2 rounded border ${activeCategory === category ? 'bg-brand-secondary text-white' : 'border-stone-300 text-brand-dark hover:bg-stone-100'}`}
+            className={`px-4 py-2 bg-[var(--small-buttons)] rounded border ${activeCategory === category ? 'bg-[var(--small-buttons)] text-white' : 'border-stone-300 text-[var(--brand-dark)] hover:bg-[var(--small-buttons-hover)]'}` }
             onClick={() => filterProducts(category)}>
             {category}
           </Button>

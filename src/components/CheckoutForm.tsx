@@ -155,8 +155,8 @@ if (!selectedDate) {
       <div>
         <Label htmlFor="notes">{t('order_notes_optional')}</Label>
         <Textarea id="notes" value={formData.notes} onChange={handleChange} />
-      </div>
-      <Button type="submit" disabled={isSubmitting} className="w-full">
+      </div>      
+      <Button type="submit" disabled={isSubmitting}className="bg-[var(--big-buttons)] hover:bg-[var(--big-buttons-hover)] text-white shadow-lg">
         {isSubmitting ? t('placing_order') : t('place_order')}
       </Button>
     </form>

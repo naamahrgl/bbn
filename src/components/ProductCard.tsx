@@ -4,12 +4,15 @@ import React from 'react';
 import { addToCart } from '../lib/cart';
 import type { Product } from '../lib/products';
 
+
 const translations = {
   he: {
-    addToCart: 'הוספה לעגלה'
+    addToCart: 'הוספה לעגלה',
+    added: 'המוצר נוסף לעגלה'
   },
   en: {
-    addToCart: 'Add to Cart'
+    addToCart: 'Add to Cart',
+    added: 'Item added to cart'
   }
 };
 
@@ -24,6 +27,8 @@ export default function ProductCard({ product, lang }: ProductCardProps) {
   const handleAddToCart = () => {
     const quantity = product.quantity ?? 1;
     addToCart(product, quantity);
+    alert(lang === 'he' ? 'המוצר נוסף לעגלה' : 'Item added to cart')
+
   };
 
   return (
@@ -46,8 +51,7 @@ export default function ProductCard({ product, lang }: ProductCardProps) {
       <div className="px-4 pb-4">
         <button
           onClick={handleAddToCart}
-          className="mt-2 w-full bg-brand-secondary hover:bg-[#703c31] text-white font-medium py-2 rounded"
-        >
+          className="mt-2 w-full bg-[var(--small-buttons)] hover:bg-[var(--small-buttons-hover)] text-white font-medium py-2 rounded">
           {t('addToCart')}
         </button>
       </div>

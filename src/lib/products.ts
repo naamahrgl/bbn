@@ -23,7 +23,7 @@ export const PRODUCTS :Product[]= [
       en: 'Soft and rich bread made from buckwheat flour.'
     },
     category: { he: 'לחמים', en: 'Breads' },
-    imageUrl: '/Nicéphore_Niépce_Oldest_Photograph_1825.jpg',
+    imageUrl: '/photo.jpg',
     price: 24.0,
     isFeatured: true,
   },
@@ -35,7 +35,7 @@ export const PRODUCTS :Product[]= [
       en: 'Focaccia with olive oil and fresh rosemary.'
     },
     category: { he: "פוקצ'ה ופיצה", en: 'Focaccia & Pizza' },
-    imageUrl: '/Nicéphore_Niépce_Oldest_Photograph_1825.jpg',
+    imageUrl: '/photo.jpg',
     price: 28.0,
     isFeatured: true,
   },
@@ -47,7 +47,7 @@ export const PRODUCTS :Product[]= [
       en: 'aDDICTIVE CRACKER'
     },
     category: { he: 'קרקרים', en: 'Crackers' },
-    imageUrl: '/Nicéphore_Niépce_Oldest_Photograph_1825.jpg',
+    imageUrl: '/photo.jpg',
     price: 30.0,
     isFeatured: true,
   },
@@ -59,7 +59,7 @@ export const PRODUCTS :Product[]= [
       en: 'Focaccia with olive oil and fresh rosemary.'
     },
     category: { he: 'מתוקים', en: 'Sweets' },
-    imageUrl: '/Nicéphore_Niépce_Oldest_Photograph_1825.jpg',
+    imageUrl: '/photo.jpg',
     price: 28.0,
     isFeatured: false,
   },
@@ -71,7 +71,7 @@ export const PRODUCTS :Product[]= [
       en: 'Focaccia with olive oil and fresh rosemary.'
     },
     category: { he: "פוקצ'ה ופיצה", en: 'Focaccia & Pizza' },
-    imageUrl: '/Nicéphore_Niépce_Oldest_Photograph_1825.jpg',
+    imageUrl: '/photo.jpg',
     price: 28.0,
     isFeatured: true,
   },

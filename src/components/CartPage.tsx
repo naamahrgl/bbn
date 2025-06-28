@@ -72,7 +72,7 @@ export default function CartPage({ lang }: CartPageProps) {
   return (
     <div className="bg-brand-background">
       <div className="container mx-auto px-4 py-12">
-        <h1 className="font-serif text-3xl md:text-4xl font-bold text-brand-dark mb-8 text-center">{t.title}</h1>
+        <h1 className="font-serif text-3xl md:text-4xl font-bold text-brand-dark mb-8 text-center" style= {{ color: 'var(--brand-text-title)' }}>{t.title}</h1>
         <div className="grid lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2 bg-white p-4 md:p-6 rounded-lg shadow-sm border border-brand-primary">
             {cartItems.map(item => {
@@ -115,7 +115,7 @@ export default function CartPage({ lang }: CartPageProps) {
                 <p>₪{cartTotal().toFixed(2)}</p>
               </div>
               <a href={`/${lang}/checkout`}>
-                <button className="w-full mt-6 bg-brand-secondary hover:bg-[#703c31] text-white py-2 rounded-md flex justify-center items-center gap-2">
+                <button className="w-full mt-6 bg-[var(--big-buttons)] hover:bg-[var(--big-buttons-hover)] text-white py-2 rounded-md flex justify-center items-center gap-2">
                   <span>{t.checkout}</span>
                   <ArrowLeft className="h-5 w-5" />
                 </button>
