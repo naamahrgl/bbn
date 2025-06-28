@@ -52,6 +52,8 @@ export default function CheckoutPage({ lang }: CheckoutPageProps) {
 
     return (
     <div className="checkout-container space-y-6">
+            <OrderSummary lang={lang} />
+
       <DeliveryMethodSelector
         lang={lang}
         selectedMethod={deliveryMethod}

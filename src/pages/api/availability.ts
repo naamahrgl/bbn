@@ -1,8 +1,10 @@
 // src/pages/api/availability.ts
 import type { APIRoute } from 'astro';
-import { addDays } from 'date-fns';
-import { DAILY_LIMITS, EXISTING_ORDERS } from '../../lib/orders';
+import { addDays, format } from 'date-fns';
+import { getExistingOrdersMap, getDailyLimits } from '../../lib/googleSheets';
+
 import type { ProductId } from '../../lib/products';
+
 export const prerender = false;
 
 interface CartItem {
@@ -10,42 +12,60 @@ interface CartItem {
   quantity: number;
 }
 
+type AvailabilityResponse = {
+  [date: string]: {
+    status: 'green' | 'orange' | 'red';
+    partialAvailability?: { [productId: string]: number }; // 🧡 רק אם כתום
+  };
+};
+
 export const POST: APIRoute = async ({ request }) => {
   try {
     const body = await request.json();
-    console.log('📦 Received body in API:', body);
+    const cart: CartItem[] = body.cart || [];
+    console.log('📦 received cart', cart);
 
-    if (!body || !Array.isArray(body.cart)) {
-      console.warn('⚠️ Invalid cart structure:', body);
-      return new Response(JSON.stringify({ error: 'Invalid cart' }), { status: 400 });
-    }
+    const [ordersMap, limits] = await Promise.all([
+      getExistingOrdersMap(),
+      getDailyLimits()
+    ]);
 
-    const cart: CartItem[] = body.cart;
-    const result: Record<string, 'green' | 'orange' | 'red'> = {};
+    const result: AvailabilityResponse = {};
 
     for (let i = 0; i < 14; i++) {
       const date = addDays(new Date(), i);
-      const key = date.toISOString().split('T')[0];
-      const orders = EXISTING_ORDERS[key] || {};
+      const dateKey = format(date, 'yyyy-MM-dd');
+      const orders = ordersMap[dateKey] || {};
 
       let hasSoldOut = false;
       let needsAdjustment = false;
+      const partialAvailability: Record<string, number> = {};
 
       for (const item of cart) {
-        const limit = DAILY_LIMITS[item.id];
-        const ordered = orders[item.id] || 0;
+        const limit = limits[item.id] ?? 0;
+        const ordered = orders[item.id] ?? 0;
         const remaining = limit - ordered;
 
-        if (remaining <= 0) hasSoldOut = true;
-        else if (item.quantity > remaining) needsAdjustment = true;
+        if (remaining <= 0) {
+          hasSoldOut = true;
+        } else if (item.quantity > remaining) {
+          needsAdjustment = true;
+          partialAvailability[item.id] = remaining;
+        }
       }
 
-      result[key] = hasSoldOut ? 'red' : needsAdjustment ? 'orange' : 'green';
+      if (hasSoldOut) {
+        result[dateKey] = { status: 'red' };
+      } else if (needsAdjustment) {
+        result[dateKey] = { status: 'orange', partialAvailability };
+      } else {
+        result[dateKey] = { status: 'green' };
+      }
     }
 
     return new Response(JSON.stringify(result), { status: 200 });
-  } catch (err) {
-    console.error('❌ Failed to process availability request:', err);
-    return new Response(JSON.stringify({ error: 'Server error' }), { status: 400 });
+  } catch (err: any) {
+    console.error('❌ availability error', err.message, err.stack);
+    return new Response(JSON.stringify({ error: 'Server error' }), { status: 500 });
   }
 };

@@ -1,4 +1,6 @@
-import React, { useEffect } from 'react';
+// DeliveryDateSelector.tsx
+
+import React, { useEffect, useState } from 'react';
 import { DayPicker } from 'react-day-picker';
 import 'react-day-picker/dist/style.css';
 import { format } from 'date-fns';
@@ -37,19 +39,35 @@ export default function DeliveryDateSelector({
   dayColors,
   setDayColors,
 }: DeliveryDateSelectorProps) {
-  const cart = getCart();
+  const [cart] = useState(getCart()); // ✅ לא משתנה יותר בכל רינדור
   const t = translations[lang];
 
   useEffect(() => {
-    fetch('/api/availability', {
-      method: 'POST',
-      body: JSON.stringify({ cart }),
-      headers: { 'Content-Type': 'application/json' },
-    })
-      .then((res) => res.json())
-      .then(setDayColors)
-      .catch(console.error);
-  }, [JSON.stringify(cart)]);
+    const fetchDayColors = async () => {
+      try {
+        const res = await fetch('/api/availability', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ cart }),
+        });
+
+        const data: Record<string, { status: 'green' | 'orange' | 'red' }> = await res.json();
+
+        const colors: Record<string, 'green' | 'orange' | 'red'> = {};
+        for (const [date, value] of Object.entries(data)) {
+          colors[date] = value.status;
+        }
+
+        setDayColors(colors);
+        console.log('🎨 setDayColors', colors);
+      } catch (err) {
+        console.error('🛑 Error fetching availability', err);
+      }
+    };
+
+    if (cart.length > 0) fetchDayColors();
+  }, [cart, setDayColors]);
+
 
   return (
     <div className="p-4">
@@ -59,8 +77,8 @@ export default function DeliveryDateSelector({
         selected={selectedDate}
         onSelect={setSelectedDate}
         modifiers={{
-          red: (day) => dayColors[format(day, 'yyyy-MM-dd')] === 'red',
-          orange: (day) => dayColors[format(day, 'yyyy-MM-dd')] === 'orange',
+        red: (day) => dayColors[format(day, 'yyyy-MM-dd')] === 'red',
+        orange: (day) => dayColors[format(day, 'yyyy-MM-dd')] === 'orange',
         }}
         modifiersClassNames={{
           red: 'bg-red-200 text-red-800',
