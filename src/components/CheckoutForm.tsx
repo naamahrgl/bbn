@@ -16,7 +16,7 @@ import { isOrderLegal } from '../lib/isOrderLegal';
 type CheckoutFormProps = {
   lang: 'he' | 'en';
   selectedDate: Date | undefined;
-  deliveryMethod: 'pickup' | 'delivery' | undefined;
+  deliveryMethod: 'pickup' | 'delivery_near' | 'delivery_far' | undefined;
   dayColors: Record<string, 'green' | 'orange' | 'red'>;
 };
 

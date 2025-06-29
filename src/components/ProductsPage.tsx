@@ -185,7 +185,7 @@ useEffect(() => {
         type="button"
         className="w-full bg-[var(--small-buttons)] hover:bg-[var(--small-buttons-hover)] text-white font-medium py-2 rounded"
         onClick={() => {
-          addToCart({ ...product, quantity: 1 });
+          addToCart(product, 1);
           alert(lang === 'he' ? 'המוצר נוסף לעגלה' : 'Item added to cart');
         }}
       >

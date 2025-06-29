@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-type DeliveryMethod = 'pickup' | 'delivery';
+type DeliveryMethod = 'pickup' | 'delivery_near' | 'delivery_far';
 
 interface Props {
   lang: 'he' | 'en';
@@ -11,12 +11,15 @@ const translations = {
   he: {
     title: 'שיטת משלוח',
     pickup: 'איסוף עצמי',
-    delivery: 'משלוח',
+    delivery_near: 'משלוחתל אביב',
+        delivery_far: ' רג גבעתיים משלוח'
   },
   en: {
     title: 'Delivery Method',
     pickup: 'Pickup',
-    delivery: 'Delivery',
+    delivery_near: 'Delivery in Tel Aviv',
+            delivery_far: 'Delivery IN RamatGan/Givataim'
+
   },
 };
 
@@ -26,8 +29,8 @@ export default function DeliveryMethodSelector({
   onSelect,
 }: {
   lang: 'he' | 'en';
-  selectedMethod: 'pickup' | 'delivery' | undefined;
-  onSelect: (method: 'pickup' | 'delivery') => void;
+  selectedMethod: 'pickup' | 'delivery_near' | 'delivery_far' | undefined;
+  onSelect: (method: 'pickup' | 'delivery_near' | 'delivery_far') => void;
 }) {
   const t = translations[lang];
 
@@ -49,11 +52,21 @@ export default function DeliveryMethodSelector({
           <input
             type="radio"
             name="deliveryMethod"
-            value="delivery"
-            checked={selectedMethod === 'delivery'}
-            onChange={() => onSelect('delivery')}
+            value="delivery_near"
+            checked={selectedMethod === 'delivery_near'}
+            onChange={() => onSelect('delivery_near')}
           />
-          <span>{t.delivery}</span>
+          <span>{t.delivery_near}</span>
+        </label>
+        <label className="flex items-center space-x-2">
+          <input
+            type="radio"
+            name="deliveryMethod"
+            value="delivery_far"
+            checked={selectedMethod === 'delivery_far'}
+            onChange={() => onSelect('delivery_far')}
+          />
+          <span>{t.delivery_far}</span>
         </label>
       </div>
     </div>

@@ -4,7 +4,7 @@ type DayColor = 'green' | 'orange' | 'red';
 
 interface OrderContext {
   selectedDate: Date | undefined;
-  deliveryMethod: 'pickup' | 'delivery';
+  deliveryMethod: 'pickup' | 'delivery_near' | 'delivery_far';
   dayColors: Record<string, DayColor>;
 }
 
@@ -31,7 +31,7 @@ export function isOrderLegal({
   // ✅ Condition 3: Same-day delivery cutoff at 17:00
   const now = new Date();
   if (
-    deliveryMethod === 'delivery' &&
+    (deliveryMethod === 'delivery_near' || deliveryMethod === 'delivery_far') &&
     isSameDay(now, selectedDate) &&
     now.getHours() >= 17
   ) {

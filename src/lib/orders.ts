@@ -21,7 +21,7 @@ export type OrderData = {
   totalAmount: number;
   items: OrderItem[];
   deliveryDate: Date; // ✅ תאריך בצורת yyyy-MM-dd
-  deliveryMethod: 'pickup' | 'delivery'; // ✅ כדי להציג גם בשיט
+  deliveryMethod: 'pickup' | 'delivery_near' | 'delivery_far'; // ✅ כדי להציג גם בשיט
   paymentMethod?: 'cash' | 'credit'; // ✅ לשלב מאוחר יותר
 };
 

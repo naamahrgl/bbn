@@ -6,24 +6,36 @@ import { getProductById } from '../lib/products';
 
 export type OrderSummaryProps = {
   lang: 'he' | 'en';
+  deliveryMethod?: 'pickup' | 'delivery_near' | 'delivery_far';
 };
 
 const translations = {
   he: {
     your_order: 'ההזמנה שלך',
     qty: 'כמות',
-    total: 'סה״כ'
+    total: 'סה״כ',
+    delivery_note: 'ייתכן שתתווסף עלות משלוח',
+    delivery: 'משלוח',
   },
   en: {
     your_order: 'Your Order',
     qty: 'Qty',
-    total: 'Total'
+    total: 'Total',
+    delivery_note: 'Delivery fee may apply',
+    delivery: 'Delivery',
   }
 };
 
-export default function OrderSummary({ lang }: OrderSummaryProps) {
+export default function OrderSummary({ lang, deliveryMethod }: OrderSummaryProps) {
   const t = (key: keyof typeof translations['he']) => translations[lang][key];
   const cart = getCart();
+  const subtotal = cartTotal();
+
+  let deliveryFee = 0;
+  if (deliveryMethod === 'delivery_near') deliveryFee = 10;
+  if (deliveryMethod === 'delivery_far') deliveryFee = 20;
+
+  const finalTotal = subtotal + deliveryFee;
 
   return (
     <div className="bg-white p-4 rounded-lg shadow-sm border text-start">
@@ -51,10 +63,22 @@ export default function OrderSummary({ lang }: OrderSummaryProps) {
           );
         })}
       </div>
+
+      {deliveryFee > 0 && (
+        <div className="mt-4 flex justify-between text-sm">
+          <span>{t('delivery')}</span>
+          <span>₪{deliveryFee.toFixed(2)}</span>
+        </div>
+      )}
+
       <div className="border-t mt-4 pt-4 flex justify-between text-sm font-bold">
         <span>{t('total')}</span>
-        <span>₪{cartTotal().toFixed(2)}</span>
+        <span>₪{finalTotal.toFixed(2)}</span>
       </div>
+
+      {!deliveryMethod && (
+        <p className="text-xs text-stone-500 mt-2">{t('delivery_note')}</p>
+      )}
     </div>
   );
 }
