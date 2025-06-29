@@ -79,7 +79,7 @@ export default function CartPage({ lang }: CartPageProps) {
               const product = getProductById(item.id);
               return (
                 <div key={item.id} className="flex items-center gap-4 py-4 border-b">
-                  <img src={product.imageUrl} alt={product.name[lang]} className="w-20 h-20 md:w-24 md:h-24 rounded-md object-cover" />
+                  <img src={product.imageUrls[0]} alt={product.name[lang]} className="w-20 h-20 md:w-24 md:h-24 rounded-md object-cover" />
                   <div className="flex-grow text-start">
                     <h3 className="font-semibold text-brand-dark">{product.name[lang]}</h3>
                     <p className="text-sm text-brand-light">₪{product.price.toFixed(2)}</p>

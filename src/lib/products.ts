@@ -8,10 +8,11 @@ export type Product = {
   name: Record<string, string>;
   description: Record<string, string>;
   category: Record<string, string>;
-  imageUrl: string;
+  imageUrls: string[]; 
   price: number;
   isFeatured: boolean;
 };
+
 
 
 export const PRODUCTS :Product[]= [
@@ -23,7 +24,11 @@ export const PRODUCTS :Product[]= [
       en: 'Soft and rich bread made from buckwheat flour.'
     },
     category: { he: 'לחמים', en: 'Breads' },
-    imageUrl: '/photo.jpg',
+    imageUrls: [
+      '/photo.jpg',
+      '/photo.jpg',
+      '/photo.jpg'
+    ],    
     price: 24.0,
     isFeatured: true,
   },
@@ -35,7 +40,11 @@ export const PRODUCTS :Product[]= [
       en: 'Focaccia with olive oil and fresh rosemary.'
     },
     category: { he: "פוקצ'ה ופיצה", en: 'Focaccia & Pizza' },
-    imageUrl: '/photo.jpg',
+    imageUrls: [
+      '/photo.jpg',
+      '/photo.jpg',
+      '/photo.jpg'
+    ],   
     price: 28.0,
     isFeatured: true,
   },
@@ -47,8 +56,12 @@ export const PRODUCTS :Product[]= [
       en: 'aDDICTIVE CRACKER'
     },
     category: { he: 'קרקרים', en: 'Crackers' },
-    imageUrl: '/photo.jpg',
-    price: 30.0,
+    imageUrls: [
+      '/photo.jpg',
+      '/photo.jpg',
+      '/photo.jpg'
+    ],   
+        price: 30.0,
     isFeatured: true,
   },
     {
@@ -59,8 +72,12 @@ export const PRODUCTS :Product[]= [
       en: 'Focaccia with olive oil and fresh rosemary.'
     },
     category: { he: 'מתוקים', en: 'Sweets' },
-    imageUrl: '/photo.jpg',
-    price: 28.0,
+    imageUrls: [
+      '/photo.jpg',
+      '/photo.jpg',
+      '/photo.jpg'
+    ],   
+        price: 28.0,
     isFeatured: false,
   },
     {
@@ -71,8 +88,12 @@ export const PRODUCTS :Product[]= [
       en: 'Focaccia with olive oil and fresh rosemary.'
     },
     category: { he: "פוקצ'ה ופיצה", en: 'Focaccia & Pizza' },
-    imageUrl: '/photo.jpg',
-    price: 28.0,
+    imageUrls: [
+      '/photo.jpg',
+      '/photo.jpg',
+      '/photo.jpg'
+    ],   
+        price: 28.0,
     isFeatured: true,
   },
   // Add more products as needed

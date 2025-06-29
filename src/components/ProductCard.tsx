@@ -35,7 +35,7 @@ export default function ProductCard({ product, lang }: ProductCardProps) {
     <div className="bg-white rounded-lg shadow-sm border overflow-hidden">
       <a href={`/${lang}/products?id=${product.id}`}>
         <img
-          src={product.imageUrl}
+          src={product.imageUrls[0]}
           alt={product.name[lang]}
           className="w-full h-48 object-cover"
         />

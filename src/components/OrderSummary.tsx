@@ -36,7 +36,7 @@ export default function OrderSummary({ lang }: OrderSummaryProps) {
               <div className="flex items-center gap-3">
                 <div className="w-14 h-14 overflow-hidden rounded border">
                   <img
-                    src={product.imageUrl}
+                    src={product.imageUrls[0]}
                     alt={product.name[lang]}
                     className="w-full h-full object-cover"
                   />

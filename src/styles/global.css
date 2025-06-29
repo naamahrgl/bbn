@@ -6,11 +6,21 @@
         --brand-orig: #a35138;
         --brand-text-dark: #3a241e;
         --brand-text-light: #6d5d59;
-                --brand-text-title: #a35138;
+                --brand-text-title:  #4a1d13;
                 --big-buttons: #a35138;
                                 --big-buttons-hover: #3a241e;
                 --small-buttons: #c8917a;
                                 --small-buttons-hover: #3a241e;
 
-        --brand-background: #fdfaf6;
+        --brand-background: #f9f1e8;
+                --header-background: #fff9f5;
+        --footer-background: #fff9f5;
+
       }
+      .no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
