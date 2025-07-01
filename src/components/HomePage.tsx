@@ -109,6 +109,8 @@ function FeaturedProducts({ lang }: HomePageProps) {
         </button>
 
         {/* Carousel */}
+        <div className="flex gap-4 px-2 snap-x snap-mandatory">
+
         <div ref={scrollRef} className="overflow-x-auto scroll-smooth">
           <div className="flex gap-4 px-2">
             {loading
@@ -122,8 +124,12 @@ function FeaturedProducts({ lang }: HomePageProps) {
                     <div className="h-4 w-1/2 bg-brand-primary animate-pulse rounded" />
                   </div>
                 ))
+                
               : products.map((product) => (
-                  <div key={product.id} className="min-w-[250px] flex-shrink-0">
+                <div
+                  key={product.id}
+                  className="flex-shrink-0  snap-start w-[80vw] sm:w-[45vw] md:w-[30vw] lg:w-[22vw] max-w-[300px]"
+                >
                     <ProductCard
                       product={{ ...product, quantity: 1 }}
                       lang={lang}
@@ -131,6 +137,7 @@ function FeaturedProducts({ lang }: HomePageProps) {
                   </div>
                 ))}
           </div>
+        </div>
         </div>
       </div>
     </div>
