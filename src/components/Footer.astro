@@ -33,7 +33,7 @@ const t = translations[lang as keyof typeof translations];
   <div class="max-w-6xl mx-auto px-4 py-10">
     <div class="flex flex-wrap justify-between gap-6">
       <!-- Section 1: Brand Info -->
-      <div class="flex-1 min-w-[200px]">
+  <div class="flex-[1_1_0%] min-w-[160px] shrink">
         <h4 class="text-brand-text-title font-semibold mb-1">{t.hero_title}</h4>
         <p class="text-brand-text-light mb-3">{t.hero_slogan}</p>
 
@@ -50,7 +50,7 @@ const t = translations[lang as keyof typeof translations];
       </div>
 
       <!-- Section 2: Quick Links -->
-      <div class="flex-1 min-w-[200px] text-center">
+  <div class="flex-[1_1_0%] min-w-[160px] text-center lg:text-left shrink">
         <h4 class="text-brand-text-title font-semibold mb-2">{t.footer_quickLinks}</h4>
         <ul class="space-y-1">
           <li><a href={`/${lang}/about`} class="hover:underline hover:text-brand-dark">{t.nav_About}</a></li>
@@ -60,7 +60,7 @@ const t = translations[lang as keyof typeof translations];
       </div>
 
       <!-- Section 3: Contact -->
-      <div class="flex-1 min-w-[200px] text-end">
+  <div class="flex-[1_1_0%] min-w-[160px] text-end shrink">
         <h4 class="text-brand-text-title font-semibold mb-2">{t.footer_contactUs}</h4>
         <p class="mb-2">{t.footer_contactText}</p>
         <a href="mailto:breadbynaama@gmail.com" class="text-brand-secondary hover:text-brand-secondary/80 font-medium">breadbynaama@gmail.com</a>
