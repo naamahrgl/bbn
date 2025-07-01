@@ -1,0 +1,84 @@
+---
+// src/pages/[lang]/terms.astro
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export function getStaticPaths() {
+  return [
+    { params: { lang: 'he' } },
+    { params: { lang: 'en' } },
+  ];
+}
+
+const { lang } = Astro.params;
+
+if (lang !== 'he' && lang !== 'en') {
+  throw new Error('Invalid language');
+}
+
+const t = {
+  he: {
+    title: 'תנאי שימוש ומדיניות',
+    intro: 'ברוכה הבאה לאתר "לחם נעמה". השימוש באתר כפוף להסכמה ולציות לתנאים הבאים:',
+    section1: '1. תנאי שימוש באתר',
+    section2: '2. מדיניות פרטיות',
+    section3: '3. מדיניות משלוחים וביטולים',
+    terms: `
+• השימוש באתר מיועד לרכישת מוצרים בלבד.
+• אין להעתיק, לשכפל או להשתמש בתוכן האתר ללא אישור.
+• המחירים כוללים מע"מ. ההזמנה תקפה לאחר תשלום מלא ואישור זמינות.
+• ייתכן ביטול הזמנה עקב חוסר מלאי או נסיבות חריגות.
+    `,
+    privacy: `
+• אנו שומרים את פרטייך לצורך ביצוע הזמנה בלבד.
+• המידע אינו מועבר לגורמים שלישיים למעט לצורך סליקה ומשלוח.
+• נעשה שימוש בקבצי cookies לשיפור חוויית המשתמש.
+    `,
+    shipping: `
+• איסוף עצמי – ללא תשלום, בתיאום מראש.
+• משלוחים – בתוספת תשלום לפי מיקום.
+• זמן אספקה – על פי זמינות המלאי וההזמנות. במידה וברצונך לשנות את מועד האספקה לאחר ההזמנה, יש להודיע לפחות 24 שעות מראש.
+• ביטול – עד 24 שעות לפני מועד האספקה או האיסוף.
+    `
+  },
+  en: {
+    title: 'Terms & Policies',
+    intro: 'Welcome to "Lechem Naama". Use of the site is subject to the following terms:',
+    section1: '1. Terms of Use',
+    section2: '2. Privacy Policy',
+    section3: '3. Shipping & Cancellation Policy',
+    terms: `
+• This site is intended solely for purchasing listed products.
+• Do not copy or use content without written permission.
+• Prices include VAT. Orders are confirmed only after full payment and availability check.
+• Orders may be canceled due to lack of inventory or special circumstances.
+    `,
+    privacy: `
+• Personal details are stored for order processing only.
+• Data is not shared with third parties, except for payment and delivery.
+• Cookies are used to improve user experience.
+    `,
+    shipping: `
+• Self-pickup – free, by prior arrangement.
+• Delivery – extra cost based on location.
+• Delivery time –  based on inventory and reservation. If you wish to change the delivery date after placing the order, please notify us at least 24 hours in advance.
+• Cancellations – up to 24 hours before delivery or pickup.
+    `
+  }
+}[lang];
+---
+
+<BaseLayout lang={lang}>
+  <section class="p-6 max-w-3xl mx-auto text-start">
+    <h1 class="text-2xl font-bold mb-4">{t.title}</h1>
+    <p class="mb-6 whitespace-pre-line">{t.intro}</p>
+
+    <h2 class="text-xl font-semibold mt-6 mb-2">{t.section1}</h2>
+    <p class="whitespace-pre-line mb-6">{t.terms}</p>
+
+    <h2 class="text-xl font-semibold mt-6 mb-2">{t.section2}</h2>
+    <p class="whitespace-pre-line mb-6">{t.privacy}</p>
+
+    <h2 class="text-xl font-semibold mt-6 mb-2">{t.section3}</h2>
+    <p class="whitespace-pre-line mb-6">{t.shipping}</p>
+  </section>
+</BaseLayout>

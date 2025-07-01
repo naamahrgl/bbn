@@ -1,18 +1,21 @@
 @import "tailwindcss";
 
       :root {
-        --brand-primary: #f8f0e3;
-        --brand-secondary: #8c4c3e;
+        --brand-primary: #F8EDE3;
+
+        --brand-secondary: #8D493A;
+--brand-lighter: #fff9f5;
+
         --brand-orig: #a35138;
         --brand-text-dark: #3a241e;
         --brand-text-light: #6d5d59;
-                --brand-text-title:  #4a1d13;
-                --big-buttons: #a35138;
-                                --big-buttons-hover: #3a241e;
-                --small-buttons: #c8917a;
-                                --small-buttons-hover: #3a241e;
+                --brand-text-title:  #5A2F25;
+                --big-buttons: #8D493A;
+                                --big-buttons-hover: #7A3C2E;
+                --small-buttons: #d0b8a8;
+                                --small-buttons-hover: #bfa48f;
 
-        --brand-background: #f9f1e8;
+        --brand-background: #F8EDE3;
                 --header-background: #fff9f5;
         --footer-background: #fff9f5;
 

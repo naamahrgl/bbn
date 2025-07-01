@@ -10,7 +10,8 @@ const translations = {
     nav_About: 'אודות',
     footer_contactUs: 'דברו איתנו',
     footer_contactText: 'אפשר לשלוח לנו מייל בכל שאלה, הערה או המלצה :)',
-    footer_copyright: 'כל הזכויות שמורות ללחם נעמה © 2025'
+    footer_copyright: 'כל הזכויות שמורות ללחם נעמה © 2025',
+    terms: 'תנאי שימוש'
   },
   en: {
     hero_title: 'Lechem Naama',
@@ -21,7 +22,8 @@ const translations = {
     nav_About: 'About',
     footer_contactUs: 'Contact Us',
     footer_contactText: 'Feel free to email us with any question, comment, or suggestion :)',
-    footer_copyright: 'All rights reserved to Lechem Naama © 2025'
+    footer_copyright: 'All rights reserved to Lechem Naama © 2025',
+    terms: 'Terms of Use'
   },
 } as const;
 const t = translations[lang as keyof typeof translations];
@@ -35,6 +37,8 @@ const t = translations[lang as keyof typeof translations];
   flex-wrap: wrap;
   padding: 1rem;
   gap: 1rem;
+      background: var(--brand-lighter);
+
 }
 
 .footer-section {
@@ -45,24 +49,27 @@ const t = translations[lang as keyof typeof translations];
 
 .footer-section h4 {
   margin-bottom: 0.5rem;
-  color: var(--brand-secondary);
+  color: var(--brand-text-title);
   font-size: 1rem;
 }
 
   </style>
-<footer class="bg-brand-primary border-t border-brand-secondary/20 text-sm">
+<footer class=" border-t text-sm" style = "background: var(--brand-lighter) ">
   <div class="container mx-auto px-4 py-8 md:px-6">
     <div class="footer-content">
       <div class="footer-section socials" >
                 <h4 class="font-semibold text-brand-dark">{t.hero_title}</h4>
         <p class="text-brand-light">{t.hero_slogan}</p>
+
         <div >
+          <a href={`/${lang}/terms`} class="text-sm hover:underline">{t.terms}</a>
+
           <a href="your-link-here">
-            <img src='/Instagram_Glyph_Black.svg' alt="My clickable public image" width="50px" height="50px" />
+            <img src='/Instagram_Glyph_Black.svg' alt="My clickable public image" width="25px" height="25px" />
           </a>
 
                     <a href="your-link-here">
-            <img src='/facebook-new.png' alt="My clickable public image" width="50px" height="50px" />
+            <img src='/facebook-new.png' alt="My clickable public image" width="25px" height="25px" />
           </a>
 
         </div>
@@ -70,9 +77,9 @@ const t = translations[lang as keyof typeof translations];
       <div class = "footer-section quick-links" style="text-align: center;">
         <h4 class="font-semibold text-brand-dark">{t.footer_quickLinks}</h4>
         <ul class="mt-2 space-y-1">
-          <p><a href={`/${lang}/about`} class="text-brand-light hover:text-brand-dark">{t.nav_About}</a></p>
-          <p><a href={`/${lang}/`} class="text-brand-light hover:text-brand-dark">{t.nav_Home}</a></p>
-          <p><a href={`/${lang}/products`} class="text-brand-light hover:text-brand-dark">{t.nav_Products}</a></p>
+          <p><a href={`/${lang}/about`} class="text-brand-light hover:text-brand-dark hover:underline">{t.nav_About}</a></p>
+          <p><a href={`/${lang}/`} class="text-brand-light hover:text-brand-dark hover:underline">{t.nav_Home}</a></p>
+          <p><a href={`/${lang}/products`} class="text-brand-light hover:text-brand-dark hover:underline">{t.nav_Products}</a></p>
         </ul>
       </div>
       <div class = "footer-section contact" style="text-align: end;">
