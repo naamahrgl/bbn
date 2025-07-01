@@ -15,9 +15,11 @@ interface CartItem {
 type AvailabilityResponse = {
   [date: string]: {
     status: 'green' | 'orange' | 'red';
-    partialAvailability?: { [productId: string]: number }; // 🧡 רק אם כתום
+    soldOutProducts?: string[]; // 🔴 אם חסר לגמרי
+    partialAvailability?: { [productId: string]: number }; // 🧡 אם חלקי
   };
 };
+
 
 export const POST: APIRoute = async ({ request }) => {
   try {
@@ -32,36 +34,42 @@ export const POST: APIRoute = async ({ request }) => {
 
     const result: AvailabilityResponse = {};
 
-    for (let i = 0; i < 14; i++) {
-      const date = addDays(new Date(), i);
-      const dateKey = format(date, 'yyyy-MM-dd');
-      const orders = ordersMap[dateKey] || {};
+    // Inside availability.ts
 
-      let hasSoldOut = false;
-      let needsAdjustment = false;
-      const partialAvailability: Record<string, number> = {};
+for (let i = 0; i < 14; i++) {
+  const date = addDays(new Date(), i);
+  const dateKey = format(date, 'yyyy-MM-dd');
+  const orders = ordersMap[dateKey] || {};
 
-      for (const item of cart) {
-        const limit = limits[item.id] ?? 0;
-        const ordered = orders[item.id] ?? 0;
-        const remaining = limit - ordered;
+  let hasSoldOut = false;
+  let needsAdjustment = false;
+  const partialAvailability: Record<string, number> = {};
+  const soldOutProducts: string[] = [];
 
-        if (remaining <= 0) {
-          hasSoldOut = true;
-        } else if (item.quantity > remaining) {
-          needsAdjustment = true;
-          partialAvailability[item.id] = remaining;
-        }
-      }
+  for (const item of cart) {
+    const limit = limits[item.id] ?? 0;
+    const ordered = orders[item.id] ?? 0;
+    const remaining = limit - ordered;
 
-      if (hasSoldOut) {
-        result[dateKey] = { status: 'red' };
-      } else if (needsAdjustment) {
-        result[dateKey] = { status: 'orange', partialAvailability };
-      } else {
-        result[dateKey] = { status: 'green' };
-      }
+    if (remaining <= 0) {
+      hasSoldOut = true;
+      soldOutProducts.push(item.id);
+    } else if (item.quantity > remaining) {
+      needsAdjustment = true;
+      partialAvailability[item.id] = remaining;
     }
+  }
+
+  if (hasSoldOut) {
+    result[dateKey] = { status: 'red', soldOutProducts };
+  } else if (needsAdjustment) {
+    result[dateKey] = { status: 'orange', partialAvailability };
+  } else {
+    result[dateKey] = { status: 'green' };
+  }
+}
+
+    
 
     return new Response(JSON.stringify(result), { status: 200 });
   } catch (err: any) {

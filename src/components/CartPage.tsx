@@ -20,6 +20,7 @@ const translations = {
     vat: "כולל מע״מ",
     toPay: "לתשלום",
     checkout: "לתשלום",
+        delivery_note: 'ייתכן שתתווסף עלות משלוח',
     go_shopping: "לעמוד המוצרים"
   },
   en: {
@@ -31,6 +32,7 @@ const translations = {
     vat: "Including VAT",
     toPay: "Total",
     checkout: "Checkout",
+        delivery_note: 'Delivery fee may apply',
     go_shopping: "Go shopping"
   }
 };
@@ -114,7 +116,8 @@ export default function CartPage({ lang }: CartPageProps) {
                 <p>{t.toPay}</p>
                 <p>₪{cartTotal().toFixed(2)}</p>
               </div>
-              <a href={`/${lang}/checkout`}>
+                      <p className="text-xs text-stone-500 mt-2">{t.delivery_note}</p>
+<a href={`/${lang}/checkout`}>
                 <button className="w-full mt-6 bg-[var(--big-buttons)] hover:bg-[var(--big-buttons-hover)] text-white py-2 rounded-md flex justify-center items-center gap-2">
                   <span>{t.checkout}</span>
                   <ArrowLeft className="h-5 w-5" />

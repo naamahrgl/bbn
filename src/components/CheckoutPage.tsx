@@ -21,12 +21,21 @@ const translations = {
   }
 };
 
+type DayColor = {
+  status: 'green' | 'orange' | 'red';
+  soldOutProducts?: string[];
+  partialAvailability?: Record<string, number>;
+};
+
+type DayColorsMap = Record<string, DayColor>;
+
+
 export default function CheckoutPage({ lang }: CheckoutPageProps) {
   const [selectedDate, setSelectedDate] = useState<Date | undefined>();
   const [deliveryMethod, setDeliveryMethod] = useState<
     'pickup' | 'delivery_near' | 'delivery_far' | undefined
   >();
-  const [dayColors, setDayColors] = useState<Record<string, 'green' | 'orange' | 'red'>>({});
+const [dayColors, setDayColors] = useState<DayColorsMap>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const t = (key: keyof typeof translations['he']) => translations[lang][key];

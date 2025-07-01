@@ -13,12 +13,19 @@ import OrderSummary from './OrderSummary';
 import { createOrder } from '../lib/orders';
 import { isOrderLegal } from '../lib/isOrderLegal';
 
+type DayColor = {
+  status: 'green' | 'orange' | 'red';
+  soldOutProducts?: string[];
+  partialAvailability?: Record<string, number>;
+};
+
 type CheckoutFormProps = {
   lang: 'he' | 'en';
   selectedDate: Date | undefined;
   deliveryMethod: 'pickup' | 'delivery_near' | 'delivery_far' | undefined;
-  dayColors: Record<string, 'green' | 'orange' | 'red'>;
+  dayColors: Record<string, DayColor>;
 };
+
 
 
 const translations = {
@@ -107,7 +114,7 @@ if (!selectedDate) {
   const orderError = isOrderLegal({
     selectedDate,
     deliveryMethod,
-    dayColors,
+    dayColors, lang
   });
 
   if (orderError) {
