@@ -7,7 +7,7 @@ const lang = (Astro.url.pathname.split("/")[1] ?? "he") as "he" | "en";
 const isHebrew = lang === "he";
 
 const translations = {
-  he: { home: "בית", products: "מוצרים", about: "על הלחם" },
+  he: { home: "בית", products: "מוצרים", about: "אודות" },
   en: { home: "Home", products: "Products", about: "About" }
 };
 
@@ -62,11 +62,13 @@ const t = translations[lang];
   .cart-toggle a {
   position: relative;
   display: inline-block;
+
   }
 
   .lang-toggle {
     display: flex;
     align-items: center;
+
   }
 
   .lang-toggle a {
@@ -76,6 +78,8 @@ const t = translations[lang];
     font-size: 0.875rem;
     margin-left: 0.25rem;
     margin-right: 0.25rem;
+        color: var(--brand-secondary)
+
   }
   
   .ham-toggle {

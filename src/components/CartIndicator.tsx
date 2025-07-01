@@ -23,9 +23,10 @@ export default function CartIndicator() {
   if (count === 0) return null;
 
   return (
-    <span
-      className="absolute -top-1 -right-1 w-3 h-3 rounded-full bg-red-500 border border-black"
-      aria-label={`${count} items in cart`}
-    />
+  <span
+    className="absolute -top-1 -right-1 w-3 h-3 rounded-full"
+    style={{ backgroundColor: '#6476ee' }}
+    aria-label={`${count} items in cart`}
+  />
   );
 }

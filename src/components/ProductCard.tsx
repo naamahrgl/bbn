@@ -32,7 +32,7 @@ export default function ProductCard({ product, lang }: ProductCardProps) {
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-sm border overflow-hidden">
+    <div className="bg-[var(--brand-lighter)] rounded-lg shadow-sm border-color  overflow-hidden">
       <a href={`/${lang}/products?id=${product.id}`}>
         <img
           src={product.imageUrls[0]}
@@ -40,7 +40,7 @@ export default function ProductCard({ product, lang }: ProductCardProps) {
           className="w-full h-48 object-cover"
         />
         <div className="p-4">
-          <h3 className="text-lg font-semibold text-brand-dark">
+          <h3 className="text-lg font-semibold text-[var(--brand-text-dark)]">
             {product.name[lang]}
           </h3>
           <p className="text-sm text-brand-light mt-1">

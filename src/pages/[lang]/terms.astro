@@ -11,11 +11,9 @@ export function getStaticPaths() {
 
 const { lang } = Astro.params;
 
-if (lang !== 'he' && lang !== 'en') {
-  throw new Error('Invalid language');
-}
 
-const t = {
+
+const translations = {
   he: {
     title: 'תנאי שימוש ומדיניות',
     intro: 'ברוכה הבאה לאתר "לחם נעמה". השימוש באתר כפוף להסכמה ולציות לתנאים הבאים:',
@@ -64,7 +62,10 @@ const t = {
 • Cancellations – up to 24 hours before delivery or pickup.
     `
   }
-}[lang];
+};
+
+const t = translations[lang as keyof typeof translations];
+
 ---
 
 <BaseLayout lang={lang}>

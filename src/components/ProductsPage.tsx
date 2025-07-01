@@ -78,9 +78,12 @@ useEffect(() => {
   if (productId && product) {
     return (
       <div className="px-4 py-8 sm:py-12">
-        <a href={`/${lang}/products`} className="inline-flex items-center gap-2 text-brand-light hover:text-brand-dark mb-8">
-          <ArrowLeft className="h-4 w-4" /> {t('nav_Products')}
-        </a>
+                 <a href={`/${lang}/products`}>
+                    <Button 
+                            className="w-full sm:w-auto bg-[var(--small-buttons)] hover:bg-[var(--small-buttons-hover)] text-white font-medium py-2 rounded">
+                      {t('nav_Products')}</Button>
+                  </a>
+
         <div className="grid md:grid-cols-2 gap-8">
           <div className="rounded-lg overflow-hidden border border-brand-primary">
 
@@ -97,7 +100,7 @@ useEffect(() => {
         key={index}
         src={url}
         alt={`${product.name[lang]} ${index + 1}`}
-        className="w-full h-[300px] object-cover flex-shrink-0"
+        className="w-full h-[300px] object-cover flex-shrink-0 "
         style={{ minWidth: '100%', scrollSnapAlign: 'start' }}
       />
     ))}
@@ -142,7 +145,9 @@ useEffect(() => {
                   <Plus className="h-4 w-4" />
                 </Button>
               </div>
-              <Button type="button" className="flex-1 bg-[var(--brand-text-light)] hover:bg-[#703c31] text-white px-4 py-2 rounded-md font-semibold"
+              <Button type="button" 
+              
+        className="w-full bg-[var(--big-buttons)] hover:bg-[var(--big-buttons-hover)] text-white font-medium py-2 rounded"
                 onClick={() => {addToCart(product, quantity); alert(lang === 'he' ? 'המוצר נוסף לעגלה' : 'Item added to cart')} }  >
                 {t('addToCart')}
               </Button>
@@ -172,10 +177,10 @@ useEffect(() => {
 
       <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
 {selectedProducts.map(product => (
-  <div key={product.id} className="border rounded-lg overflow-hidden flex flex-col justify-between">
+  <div key={product.id} className=" rounded-lg overflow-hidden flex flex-col justify-between bg-[var(--brand-lighter)] shadow">
     <a href={`/${lang}/products?id=${product.id}`}>
       <img src={product.imageUrls[0]} alt={product.name[lang]} className="h-48 w-full object-cover" />
-      <div className="p-4">
+      <div className="p-4 ">
         <h3 className="text-lg font-semibold text-brand-dark">{product.name[lang]}</h3>
         <p className="text-sm text-brand-light">₪{product.price.toFixed(2)}</p>
       </div>
@@ -183,7 +188,7 @@ useEffect(() => {
     <div className="px-4 pb-4 mt-auto">
       <Button
         type="button"
-        className="w-full bg-[var(--small-buttons)] hover:bg-[var(--small-buttons-hover)] text-white font-medium py-2 rounded"
+        className="w-full bg-[var(--big-buttons)] hover:bg-[var(--big-buttons-hover)] text-white font-medium py-2 rounded"
         onClick={() => {
           addToCart(product, 1);
           alert(lang === 'he' ? 'המוצר נוסף לעגלה' : 'Item added to cart');
