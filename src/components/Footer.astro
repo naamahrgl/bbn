@@ -31,27 +31,22 @@ const t = translations[lang as keyof typeof translations];
 
 <footer class="bg-[var(--brand-lighter)] border-t border-[var(--brand-secondary)] text-[var(--brand-text-title)] text-sm w-full">
   <div class="max-w-6xl mx-auto px-4 py-10">
-    <div class="flex flex-wrap justify-between gap-6">
-      <!-- Section 1: Brand Info -->
-  <div class="flex-[1_1_0%] min-w-[160px] shrink">
-        <h4 class="text-brand-text-title font-semibold mb-1">{t.hero_title}</h4>
+    <!-- Grid sections -->
+    <div class="flex flex-wrap justify-between text-sm text-[var(--brand-text-title)]">
+      <!-- Section 1 -->
+      <div class="basis-1/3 px-2 break-words">
+        <h4 class="font-semibold mb-1">{t.hero_title}</h4>
         <p class="text-brand-text-light mb-3">{t.hero_slogan}</p>
-
         <a href={`/${lang}/terms`} class="block text-sm hover:underline mb-2">{t.terms}</a>
-
         <div class="flex items-center gap-2 mt-2">
-          <a href="your-link-here">
-            <img src='/Instagram_Glyph_Black.svg' alt="Instagram" class="w-6 h-6" />
-          </a>
-          <a href="your-link-here">
-            <img src='/facebook-new.png' alt="Facebook" class="w-6 h-6" />
-          </a>
+          <a href="your-link-here"><img src='/Instagram_Glyph_Black.svg' alt="Instagram" class="w-6 h-6" /></a>
+          <a href="your-link-here"><img src='/facebook-new.png' alt="Facebook" class="w-6 h-6" /></a>
         </div>
       </div>
 
-      <!-- Section 2: Quick Links -->
-  <div class="flex-[1_1_0%] min-w-[160px] text-center lg:text-left shrink">
-        <h4 class="text-brand-text-title font-semibold mb-2">{t.footer_quickLinks}</h4>
+      <!-- Section 2 -->
+      <div class="basis-1/3 px-2 text-center break-words">
+        <h4 class="font-semibold mb-2">{t.footer_quickLinks}</h4>
         <ul class="space-y-1">
           <li><a href={`/${lang}/about`} class="hover:underline hover:text-brand-dark">{t.nav_About}</a></li>
           <li><a href={`/${lang}/`} class="hover:underline hover:text-brand-dark">{t.nav_Home}</a></li>
@@ -59,17 +54,20 @@ const t = translations[lang as keyof typeof translations];
         </ul>
       </div>
 
-      <!-- Section 3: Contact -->
-  <div class="flex-[1_1_0%] min-w-[160px] text-end shrink">
-        <h4 class="text-brand-text-title font-semibold mb-2">{t.footer_contactUs}</h4>
+      <!-- Section 3 -->
+      <div class="basis-1/3 px-2 text-end break-words">
+        <h4 class="font-semibold mb-2">{t.footer_contactUs}</h4>
         <p class="mb-2">{t.footer_contactText}</p>
-        <a href="mailto:breadbynaama@gmail.com" class="text-brand-secondary hover:text-brand-secondary/80 font-medium">breadbynaama@gmail.com</a>
+        <a href="mailto:breadbynaama@gmail.com" class="text-brand-secondary hover:text-brand-secondary/80 font-medium break-all">
+          breadbynaama@gmail.com
+        </a>
       </div>
     </div>
 
-    <!-- Copyright -->
-    <div class="mt-10 text-center text-xs text-brand-text-light">
+    <!-- Copyright (separate block!) -->
+    <div class="text-center text-xs text-brand-text-light pt-4">
       {t.footer_copyright}
     </div>
   </div>
 </footer>
+

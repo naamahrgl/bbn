@@ -19,7 +19,7 @@ export default {
             'brand-text-dark': 'var(--brand-text-dark)',
             'brand-text-light': 'var(--brand-text-light)',
             'brand-text-title': 'var(--brand-text-title)',
-          
+          'text-dark': 'var(--text-dark',
           'brand-background': 'var(--brand-background)',
           'big-buttons': 'var(--big-buttons)',
           'big-buttons-hover': 'var(--big-buttons-hover)',
