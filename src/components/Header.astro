@@ -17,8 +17,9 @@ const t = translations[lang];
 <style>
     @reference "tailwindcss";
 .sticky-header {
-  @apply fixed top-0 left-0 right-0 z-50 bg-[var(--brand-lighter)] shadow-sm border-b border-[var(--brand-secondary)];
+  @apply fixed top-0 left-0 right-0 z-50 bg-[var(--brand-secondary)] shadow-sm border-b border-[var(--brand-secondary)] h-14 px-4;
 }
+
 
   .header-content {
     @apply flex justify-between items-center h-14 px-4 md:px-6;
@@ -33,20 +34,37 @@ const t = translations[lang];
   display: none;
 }
 
+:root {
+  --header-height: clamp(3.5rem, 5vw, 4.5rem);
+}
 
-  .logo-toggle {
-    position: fixed;
-    top: 0.75rem;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 50;
-    height: auto;
-  }
+.sticky-header {
+  background-color: var(--brand-secondary);
+  border-bottom: 1px solid var(--brand-secondary);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+  height: var(--header-height);
+  padding-inline: 1rem;
+}
 
-  .logo-toggle img {
-    height: 24px;
-    width: auto;
-  }
+
+.header-content {
+  height: var(--header-height);
+}
+
+.logo-toggle {
+  position: fixed;
+  top: 0.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 50;
+  height: auto;
+}
+
+.logo-toggle img {
+  height: 42px;
+  max-width: 90vw;
+  width: auto;
+}
 
   .cart-toggle {
     position: fixed;
@@ -73,12 +91,12 @@ const t = translations[lang];
 
   .lang-toggle a {
     text-decoration: none;
-    color: var(--brand-secondary);
+    color: var(--brand-background);
     font-weight: bold;
     font-size: 0.875rem;
     margin-left: 0.25rem;
     margin-right: 0.25rem;
-        color: var(--brand-secondary)
+        color: var(--brand-background)
 
   }
   
@@ -87,11 +105,12 @@ const t = translations[lang];
     top: 0.75rem;
     right: 1rem;
     z-index: 50;
-        color: var(--brand-text-dark)
+        color: var(--brand-text-dark);
   }
 
   .hamburger-toggle {
     display: none;
+
   }
 
   .hamburger-menu {
@@ -108,6 +127,7 @@ const t = translations[lang];
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     z-index: 40;
     text-align: start;
+    
   }
 
   .hamburger-menu a {
@@ -120,18 +140,24 @@ const t = translations[lang];
   }
 
   .hamburger-menu a:hover {
-    background-color: #f3f3f3;
-    color: var(--brand-secondary);
+    background-color: #d0b8a8;
+     color: white;
   }
     /* Show menu when checkbox is checked */
   .hamburger-toggle:checked ~ .hamburger-menu {
     display: block;
+
   }
 
+  .ham-toggle label:hover svg {
+  stroke: #d0b8a8;
+}
+
+
   .icon-button {
-    width: 24px;
-    height: 24px;
-    color: var(--brand-dark);
+    width: 36px;
+    height: 36px;
+    color: var(--brand-background);
   }
 
 </style>
@@ -182,7 +208,7 @@ const t = translations[lang];
     <!-- Logo -->
     <div class="logo-toggle">
       <a href={`/${lang}/`}>
-        <img src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/4d2bda0bd_bbn_logo.jpg" alt="Logo" />
+        <img src="/logo.png" alt="Logo" />
       </a>
     </div>
 

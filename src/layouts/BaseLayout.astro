@@ -100,7 +100,7 @@ const lang = Astro.url.searchParams.get('lang') ?? 'he';
     <div class="min-h-screen flex flex-col bg-brand-background font-sans">
       <Header />
 
-      <main class="flex-grow">
+      <main class="flex-grow"  style="padding-top: var(--header-height)">
         <slot />
       </main>
       <Footer />

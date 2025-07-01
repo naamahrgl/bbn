@@ -9,7 +9,7 @@ import { Button } from './ui/button';
 const translations = {
   he: {
     hero_title: 'ברוכים הבאים ללחם נעמה',
-    hero_slogan: 'לחמים ומאפים מחמצת ללא גלוטן, נאפים באהבה.',
+    hero_slogan: 'לחמים ומאפים מחמצת ללא גלוטן, טבעיים וטעימים.',
     shopAll: 'לצפייה בכל המוצרים',
     featuredFavorites: 'מומלצים במיוחד'
   },
