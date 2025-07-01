@@ -50,15 +50,21 @@ const [dayColors, setDayColors] = useState<DayColorsMap>({});
   }
 
   return (
-    <div className="checkout-container space-y-6">
-      <OrderSummary lang={lang} deliveryMethod={deliveryMethod} />
+<div className="checkout-container space-y-6 max-w-3xl mx-auto px-4">
+  {/* Order Summary */}
+  <OrderSummary lang={lang} deliveryMethod={deliveryMethod} />
 
+  {/* Date + Method Selection Centered + Wrapped */}
+  <div className="space-y-4">
+<div className="shadow rounded-md p-4 bg-white flex justify-center items-center text-center ">
       <DeliveryMethodSelector
         lang={lang}
         selectedMethod={deliveryMethod}
         onSelect={setDeliveryMethod}
       />
+    </div>
 
+<div className="shadow rounded-md p-4 bg-white flex justify-center items-center text-center ">
       <DeliveryDateSelector
         lang={lang}
         selectedDate={selectedDate}
@@ -66,13 +72,17 @@ const [dayColors, setDayColors] = useState<DayColorsMap>({});
         dayColors={dayColors}
         setDayColors={setDayColors}
       />
-
-      <CheckoutForm
-        lang={lang}
-        selectedDate={selectedDate}
-        deliveryMethod={deliveryMethod}
-        dayColors={dayColors}
-      />
     </div>
+  </div>
+
+  {/* Checkout Form */}
+  <CheckoutForm
+    lang={lang}
+    selectedDate={selectedDate}
+    deliveryMethod={deliveryMethod}
+    dayColors={dayColors}
+  />
+</div>
+
   );
 }

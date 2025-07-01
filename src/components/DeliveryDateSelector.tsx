@@ -6,6 +6,9 @@ import 'react-day-picker/dist/style.css';
 import { format } from 'date-fns';
 import { getCart } from '../lib/cart';
 import type { ProductId } from '../lib/products';
+import { he, enUS } from 'date-fns/locale';
+
+
 
 type CartItem = { id: ProductId; quantity: number };
 
@@ -22,6 +25,7 @@ type DeliveryDateSelectorProps = {
   dayColors: Record<string, DayColor>;
   setDayColors: React.Dispatch<React.SetStateAction<Record<string, DayColor>>>;
 };
+
 
 
 const translations = {
@@ -74,24 +78,28 @@ console.log('🎨 setDayColors', data);
   return (
     <div className="p-4">
       <h2 className="text-lg font-bold mb-2">{t.title}</h2>
-      <DayPicker
-        mode="single"
-        selected={selectedDate}
-        onSelect={setSelectedDate}
-modifiers={{
-  red: (day) => dayColors[format(day, 'yyyy-MM-dd')]?.status === 'red',
-  orange: (day) => dayColors[format(day, 'yyyy-MM-dd')]?.status === 'orange',
-}}
 
-        modifiersClassNames={{
-          red: 'bg-red-200 text-red-800',
-          orange: 'bg-yellow-200 text-yellow-800',
-        }}
-        modifiersStyles={{
-          red: { cursor: 'not-allowed' },
-          orange: { cursor: 'pointer' },
-        }}
-      />
+
+<DayPicker
+  mode="single"
+  selected={selectedDate}
+  onSelect={setSelectedDate}
+  locale={lang === 'he' ? he : enUS}
+  className="rdp [&_.rdp-nav_button>svg]:rotate-180"
+  modifiers={{
+    red: (day) => dayColors[format(day, 'yyyy-MM-dd')]?.status === 'red',
+    orange: (day) => dayColors[format(day, 'yyyy-MM-dd')]?.status === 'orange',
+  }}
+  modifiersClassNames={{
+    red: 'bg-red-200 text-red-800',
+    orange: 'bg-yellow-200 text-yellow-800',
+  }}
+  modifiersStyles={{
+    red: { cursor: 'not-allowed' },
+    orange: { cursor: 'pointer' },
+  }}
+/>
+
       {selectedDate && <p className="mt-2 text-sm">{t.selected(selectedDate)}</p>}
     </div>
   );

@@ -33,7 +33,7 @@ const translations = {
     contact_info: 'פרטי קשר',
     fullName: 'שם מלא',
     email: 'אימייל',
-    phone_optional: 'טלפון (לא חובה)',
+    phone_optional: 'טלפון',
     address_optional: 'כתובת (לא חובה)',
     order_notes_optional: 'הערות להזמנה (לא חובה)',
     place_order: 'בצע הזמנה',
@@ -45,7 +45,7 @@ const translations = {
     contact_info: 'Contact Information',
     fullName: 'Full Name',
     email: 'Email',
-    phone_optional: 'Phone (optional)',
+    phone_optional: 'Phone',
     address_optional: 'Address (optional)',
     order_notes_optional: 'Order notes (optional)',
     place_order: 'Place Order',
@@ -153,7 +153,7 @@ if (!selectedDate) {
       </div>
       <div>
         <Label htmlFor="phone">{t('phone_optional')}</Label>
-        <Input id="phone" type="tel" value={formData.phone} onChange={handleChange} />
+        <Input id="phone" type="tel" value={formData.phone} onChange={handleChange} required />
       </div>
             <div>
         <Label htmlFor="address">{t('address_optional')}</Label>

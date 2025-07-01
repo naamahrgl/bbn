@@ -11,14 +11,14 @@ const translations = {
   he: {
     title: 'שיטת משלוח',
     pickup: 'איסוף עצמי',
-    delivery_near: 'משלוחתל אביב',
-        delivery_far: ' רג גבעתיים משלוח'
+    delivery_near: 'משלוח למרכז/דרום ת״א',
+        delivery_far: ' משלוח בצפון ת״א/רמת גן/גבעתיים'
   },
   en: {
     title: 'Delivery Method',
     pickup: 'Pickup',
-    delivery_near: 'Delivery in Tel Aviv',
-            delivery_far: 'Delivery IN RamatGan/Givataim'
+    delivery_near: 'Delivery in Tel Aviv (center/south)',
+            delivery_far: 'Delivery in Ramat Gan/Givataim/Tel Aviv (north)'
 
   },
 };

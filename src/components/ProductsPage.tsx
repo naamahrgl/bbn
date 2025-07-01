@@ -3,7 +3,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { getProducts, getProductById, type Product } from '../lib/products';
 import { addToCart } from '../lib/cart';
-import { ArrowLeft, Plus, Minus } from 'lucide-react';
+import { ArrowLeft, Plus, Minus, ArrowRight } from 'lucide-react';
 import { Button } from './ui/button';
 import { Alert } from './ui/alert';
 
@@ -78,11 +78,13 @@ useEffect(() => {
   if (productId && product) {
     return (
       <div className="px-4 py-8 sm:py-12">
-                 <a href={`/${lang}/products`}>
-                    <Button 
-                            className="w-full sm:w-auto bg-[var(--small-buttons)] hover:bg-[var(--small-buttons-hover)] text-white font-medium py-2 rounded">
-                      {t('nav_Products')}</Button>
-                  </a>
+<a href={`/${lang}/products`}>
+  <Button
+    className="w-full sm:w-auto flex items-center justify-center gap-2 bg-[var(--small-buttons)] hover:bg-[var(--small-buttons-hover)] text-white font-medium py-2 rounded mb-6"  >
+    <ArrowRight className="h-4 w-4" />
+    {t('nav_Products')}
+  </Button>
+</a>
 
         <div className="grid md:grid-cols-2 gap-8">
           <div className="rounded-lg overflow-hidden border border-brand-primary">
@@ -135,23 +137,40 @@ useEffect(() => {
             <p className="text-2xl sm:text-3xl font-bold text-brand-dark mt-4">₪{product.price.toFixed(2)}</p>
             <p className="mt-6 text-brand-light leading-relaxed whitespace-pre-line">{product.description[lang]}</p>
 
-            <div className="mt-8 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
-              <div className="flex items-center rounded-md border border-stone-300">
-                <Button type="button" className="px-3 py-2" onClick={() => setQuantity(Math.max(1, quantity - 1))}>
-                  <Minus className="h-4 w-4" />
-                </Button>
-                <span className="w-12 text-center font-medium">{quantity}</span>
-                <Button type="button" className="px-3 py-2" onClick={() => setQuantity(quantity + 1)}>
-                  <Plus className="h-4 w-4" />
-                </Button>
-              </div>
-              <Button type="button" 
-              
-        className="w-full bg-[var(--big-buttons)] hover:bg-[var(--big-buttons-hover)] text-white font-medium py-2 rounded"
-                onClick={() => {addToCart(product, quantity); alert(lang === 'he' ? 'המוצר נוסף לעגלה' : 'Item added to cart')} }  >
-                {t('addToCart')}
-              </Button>
-            </div>
+<div className="mt-8 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
+  {/* Quantity Selector */}
+  <div className="inline-flex items-center rounded-md border border-stone-300 overflow-hidden self-start">
+    <Button
+      type="button"
+      className="px-3 py-2 rounded-none"
+      onClick={() => setQuantity(Math.max(1, quantity - 1))}
+    >
+      <Minus className="h-4 w-4" />
+    </Button>
+    <span className="w-12 text-center font-medium">{quantity}</span>
+    <Button
+      type="button"
+      className="px-3 py-2 rounded-none"
+      onClick={() => setQuantity(quantity + 1)}
+    >
+      <Plus className="h-4 w-4" />
+    </Button>
+  </div>
+
+  {/* Add to cart button */}
+  <Button
+    type="button"
+    className="w-full sm:w-auto bg-[var(--big-buttons)] hover:bg-[var(--big-buttons-hover)] text-white font-medium py-2 rounded"
+    onClick={() => {
+      addToCart(product, quantity);
+      alert(lang === 'he' ? 'המוצר נוסף לעגלה' : 'Item added to cart');
+    }}
+  >
+    {t('addToCart')}
+  </Button>
+</div>
+
+
           </div>
         </div>
       </div>
