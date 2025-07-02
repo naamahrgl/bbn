@@ -13,7 +13,7 @@ export function Button({ children, onClick, type = 'button', className = '', dis
       type={type}
       onClick={onClick}
       disabled={disabled}
-      className={`rounded-md px-4 py-2 text-sm font-medium shadow-sm transition ${className} ${disabled ? 'opacity-50 cursor-not-allowed' : ''}`}
+      className={`cursor-pointer rounded-md px-4 py-2 text-sm font-medium shadow-sm transition ${className} ${disabled ? 'opacity-50 cursor-not-allowed' : ''}`}
     >
       {children}
     </button>

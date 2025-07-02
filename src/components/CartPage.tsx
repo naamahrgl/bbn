@@ -13,7 +13,7 @@ interface CartPageProps {
 const translations = {
   he: {
     emptyTitle: "העגלה ריקה",
-    emptyDesc: "לחצי על כפתור ההוספה בעמוד המוצרים",
+    emptyDesc: "לחצו על כפתור ההוספה בעמוד המוצרים",
     title: "העגלה שלך",
     summary: "סיכום הזמנה",
     totalItems: (count: number) => `סה״כ (${count} פריטים)`,

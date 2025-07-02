@@ -11,12 +11,14 @@ const translations = {
   he: {
     nav_Products: 'חזרה למוצרים',
     ourDailyBakes: 'מאפי היום שלנו',
+    prod_des: ' כל המוצרים נאפים כל בוקר ומגיעים אליכם טריים',
     addToCart: 'הוסף לעגלה',
     noProducts: 'לא נמצאו מוצרים בקטגוריה זו.'
   },
   en: {
     nav_Products: 'Back to Products',
     ourDailyBakes: 'Our Daily Bakes',
+        prod_des: 'All product are baked each morning and delivered fresh',
     addToCart: 'Add to Cart',
     noProducts: 'No products found in this category.'
   }
@@ -112,13 +114,13 @@ useEffect(() => {
     <>
       <button
         onClick={() => scrollRef.current?.scrollBy({ left: -300, behavior: 'smooth' })}
-        className="absolute left-2 top-1/2 transform -translate-y-1/2 z-10 bg-white/80 p-1 rounded-full shadow"
+        className="cursor-pointer absolute left-2 top-1/2 transform -translate-y-1/2 z-10 bg-white/80 p-1 rounded-full shadow"
       >
         <ArrowLeft className="h-5 w-5" />
       </button>
       <button
         onClick={() => scrollRef.current?.scrollBy({ left: 300, behavior: 'smooth' })}
-        className="absolute right-2 top-1/2 transform -translate-y-1/2 z-10 bg-white/80 p-1 rounded-full shadow"
+        className="cursor-pointer absolute right-2 top-1/2 transform -translate-y-1/2 z-10 bg-white/80 p-1 rounded-full shadow"
       >
         <ArrowLeft className="rotate-180 h-5 w-5" />
       </button>
@@ -181,6 +183,7 @@ useEffect(() => {
     <div className="px-4 py-8 sm:py-12">
       <div className="text-center mb-10">
         <h1 className="font-serif text-3xl sm:text-4xl font-bold tracking-tight " style= {{ color: 'var(--brand-text-title)' }}>{t('ourDailyBakes')}</h1>
+        <h3 className="font-serif text-s sm:text-s tracking-tight " style= {{ color: 'var(--brand-text-title)' }}>{t('prod_des')}</h3>
       </div>
       <div className="flex justify-center mb-8 gap-2 flex-wrap">
         {categories.map((category: string) => (

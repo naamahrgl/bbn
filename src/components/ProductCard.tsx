@@ -3,6 +3,8 @@
 import React from 'react';
 import { addToCart } from '../lib/cart';
 import type { Product } from '../lib/products';
+import { Button } from './ui/button';
+
 
 
 const translations = {
@@ -49,11 +51,11 @@ export default function ProductCard({ product, lang }: ProductCardProps) {
         </div>
       </a>
       <div className="px-4 pb-4">
-        <button
+        <Button
           onClick={handleAddToCart}
           className="mt-2 w-full bg-[var(--small-buttons)] hover:bg-[var(--small-buttons-hover)] text-white font-medium py-2 rounded">
           {t('addToCart')}
-        </button>
+        </Button>
       </div>
     </div>
   );
