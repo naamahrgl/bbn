@@ -1,6 +1,8 @@
 ---
-const lang = Astro.url.pathname.split('/')[1] ?? 'he';
-const translations = {
+const lang = ['he', 'en'].includes(Astro.url.pathname.split("/")[1])
+  ? (Astro.url.pathname.split("/")[1] as "he" | "en")
+  : "he";
+  const translations = {
   he: {
     hero_title: 'לחם נעמה',
     hero_slogan: 'מחמצת ללא גלוטן',

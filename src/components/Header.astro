@@ -3,8 +3,10 @@
 import CartIndicator from './CartIndicator.tsx'
 
 
-const lang = (Astro.url.pathname.split("/")[1] ?? "he") as "he" | "en";
-const isHebrew = lang === "he";
+const lang = ['he', 'en'].includes(Astro.url.pathname.split("/")[1])
+  ? (Astro.url.pathname.split("/")[1] as "he" | "en")
+  : "he";
+  const isHebrew = lang === "he";
 
 const translations = {
   he: { home: "בית", products: "מוצרים", about: "אודות" },

@@ -8,6 +8,9 @@ export default {
   ],
   theme: {
     extend: {
+            fontFamily: {
+        sans: ['Assistant', 'sans-serif'],
+            },
       colors: {
         brand: {
           primary: 'var(--brand-primary)',
