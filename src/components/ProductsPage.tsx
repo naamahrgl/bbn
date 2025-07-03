@@ -3,7 +3,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { getProducts, getProductById, type Product } from '../lib/products';
 import { addToCart } from '../lib/cart';
-import { ArrowLeft, Plus, Minus, ArrowRight } from 'lucide-react';
+import { ArrowLeft, Plus, Minus, ArrowRight, ChevronLeft } from 'lucide-react';
 import { Button } from './ui/button';
 import { Alert } from './ui/alert';
 
@@ -77,15 +77,21 @@ useEffect(() => {
     }
   };
 
+
   if (productId && product) {
     return (
       <div className="px-4 py-8 sm:py-12">
 <a href={`/${lang}/products`}>
-  <Button
-    className="w-full sm:w-auto flex items-center justify-center gap-2 bg-[var(--small-buttons)] hover:bg-[var(--small-buttons-hover)] text-white font-medium py-2 rounded mb-6"  >
+<Button
+  className="w-full sm:w-auto flex items-center justify-center gap-2 bg-[var(--small-buttons)] hover:bg-[var(--small-buttons-hover)] text-white font-medium py-2 rounded mb-6">
+  {lang !== 'he' ? (
+    <ArrowLeft className="h-4 w-4" />
+  ) : (
     <ArrowRight className="h-4 w-4" />
-    {t('nav_Products')}
-  </Button>
+  )}
+  {t('nav_Products')}
+</Button>
+
 </a>
 
         <div className="grid md:grid-cols-2 gap-8">
@@ -116,13 +122,13 @@ useEffect(() => {
         onClick={() => scrollRef.current?.scrollBy({ left: -300, behavior: 'smooth' })}
         className="cursor-pointer absolute left-2 top-1/2 transform -translate-y-1/2 z-10 bg-white/80 p-1 rounded-full shadow"
       >
-        <ArrowLeft className="h-5 w-5" />
+        <ChevronLeft className="h-5 w-5" />
       </button>
       <button
         onClick={() => scrollRef.current?.scrollBy({ left: 300, behavior: 'smooth' })}
         className="cursor-pointer absolute right-2 top-1/2 transform -translate-y-1/2 z-10 bg-white/80 p-1 rounded-full shadow"
       >
-        <ArrowLeft className="rotate-180 h-5 w-5" />
+        <ChevronLeft className="rotate-180 h-5 w-5" />
       </button>
     </>
   )}

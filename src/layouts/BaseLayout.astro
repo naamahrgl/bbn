@@ -5,7 +5,8 @@ import Footer from '../components/Footer.astro';
 import '../styles/global.css'
 
 const { currentPageName } = Astro.props;
-const lang = Astro.url.searchParams.get('lang') ?? 'he';
+const pathLang = Astro.url.pathname.split('/')[1];
+const lang = (pathLang === 'en' || pathLang === 'he') ? pathLang : 'he';
 ---
 
 <html lang={lang} dir={lang === 'he' ? 'rtl' : 'ltr'}>
@@ -96,7 +97,11 @@ const lang = Astro.url.searchParams.get('lang') ?? 'he';
     </style>
   </head>
 
-  <body class="text-[var(--text-dark)]">
+<body
+  lang={lang}
+  dir={lang === 'he' ? 'rtl' : 'ltr'}
+  class={`text-[var(--text-dark)] ${lang === 'he' ? 'rtl' : 'ltr'}`}
+>
     <div class="min-h-screen flex flex-col bg-brand-background font-sans">
       <Header />
 

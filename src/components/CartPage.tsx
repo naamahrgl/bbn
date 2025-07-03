@@ -2,7 +2,8 @@
 import React, { useState, useEffect } from 'react';
 import { getCart, updateQuantity, removeFromCart, cartTotal, cartCount } from '../lib/cart';
 import { getProductById } from '../lib/products';
-import { ArrowLeft, Minus, Plus, ShoppingCart, Trash2 } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Minus, Plus, ShoppingCart, Trash2 } from 'lucide-react';
+import { Button } from './ui/button';
 
 type Lang = 'he' | 'en';
 
@@ -57,17 +58,27 @@ export default function CartPage({ lang }: CartPageProps) {
 
   if (cartItems.length === 0) {
     return (
-      <div className="container mx-auto px-4 py-20 text-center">
+      <div className="container mx-auto px-4 py-20 text-center items-center justify-center">
         <ShoppingCart className="mx-auto h-16 w-16 text-stone-300" />
         <h1 className="mt-4 font-serif text-3xl font-bold text-brand-dark">{t.emptyTitle}</h1>
         <p className="mt-2 text-brand-light">{t.emptyDesc}</p>
-        <a
-          href={`/${lang}/products`}
-          className="inline-block bg-brand-secondary text-white px-6 py-2 rounded hover:bg-[#703c31]"
-        >
-          {t.go_shopping}
-        </a>
+        <div className="flex justify-center mt-6">
+
+<a href={`/${lang}/products`}>
+<Button
+  className="w-full sm:w-auto flex items-center justify-center gap-2 bg-[var(--big-buttons)] hover:bg-[var(--big-buttons-hover)] text-white font-medium py-2 rounded mb-6">
+  {lang !== 'he' ? (
+    <ArrowLeft className="h-4 w-4" />
+  ) : (
+    <ArrowRight className="h-4 w-4" />
+  )}
+  {t.go_shopping}
+</Button>
+
+</a>
       </div>
+            </div>
+
     );
   }
 
@@ -118,10 +129,15 @@ export default function CartPage({ lang }: CartPageProps) {
               </div>
                       <p className="text-xs text-stone-500 mt-2">{t.delivery_note}</p>
 <a href={`/${lang}/checkout`}>
-                <button className="w-full mt-6 bg-[var(--big-buttons)] hover:bg-[var(--big-buttons-hover)] text-white py-2 rounded-md flex justify-center items-center gap-2">
-                  <span>{t.checkout}</span>
-                  <ArrowLeft className="h-5 w-5" />
-                </button>
+<button className="w-full mt-6 bg-[var(--big-buttons)] hover:bg-[var(--big-buttons-hover)] text-white py-2 rounded-md flex justify-center items-center gap-2">
+  <span>{t.checkout}</span>
+  {lang == 'he' ? (
+    <ArrowLeft className="h-4 w-4" />
+  ) : (
+    <ArrowRight className="h-4 w-4" />
+  )}
+</button>
+
               </a>
             </div>
           </div>

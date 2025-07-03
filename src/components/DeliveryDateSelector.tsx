@@ -7,7 +7,7 @@ import { format } from 'date-fns';
 import { getCart } from '../lib/cart';
 import type { ProductId } from '../lib/products';
 import { he, enUS } from 'date-fns/locale';
-
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 
 type CartItem = { id: ProductId; quantity: number };
@@ -80,12 +80,15 @@ console.log('🎨 setDayColors', data);
       <h2 className="text-lg font-bold mb-2">{t.title}</h2>
 
 
+
+
 <DayPicker
   mode="single"
   selected={selectedDate}
   onSelect={setSelectedDate}
   locale={lang === 'he' ? he : enUS}
-  className="rdp [&_.rdp-nav_button>svg]:rotate-180"
+  dir={lang === 'he' ? 'rtl' : 'ltr'}
+  className="rdp"
   modifiers={{
     red: (day) => dayColors[format(day, 'yyyy-MM-dd')]?.status === 'red',
     orange: (day) => dayColors[format(day, 'yyyy-MM-dd')]?.status === 'orange',
@@ -99,6 +102,8 @@ console.log('🎨 setDayColors', data);
     orange: { cursor: 'pointer' },
   }}
 />
+
+
 
       {selectedDate && <p className="mt-2 text-sm">{t.selected(selectedDate)}</p>}
     </div>

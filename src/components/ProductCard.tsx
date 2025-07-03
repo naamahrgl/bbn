@@ -34,7 +34,7 @@ export default function ProductCard({ product, lang }: ProductCardProps) {
   };
 
   return (
-    <div className="bg-[var(--brand-lighter)] rounded-lg shadow-sm border-color  overflow-hidden">
+    <div className="bg-[var(--brand-lighter)] rounded-lg shadow-sm border-color  overflow-hidden text-left rtl:text-right">
       <a href={`/${lang}/products?id=${product.id}`}>
         <img
           src={product.imageUrls[0]}
@@ -45,7 +45,7 @@ export default function ProductCard({ product, lang }: ProductCardProps) {
           <h3 className="text-lg font-semibold text-[var(--brand-text-dark)]">
             {product.name[lang]}
           </h3>
-          <p className="text-sm text-brand-light mt-1">
+          <p className="text-sm text-brand-light mt-1 text-left rtl:text-right">
             ₪{product.price.toFixed(2)}
           </p>
         </div>

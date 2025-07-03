@@ -44,8 +44,8 @@ const t = translations[lang];
   box-shadow: 0 1px 2px rgba(0,0,0,0.05);
   height: var(--header-height);
   padding-inline: 1rem;
+  padding-block: 0.5rem;
 }
-
 
 .header-content {
   height: var(--header-height);
@@ -66,16 +66,19 @@ const t = translations[lang];
   width: auto;
 }
 
-  .cart-toggle {
-    position: fixed;
-    top: 0.75rem;
-    left: 1rem;
-    z-index: 50;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    color: var(--brand-text-dark)
-  }
+.cart-toggle {
+  position: fixed;
+  top: 0.75rem;
+  left: 1rem; /* תמיד בצד שמאל */
+  z-index: 50;
+  display: flex;
+  flex-direction: row; /* מוודא שהשפה מימין לעגלה */
+  align-items: center;
+  gap: 0.5rem;
+  direction: ltr; /* 💡 מוודא סדר קבוע */
+  color: var(--brand-text-dark);
+}
+
 
   .cart-toggle a {
   position: relative;
@@ -89,16 +92,14 @@ const t = translations[lang];
 
   }
 
-  .lang-toggle a {
-    text-decoration: none;
-    color: var(--brand-background);
-    font-weight: bold;
-    font-size: 0.875rem;
-    margin-left: 0.25rem;
-    margin-right: 0.25rem;
-        color: var(--brand-background)
+.lang-toggle a {
+  text-decoration: none;
+  color: var(--brand-background);
+  font-weight: bold;
+  font-size: 0.875rem;
+  margin-inline: 0.2rem;
+}
 
-  }
   
   .ham-toggle {
     position: fixed;
@@ -212,17 +213,17 @@ const t = translations[lang];
       </a>
     </div>
 
-    <!-- Cart + Language -->
-    <div class="cart-toggle">
-            <div class="lang-toggle">
-        <a href={Astro.url.pathname.replace(/^\/he|\/en/, "/he")}>עברית</a> |
-        <a href={Astro.url.pathname.replace(/^\/he|\/en/, "/en")}>EN</a>
-      </div>
-        <a href={`/${lang}/cart`} class="relative">
-          <img src="/download.svg" alt="Cart" class="icon-button" />
-          <CartIndicator client:only="react" />
-        </a>
+<!-- Cart + Language -->
+<div class="cart-toggle">
+  <a href={`/${lang}/cart`} class="relative">
+    <img src="/download.svg" alt="Cart" class="icon-button" />
+    <CartIndicator client:only="react" />
+  </a>
+  <div class="lang-toggle">
+    <a href={Astro.url.pathname.replace(/^\/he|\/en/, "/en")}>EN</a> |
+        <a href={Astro.url.pathname.replace(/^\/he|\/en/, "/he")}>עברית</a> 
 
-    </div>
   </div>
+</div>
+
 </header>

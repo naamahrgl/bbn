@@ -22,3 +22,6 @@
         --footer-background: #fff9f5;
 
       }
+body {
+  direction: inherit;
+}

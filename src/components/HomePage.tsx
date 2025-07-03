@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { getFeaturedProducts, type Product } from '../lib/products';
 import ProductCard from './ProductCard';
-import { ArrowLeft, ChevronLeft, ChevronRight } from 'lucide-react';
+import { ArrowLeft, ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from './ui/button';
 
 const translations = {
@@ -38,12 +38,17 @@ function Hero({ lang }: HomePageProps) {
             {t('hero_slogan')}
           </p>
           <div className="mt-6 sm:mt-10">
-            <Button className="bg-[var(--big-buttons)] hover:bg-[var(--big-buttons-hover)] text-white shadow-lg">
-              <a href={`/${lang}/products`} className="flex items-center gap-2">
-                {t('shopAll')}
-                <ArrowLeft className={`h-5 w-5 ${isRTL ? '' : 'rtl:hidden'}`} />
-              </a>
-            </Button>
+<Button className="bg-[var(--big-buttons)] hover:bg-[var(--big-buttons-hover)] text-white shadow-lg">
+  <a href={`/${lang}/products`} className="flex items-center gap-2">
+    {t('shopAll')}
+    {isRTL ? (
+      <ArrowLeft className="h-5 w-5" />
+    ) : (
+      <ArrowRight className="h-5 w-5" />
+    )}
+  </a>
+</Button>
+
           </div>
         </div>
       </div>
@@ -76,12 +81,14 @@ function FeaturedProducts({ lang }: HomePageProps) {
   useEffect(() => {
     const fetchFeatured = async () => {
       setLoading(true);
-      const featured = await getFeaturedProducts(5);
+      const featured = await getFeaturedProducts();
       setProducts(featured);
       setLoading(false);
     };
     fetchFeatured();
   }, []);
+
+  const skeletonCount = 4;
 
   return (
     <div className="bg-brand-background py-12 sm:py-16">
@@ -110,25 +117,25 @@ function FeaturedProducts({ lang }: HomePageProps) {
           ref={scrollRef}
           className="flex gap-4 px-2 snap-x snap-mandatory overflow-x-auto scroll-smooth"
         >
-          {loading
-            ? Array.from({ length: 4 }).map((_, i) => (
-                <div
-                  key={i}
-                  className="min-w-[250px] flex-shrink-0 flex flex-col space-y-3"
-                >
-                  <div className="h-[250px] w-full rounded-lg bg-brand-primary animate-pulse" />
-                  <div className="h-4 w-3/4 bg-brand-primary animate-pulse rounded" />
-                  <div className="h-4 w-1/2 bg-brand-primary animate-pulse rounded" />
-                </div>
-              ))
-            : products.map((product, i) => (
-                <div
-                  key={product.id + '-' + i}
-                  className="flex-shrink-0 snap-start w-[80vw] sm:w-[45vw] md:w-[30vw] lg:w-[22vw] max-w-[300px]"
-                >
-                  <ProductCard product={{ ...product, quantity: 1 }} lang={lang} />
-                </div>
-              ))}
+          {(loading ? Array.from({ length: skeletonCount }) : products).map((product, i) => {
+            const isLoaded = !loading && typeof product === 'object' && product !== null && 'id' in product;
+            return (
+              <div
+                key={isLoaded ? (product as Product).id : i}
+                className="flex-shrink-0 snap-start w-[80vw] sm:w-[45vw] md:w-[30vw] lg:w-[22vw] max-w-[300px]"
+              >
+                {loading ? (
+                  <div className="flex flex-col space-y-3">
+                    <div className="h-[250px] w-full rounded-lg bg-brand-primary animate-pulse" />
+                    <div className="h-4 w-3/4 bg-brand-primary animate-pulse rounded" />
+                    <div className="h-4 w-1/2 bg-brand-primary animate-pulse rounded" />
+                  </div>
+                ) : (
+                  <ProductCard product={{ ...(product as Product), quantity: 1 }} lang={lang} />
+                )}
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>
