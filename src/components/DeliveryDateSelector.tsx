@@ -13,7 +13,7 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 type CartItem = { id: ProductId; quantity: number };
 
 type DayColor = {
-  status: 'green' | 'orange' | 'red';
+  status: 'green' | 'orange' | 'red' | 'gray';
   soldOutProducts?: string[];
   partialAvailability?: Record<string, number>;
 };
@@ -81,7 +81,6 @@ console.log('🎨 setDayColors', data);
 
 
 
-
 <DayPicker
   mode="single"
   selected={selectedDate}
@@ -92,16 +91,20 @@ console.log('🎨 setDayColors', data);
   modifiers={{
     red: (day) => dayColors[format(day, 'yyyy-MM-dd')]?.status === 'red',
     orange: (day) => dayColors[format(day, 'yyyy-MM-dd')]?.status === 'orange',
+    gray: (day) => dayColors[format(day, 'yyyy-MM-dd')]?.status === 'gray'
   }}
   modifiersClassNames={{
     red: 'bg-red-200 text-red-800',
     orange: 'bg-yellow-200 text-yellow-800',
+    gray: 'bg-gray-200 text-gray-600 line-through'
   }}
   modifiersStyles={{
     red: { cursor: 'not-allowed' },
     orange: { cursor: 'pointer' },
+    gray: { cursor: 'not-allowed' }
   }}
 />
+
 
 
 

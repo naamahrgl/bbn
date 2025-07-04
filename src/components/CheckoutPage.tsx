@@ -22,7 +22,7 @@ const translations = {
 };
 
 type DayColor = {
-  status: 'green' | 'orange' | 'red';
+  status: 'green' | 'orange' | 'red' | 'gray';
   soldOutProducts?: string[];
   partialAvailability?: Record<string, number>;
 };

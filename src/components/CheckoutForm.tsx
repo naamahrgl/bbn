@@ -14,7 +14,7 @@ import { createOrder } from '../lib/orders';
 import { isOrderLegal } from '../lib/isOrderLegal';
 
 type DayColor = {
-  status: 'green' | 'orange' | 'red';
+  status: 'green' | 'orange' | 'red' | 'gray';
   soldOutProducts?: string[];
   partialAvailability?: Record<string, number>;
 };
