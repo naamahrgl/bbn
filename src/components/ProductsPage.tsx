@@ -95,11 +95,11 @@ useEffect(() => {
 </a>
 
         <div className="grid md:grid-cols-2 gap-8">
-          <div className="rounded-lg overflow-hidden border border-brand-primary">
+          <div className="rounded-lg overflow-hidden  border-brand-primary">
 
 
 
-<div className="relative w-full overflow-hidden rounded-lg border border-brand-primary">
+<div className="relative w-full overflow-hidden rounded-lg shadow">
   <div
     ref={scrollRef}
     className="flex overflow-x-auto scroll-smooth no-scrollbar"
@@ -141,7 +141,7 @@ useEffect(() => {
           </div>
           <div className="text-start">
             <p className="text-sm font-medium text-brand-secondary">{product.category[lang]}</p>
-            <h1 className="font-serif text-3xl sm:text-4xl font-bold text-brand-dark mt-2">{product.name[lang]}</h1>
+            <h1 className=" text-3xl sm:text-4xl font-bold text-brand-dark mt-2">{product.name[lang]}</h1>
             <p className="text-2xl sm:text-3xl font-bold text-brand-dark mt-4">₪{product.price.toFixed(2)}</p>
             <p className="mt-6 text-brand-light leading-relaxed whitespace-pre-line">{product.description[lang]}</p>
 
@@ -188,8 +188,8 @@ useEffect(() => {
   return (
     <div className="px-4 py-8 sm:py-12">
       <div className="text-center mb-10">
-        <h1 className="font-serif text-3xl sm:text-4xl font-bold tracking-tight " style= {{ color: 'var(--brand-text-title)' }}>{t('ourDailyBakes')}</h1>
-        <h3 className="font-serif text-s sm:text-s tracking-tight " style= {{ color: 'var(--brand-text-title)' }}>{t('prod_des')}</h3>
+        <h1 className=" text-3xl sm:text-4xl font-bold tracking-tight " style= {{ color: 'var(--brand-text-title)' }}>{t('ourDailyBakes')}</h1>
+        <h3 className=" text-s sm:text-s tracking-tight " style= {{ color: 'var(--brand-text-title)' }}>{t('prod_des')}</h3>
       </div>
       <div className="flex justify-center mb-8 gap-2 flex-wrap">
         {categories.map((category: string) => (

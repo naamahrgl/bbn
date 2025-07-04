@@ -60,7 +60,7 @@ export default function CartPage({ lang }: CartPageProps) {
     return (
       <div className="container mx-auto px-4 py-20 text-center items-center justify-center">
         <ShoppingCart className="mx-auto h-16 w-16 text-stone-300" />
-        <h1 className="mt-4 font-serif text-3xl font-bold text-brand-dark">{t.emptyTitle}</h1>
+        <h1 className="mt-4  text-3xl font-bold text-brand-dark">{t.emptyTitle}</h1>
         <p className="mt-2 text-brand-light">{t.emptyDesc}</p>
         <div className="flex justify-center mt-6">
 
@@ -85,7 +85,7 @@ export default function CartPage({ lang }: CartPageProps) {
   return (
     <div className="bg-brand-background">
       <div className="container mx-auto px-4 py-12">
-        <h1 className="font-serif text-3xl md:text-4xl font-bold text-brand-dark mb-8 text-center" style= {{ color: 'var(--brand-text-title)' }}>{t.title}</h1>
+        <h1 className=" text-3xl md:text-4xl font-bold text-brand-dark mb-8 text-center" style= {{ color: 'var(--brand-text-title)' }}>{t.title}</h1>
         <div className="grid lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2 bg-white p-4 md:p-6 rounded-lg shadow-sm border border-brand-primary">
             {cartItems.map(item => {

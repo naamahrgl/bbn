@@ -28,10 +28,10 @@ function Hero({ lang }: HomePageProps) {
   const isRTL = lang === 'he';
 
   return (
-    <div className="relative bg-brand-primary">
+<div className="relative bg-brand-primary overflow-hidden min-h-[500px]">
       <div className="container mx-auto px-4 py-16 sm:py-20 md:py-28">
         <div className="max-w-2xl text-center md:text-start">
-          <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight" style={{ color: 'var(--brand-text-title)' }}>
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight" style={{ color: 'var(--brand-text-title)' }}>
             {t('hero_title')}
           </h1>
           <p className="mt-4 sm:mt-6 text-base sm:text-lg leading-7" style={{ color: 'var(--brand-text-title)' }}>
@@ -52,10 +52,10 @@ function Hero({ lang }: HomePageProps) {
           </div>
         </div>
       </div>
-      <div className="absolute inset-0 z-[-1] overflow-hidden">
+      <div className="absolute min-h-[500px] inset-0 z-[0] pointer-events-none overflow-hidden">
         <img
-          src="/photo.jpg"
-          alt="Pastries"
+          src="/bread.jpg"
+          alt="Bread by Naama"
           className="h-full w-full object-cover opacity-20"
         />
       </div>
@@ -94,7 +94,7 @@ function FeaturedProducts({ lang }: HomePageProps) {
     <div className="bg-brand-background py-12 sm:py-16">
       <div className="container mx-auto px-4 relative">
         <h2
-          className="text-center font-serif text-2xl sm:text-3xl font-bold tracking-tight mb-6"
+          className="text-center text-2xl sm:text-3xl font-bold tracking-tight mb-6"
           style={{ color: 'var(--brand-text-title)' }}
         >
           {t('featuredFavorites')}

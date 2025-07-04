@@ -26,7 +26,7 @@ body {
   direction: inherit;
   font-family: 'Assistant', sans-serif;
 h1, h2, h3, h4, h5, h6 {
-  font-weight: 700; /* or use @apply font-bold if using Tailwind */
+  font-weight: 600; /* or use @apply font-bold if using Tailwind */
 }
 
 }
