@@ -17,6 +17,8 @@ export function NutrientsTable({ data, lang }: { data: Product['nutrients'], lan
     satFat: lang === 'he' ? 'שומן רווי (גרם)' : 'Sat. Fat (g)',
     transFat: lang === 'he' ? ' שומן טראנס (גרם) - פחות מ' : 'Trans Fat (g) - less than',
     phosphorus: lang === 'he' ? 'זרחן (מ״ג)' : 'Phosphorus (mg)',
+    cholesterol: lang === 'he' ? 'כולסטרול (מ״ג)' : 'Cholesterol (mg)',
+    potasium: lang === 'he' ? 'אשלגן (מ״ג)' : 'Potasium (mg)'
   };
 
   return (
@@ -24,7 +26,7 @@ export function NutrientsTable({ data, lang }: { data: Product['nutrients'], lan
       <h4 className="text-lg font-semibold text-brand-dark">
         {lang === 'he' ? 'ערכים תזונתיים (ל־100 גרם)' : 'Nutritional Info (per 100g)'}
       </h4>
-      <table className="w-full mt-2 text-sm text-left border-t border-gray-300">
+      <table className="w-full mt-2 text-sm border-t border-gray-300">
         <tbody>
           {Object.entries(data).map(([key, value]) => (
             <tr key={key} className="border-b border-gray-200">

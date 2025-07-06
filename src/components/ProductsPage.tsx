@@ -106,15 +106,30 @@ useEffect(() => {
     className="flex overflow-x-auto scroll-smooth no-scrollbar"
     style={{ scrollSnapType: 'x mandatory' }}
   >
-    {product.imageUrls.map((url, index) => (
-      <img
-        key={index}
-        src={url}
-        alt={`${product.name[lang]} ${index + 1}`}
-        className="w-full h-[300px] object-cover flex-shrink-0 "
-        style={{ minWidth: '100%', scrollSnapAlign: 'start' }}
-      />
-    ))}
+{product.imageUrls.map((url, index) => {
+  const isVideo = url.endsWith('.mp4');
+  return isVideo ? (
+    <video
+      key={index}
+      src={url}
+      className="w-full h-[300px] object-cover flex-shrink-0"
+      style={{ minWidth: '100%', scrollSnapAlign: 'start' }}
+      autoPlay
+      loop
+      muted
+      playsInline
+    />
+  ) : (
+    <img
+      key={index}
+      src={url}
+      alt={`${product.name[lang]} ${index + 1}`}
+      className="w-full h-[300px] object-cover flex-shrink-0"
+      style={{ minWidth: '100%', scrollSnapAlign: 'start' }}
+    />
+  );
+})}
+
   </div>
 
   {product.imageUrls.length > 1 && (
