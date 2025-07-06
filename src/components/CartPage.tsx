@@ -4,7 +4,8 @@ import { getCart, updateQuantity, removeFromCart, cartTotal, cartCount } from '.
 import { getProductById } from '../lib/products';
 import { ArrowLeft, ArrowRight, Minus, Plus, ShoppingCart, Trash2 } from 'lucide-react';
 import { Button } from './ui/button';
-
+declare const gtag: (...args: any[]) => void;
+declare const fbq: (...args: any[]) => void;
 type Lang = 'he' | 'en';
 
 interface CartPageProps {
@@ -129,7 +130,31 @@ export default function CartPage({ lang }: CartPageProps) {
               </div>
                       <p className="text-xs text-stone-500 mt-2">{t.delivery_note}</p>
 <a href={`/${lang}/checkout`}>
-<button className="w-full mt-6 bg-[var(--big-buttons)] hover:bg-[var(--big-buttons-hover)] text-white py-2 rounded-md flex justify-center items-center gap-2">
+<button className="w-full mt-6 bg-[var(--big-buttons)] hover:bg-[var(--big-buttons-hover)] text-white py-2 rounded-md flex justify-center items-center gap-2"
+onClick={() => {
+      const enrichedCart = cartItems.map(item => {
+        const product = getProductById(item.id);
+        return {
+          item_name: product.name[lang],
+          item_id: product.id,
+          quantity: item.quantity,
+          price: product.price
+        };
+      });
+
+      gtag('event', 'begin_checkout', {
+        currency: 'ILS',
+        value: cartTotal(),
+        items: enrichedCart
+      });
+
+      fbq('track', 'InitiateCheckout', {
+        content_ids: enrichedCart.map(p => p.item_id),
+        content_type: 'product',
+        currency: 'ILS',
+        value: cartTotal()
+      });
+    }}>
   <span>{t.checkout}</span>
   {lang == 'he' ? (
     <ArrowLeft className="h-4 w-4" />
@@ -137,6 +162,7 @@ export default function CartPage({ lang }: CartPageProps) {
     <ArrowRight className="h-4 w-4" />
   )}
 </button>
+
 
               </a>
             </div>

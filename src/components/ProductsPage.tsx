@@ -7,6 +7,11 @@ import { ArrowLeft, Plus, Minus, ArrowRight, ChevronLeft } from 'lucide-react';
 import { Button } from './ui/button';
 import { Alert } from './ui/alert';
 import { NutrientsTable } from './NutrientsTable';
+declare const gtag: (...args: any[]) => void;
+declare const fbq: (...args: any[]) => void;
+
+
+
 
 const translations = {
   he: {
@@ -66,8 +71,31 @@ useEffect(() => {
       setProduct(null);
     }
   }
+  
+  
 }, [lang, productId]);
 ;
+useEffect(() => {
+  if (!product) return;
+
+  gtag('event', 'view_item', {
+    currency: 'ILS',
+    value: product.price,
+    items: [{
+      item_id: product.id,
+      item_name: product.name[lang]
+    }]
+  });
+
+  fbq('track', 'ViewContent', {
+    content_ids: [product.id],
+    content_name: product.name[lang],
+    content_type: 'product',
+    value: product.price,
+    currency: 'ILS'
+  });
+}, [product, lang]);
+
 
   const filterProducts = (category: string) => {
     setActiveCategory(category);
@@ -187,6 +215,25 @@ useEffect(() => {
     className="w-full sm:w-auto bg-[var(--big-buttons)] hover:bg-[var(--big-buttons-hover)] text-white font-medium py-2 rounded"
     onClick={() => {
       addToCart(product, quantity);
+      gtag('event', 'add_to_cart', {
+  currency: 'ILS',
+  value: product.price,
+  items: [{
+    item_name: product.name[lang],
+    item_id: product.id,
+    quantity: quantity
+  }]
+});
+fbq('track', 'AddToCart', {
+  content_name: product.name[lang],
+  content_ids: [product.id],
+  content_type: 'product',
+  currency: 'ILS',
+  value: product.price * quantity
+});
+
+
+
       alert(lang === 'he' ? 'המוצר נוסף לעגלה' : 'Item added to cart');
     }}
   >
@@ -256,6 +303,23 @@ useEffect(() => {
         className="w-full bg-[var(--big-buttons)] hover:bg-[var(--big-buttons-hover)] text-white font-medium py-2 rounded"
         onClick={() => {
           addToCart(product, 1);
+              gtag('event', 'add_to_cart', {
+  currency: 'ILS',
+  value: product.price,
+  items: [{
+    item_name: product.name[lang],
+    item_id: product.id,
+    quantity: quantity
+  }]
+});
+fbq('track', 'AddToCart', {
+  content_name: product.name[lang],
+  content_ids: [product.id],
+  content_type: 'product',
+  currency: 'ILS',
+  value: product.price * quantity
+});
+
           alert(lang === 'he' ? 'המוצר נוסף לעגלה' : 'Item added to cart');
         }}
       >

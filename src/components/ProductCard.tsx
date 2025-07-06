@@ -4,6 +4,8 @@ import React from 'react';
 import { addToCart } from '../lib/cart';
 import type { Product } from '../lib/products';
 import { Button } from './ui/button';
+declare const gtag: (...args: any[]) => void;
+declare const fbq: (...args: any[]) => void;
 
 
 
@@ -29,6 +31,25 @@ export default function ProductCard({ product, lang }: ProductCardProps) {
   const handleAddToCart = () => {
     const quantity = product.quantity ?? 1;
     addToCart(product, quantity);
+    gtag('event', 'add_to_cart', {
+  currency: 'ILS',
+  value: product.price,
+  items: [{
+    item_name: product.name[lang],
+    item_id: product.id,
+    quantity: 1,
+    item_list_name: 'Featured Products'
+  }]
+});
+
+fbq('track', 'AddToCart', {
+  content_name: product.name[lang],
+  content_ids: [product.id],
+  content_type: 'product',
+  currency: 'ILS',
+  value: product.price
+});
+
     alert(lang === 'he' ? 'המוצר נוסף לעגלה' : 'Item added to cart')
 
   };
