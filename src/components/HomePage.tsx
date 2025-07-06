@@ -55,7 +55,7 @@ function Hero({ lang }: HomePageProps) {
   {/* תמונה רקע + גרדיאנט */}
   <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
     <img
-      src="/bread.png"
+      src="/bread.webp"
       alt="Bread by Naama"
       className="h-full w-full object-cover opacity-20"
     />

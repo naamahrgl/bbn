@@ -42,10 +42,10 @@ export const PRODUCTS :Product[]= [
     nutrients: {cal : 160.350000, fat : 1.080000, sodium : 377.470000, carbs : 34.850000, sugar : 1.600000, protein : 2.910000, fiber : 5.150000, iron : 0.890000, transFat : 0.140000, satFat : 0.100000, magnesium : 6.790000, phosphorus : 16.980000},
     category: { he: 'לחמים', en: 'Breads' },
     imageUrls: [
-      '/products/bread1.png',
+      '/products/bread1.webp',
       '/products/bread2.mp4',
-      '/products/bread3.png',
-            '/products/bread4.png'
+      '/products/bread3.webp',
+            '/products/bread4.webp'
     ],    
     price: 35.0,
     isFeatured: true,
@@ -94,7 +94,7 @@ export const PRODUCTS :Product[]= [
 
     category: { he: 'קרקרים', en: 'Crackers' },
     imageUrls: [
-      '/products/cracker1.png',
+      '/products/cracker1.webp',
       '/products/cracker2.mp4'
         ],   
         price: 30.0,
@@ -118,7 +118,7 @@ export const PRODUCTS :Product[]= [
         nutrients: {cal : 475.320000, fat : 32.950000, sodium : 23.710000, carbs : 37.850000, sugar : 34.130000, protein : 6.680000, fiber : 1.790000, iron : 0.000000, transFat : 0.500000, satFat : 16.480000, phosphorus : 0.000000, cholesterol : 110.000000, potasium : 123.210000},
             category: { he: 'מתוקים', en: 'Sweets' },
     imageUrls: [
-      '/products/brow1.png'
+      '/products/brow1.webp'
     ],   
         price: 20.0,
     isFeatured: false,
@@ -142,7 +142,7 @@ export const PRODUCTS :Product[]= [
 
     category: { he: "פוקצ'ה ופיצה", en: 'Focaccia & Pizza' },
     imageUrls: [
-      '/products/fo1.png',
+      '/products/fo1.webp',
       '/products/fo2.mp4'
         ],   
         price: 25.0,
@@ -167,7 +167,7 @@ export const PRODUCTS :Product[]= [
 
     category: { he: 'לחמים', en: 'Breads' },
     imageUrls: [
-      '/products/ched1.png',
+      '/products/ched1.webp',
       '/products/ched2.mp4'
     ],   
         price: 50.0,
