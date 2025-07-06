@@ -7,13 +7,15 @@ import { Button } from './ui/button';
 const translations = {
   he: {
     hero_title: 'לחם נעמה',
-    hero_slogan: 'לחמי ומאפי מחמצת ללא גלוטן, טבעיים וטעימים',
+    hero_slogan: 'מחמצת ללא גלוטן',
+    hero_subtitle: 'לחמי ומאפי מחמצת ללא גלוטן, טבעיים וטעימים',
     shopAll: 'לצפייה בכל המוצרים',
     featuredFavorites: 'מומלצים במיוחד'
   },
   en: {
     hero_title: 'Bread by Naama',
-    hero_slogan: 'Sourdough gluten-free breads & pastries — all natural, all delicious',
+    hero_slogan: 'Gluten-free Sourdough',
+        hero_subtitle: 'Gluten-free Sourdough breads & pastries — all natural, all delicious',
     shopAll: 'Shop All Products',
     featuredFavorites: 'Featured Favorites'
   }
@@ -34,8 +36,11 @@ function Hero({ lang }: HomePageProps) {
       <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-[var(--brand-text-title)]">
         {t('hero_title')}
       </h1>
-      <p className="mt-4 sm:mt-6 text-base sm:text-lg leading-7 text-[var(--brand-text-title)]">
+            <h3 className="text-2xl sm:text-2xl md:text-2xl font-bold tracking-tight text-[var(--brand-text-title)]">
         {t('hero_slogan')}
+      </h3>
+      <p className="mt-4 sm:mt-6 text-base sm:text-lg leading-7 text-[var(--brand-text-title)]">
+        {t('hero_subtitle')}
       </p>
       <div className="mt-6 sm:mt-10">
         <Button className="bg-[var(--big-buttons)] hover:bg-[var(--big-buttons-hover)] text-white shadow-lg">

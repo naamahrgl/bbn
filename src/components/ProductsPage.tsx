@@ -6,6 +6,7 @@ import { addToCart } from '../lib/cart';
 import { ArrowLeft, Plus, Minus, ArrowRight, ChevronLeft } from 'lucide-react';
 import { Button } from './ui/button';
 import { Alert } from './ui/alert';
+import { NutrientsTable } from './NutrientsTable';
 
 const translations = {
   he: {
@@ -177,6 +178,27 @@ useEffect(() => {
     {t('addToCart')}
   </Button>
 </div>
+{/* NEW: Ingredients */}
+{product.ingredients?.[lang] && (
+  <div className="mt-6">
+    <h4 className="text-lg font-semibold text-brand-dark">
+      {lang === 'he' ? 'רכיבים' : 'Ingredients'}
+    </h4>
+    <p className="text-brand-light whitespace-pre-line">{product.ingredients[lang]}</p>
+  </div>
+)}
+
+{/* NEW: Directions */}
+{product.directions?.[lang] && (
+  <div className="mt-6">
+    <h4 className="text-lg font-semibold text-brand-dark">
+      {lang === 'he' ? 'הוראות אחסון' : 'Storage Instructions'}
+    </h4>
+    <p className="text-brand-light whitespace-pre-line">{product.directions[lang]}</p>
+  </div>
+)}
+{product.nutrients && <NutrientsTable data={product.nutrients} lang={lang} />}
+
 
 
           </div>

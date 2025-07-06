@@ -26,14 +26,6 @@ export type OrderData = {
 };
 
 
-export const DAILY_LIMITS: Record<ProductId, number> = {
-  buckwheat: 10,
-  sourdough: 15,
-  cinnamon: 12,
-  cracker: 1000,
-  brownie: 6
-};
-
 
 // orders.ts
 
