@@ -51,6 +51,8 @@ const [dayColors, setDayColors] = useState<DayColorsMap>({});
 
   return (
 <div className="checkout-container space-y-6 max-w-3xl mx-auto px-4">
+        <span>{t('empty_cart')}</span>
+
   {/* Order Summary */}
   <OrderSummary lang={lang} deliveryMethod={deliveryMethod} />
 

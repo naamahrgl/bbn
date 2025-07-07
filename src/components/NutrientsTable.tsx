@@ -6,6 +6,8 @@ export function NutrientsTable({ data, lang }: { data: Product['nutrients'], lan
   const labels = {
     cal: lang === 'he' ? 'קלוריות' : 'Calories',
     fat: lang === 'he' ? 'שומן (גרם)' : 'Fat (g)',
+    satFat: lang === 'he' ? 'שומן רווי (גרם)' : 'Sat. Fat (g)',
+    transFat: lang === 'he' ? ' שומן טראנס (גרם) - פחות מ' : '  Trans Fat (g) - less than',
     carbs: lang === 'he' ? 'פחמימות (גרם)' : 'Carbs (g)',
     fiber: lang === 'he' ? 'סיבים תזונתיים (גרם)' : 'Fiber (g)',
     protein: lang === 'he' ? 'חלבון (גרם)' : 'Protein (g)',
@@ -14,8 +16,6 @@ export function NutrientsTable({ data, lang }: { data: Product['nutrients'], lan
     magnesium: lang === 'he' ? 'מגנזיום (מ״ג)' : 'Magnesium (mg)',
     sodium: lang === 'he' ? 'נתרן (מ״ג)' : 'Sodium (mg)',
     sugar: lang === 'he' ? 'סוכרים (גרם)' : 'Sugar (g)',
-    satFat: lang === 'he' ? 'שומן רווי (גרם)' : 'Sat. Fat (g)',
-    transFat: lang === 'he' ? ' שומן טראנס (גרם) - פחות מ' : 'Trans Fat (g) - less than',
     phosphorus: lang === 'he' ? 'זרחן (מ״ג)' : 'Phosphorus (mg)',
     cholesterol: lang === 'he' ? 'כולסטרול (מ״ג)' : 'Cholesterol (mg)',
     potasium: lang === 'he' ? 'אשלגן (מ״ג)' : 'Potasium (mg)'

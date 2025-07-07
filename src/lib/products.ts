@@ -39,7 +39,7 @@ export const PRODUCTS :Product[]= [
       he: 'מחמצת, קמח דורה, קמח טפיוקה, קמח דוחן, קמח כוסמת, קמח תפוחי אדמה, קליפות פסיליום, סילאן, מלח.',
       en: 'Sourdogh, sorghum flour, tapioca flour, millet flour, buckwheat flour, potato flour, psylium husks, date syrup, salt.'
     },
-    nutrients: {cal : 159.180000, fat : 1.080000, sodium : 377.000000, carbs : 34.600000, sugar : 1.420000, protein : 2.910000, fiber : 5.150000, iron : 0.890000, transFat : 0.140000, satFat : 0.100000, magnesium : 6.790000, phosphorus : 16.980000, calcium : 2.050000},
+    nutrients: {cal : 159.180000, carbs : 34.600000, sugar : 1.420000, protein : 2.910000, fat : 1.080000, transFat : 0.140000, satFat : 0.100000, sodium : 377.000000, fiber : 5.150000, iron : 0.890000, magnesium : 6.790000, phosphorus : 16.980000, calcium : 2.050000},
     category: { he: 'לחמים', en: 'Breads' },
     imageUrls: [
       '/products/bread1.webp',
@@ -90,7 +90,7 @@ export const PRODUCTS :Product[]= [
       he: 'מחמצת, חמאה, קמח טפיוקה, קליפות פסיליום, מלח.',
       en: 'Sourdogh, butter, tapioca flour, psylium husks, salt.'
     },
-        nutrients: {cal : 383.970000, fat : 13.760000, sodium : 603.490000, carbs : 56.010000, sugar : 0.740000, protein : 6.790000, fiber : 6.070000, iron : 2.330000, transFat : 0.690000, satFat : 7.020000, calcium : 34.670000, cholesterol : 31.150000},
+        nutrients: {cal : 383.970000, carbs : 56.010000, sugar : 0.740000, protein : 6.790000, fat : 13.760000, transFat : 0.690000, satFat : 7.020000, sodium : 603.490000, fiber : 6.070000, iron : 2.330000, calcium : 34.670000, cholesterol : 31.150000},
 
     category: { he: 'קרקרים', en: 'Crackers' },
     imageUrls: [
@@ -115,7 +115,7 @@ export const PRODUCTS :Product[]= [
       he: 'שוקולד 60%, סוכר קנים, ביצים, חמאה, קמח שקדים, קקאו.',
       en: 'Chocolate 60%, cane sugar, eggs, butter, almond meal, cocoa.'
     },
-        nutrients: {cal : 475.320000, fat : 32.950000, sodium : 23.710000, carbs : 37.850000, sugar : 34.130000, protein : 6.680000, fiber : 1.790000, transFat : 0.500000, satFat : 16.480000, cholesterol : 110.000000, potasium : 123.210000},
+        nutrients: {cal : 475.320000, carbs : 37.850000, sugar : 34.130000, protein : 6.680000, fat : 32.950000, transFat : 0.500000, satFat : 16.480000, sodium : 23.710000, fiber : 1.790000, cholesterol : 110.000000, potasium : 123.210000},
             category: { he: 'מתוקים', en: 'Sweets' },
     imageUrls: [
       '/products/brow1.webp'
@@ -138,7 +138,7 @@ export const PRODUCTS :Product[]= [
       he: 'מחמצת, קמח טף, קמח דורה, קמח תפוחי אדמה, שמן זית, קליפות פסיליום, סילאן, מלח.',
       en: 'Sourdogh, teff flour, sorghum flour, potato flour, olive oil, psylium husks, date syrup, salt.'
     },
-        nutrients: {cal : 198.320000, fat : 6.780000, sodium : 383.170000, carbs : 31.110000, sugar : 1.880000, protein : 3.390000, fiber : 4.340000, iron : 1.680000, transFat : 0.180000, satFat : 1.030000, magnesium : 28.850000, calcium : 31.350000},
+        nutrients: {cal : 198.320000, carbs : 31.110000, sugar : 1.880000, protein : 3.390000, fat : 6.780000, transFat : 0.180000, satFat : 1.030000, sodium : 383.170000, fiber : 4.340000, iron : 1.680000, magnesium : 28.850000, calcium : 31.350000},
 
     category: { he: "פוקצ'ה ופיצה", en: 'Focaccia & Pizza' },
     imageUrls: [
@@ -163,7 +163,7 @@ export const PRODUCTS :Product[]= [
       he: 'מחמצת, קמח כוסמת, קמח דורה, קמח תפוחי אדמה, גבינת צדר לבנה, פלפל חלפיניו כבוש, קליפות פסיליום, סילאן, מלח.',
       en: 'Sourdogh, buckwheat flour, sorghum flour, potato flour, white chedder cheese, pickled jalapino pepper, psylium husks, date syrup, salt.'
     },
-        nutrients: {cal : 166.850000, fat : 3.380000, sodium : 48.560000, carbs : 28.100000, sugar : 0.210000, protein : 5.320000, fiber : 4.590000, iron : 0.780000, transFat : 0.150000, satFat : 1.610000, magnesium : 0.000000, phosphorus : 0.000000, calcium : 1.810000, cholesterol : 7.290000, potasium : 6.810000},
+        nutrients: {cal : 166.850000, carbs : 28.100000, sugar : 0.210000, protein : 5.320000, fat : 3.380000, transFat : 0.150000, satFat : 1.610000, sodium : 48.560000, fiber : 4.590000, iron : 0.780000, magnesium : 0.000000, phosphorus : 0.000000, calcium : 1.810000, cholesterol : 7.290000, potasium : 6.810000},
 
     category: { he: 'לחמים', en: 'Breads' },
     imageUrls: [
