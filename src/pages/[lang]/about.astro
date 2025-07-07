@@ -12,21 +12,27 @@ export function getStaticPaths() {
 
 const content = {
   he: {
-    title: 'הסיפור שלנו',
-    subtitle: "איך הגעתי לפה?",
+    title: 'הסיפור שלי',
+    subtitle: "מה אני עושה פה?",
     paragraphs: [
-      "גיליתי שאני צליאקית רק בגיל 28. לפני זה אכלתי מלא גלוטן. הכל הכל בפיתה.",
-      "כשניסיתי להיגמל מגלוטן היה לי קשה למצוא לחם שאהבתי לאכול...",
-      "אז ככה קרה שאני פה היום, מאוד מתרגשת מהזכות להכין לכם לחם באמת שווה ומזין! תודה שאתם נהנים! ואיזה כיף לי להיות כאן איתכם 🙏"
+      "היי, אני נעמה!",
+" אני אופה לחמי מחמצת ללא גלוטן - טבעיים, מזינים, משביעים והכי חשוב - טעימים.",
+"כל הלחמים נאפים מדי יום מחומרי גלם טבעיים בלבד, בסביבה נקייה מגלוטן. אין כאן פשרות - לא על הטעם, לא על הבריאות, ולא על המרקם.",
+"אני צליאקית שאובחנה מאוחר בחיים, וכשניסיתי להיגמל מגלוטן - לא הצלחתי למצוא תחליפים שטעימים לי באמת, ולא רציתי להחליף רעל אחד ברעל אחר. רציתי משהו שעושה טוב לגוף וטוב לנשמה.",
+"אז יצאתי למחקר. חיפשתי, ניסיתי, שאלתי, התססתי - עד שיצרתי לחם שאני גאה בו: לחם אמיתי, ללא גלוטן, שלא מנסה להיות משהו שהוא לא, והעיקר - שאני אוהבת לאכול. ועכשיו גם אתם!",
+"ברוכים הבאים ללחם נעמה 💛"
     ]
   },
   en: {
-    title: 'Our Story',
-    subtitle: "How did I get here?",
+    title: 'My Story',
+    subtitle: "What do I do here?",
     paragraphs: [
-      "I only discovered I had celiac disease at the age of 28...",
-      "When I tried to quit gluten, it was hard to find a bread I liked...",
-      "So that's how I'm here today, very excited for the privilege of making you truly worthy and nutritious bread! 🙏"
+"Hi, I'm Naama!",
+"I bake gluten-free sourdough breads - natural, nutritious, satisfying and most importantly - delicious.",
+"All breads are baked daily from only natural ingredients, in a gluten-free environment. There are no compromises here - not on taste, not on health, nor on texture.",
+"I am a celiac who was diagnosed late in life, and when I tried to quit gluten - I couldn't find substitutes that actually tasted good to me, and I didn't want to replace one poison with another. I wanted something that was good for the body and good for the soul.",
+"So I set out to research. I tried, I asked, I experimented, I fermented - Until I created my bread that I was proud of: real bread, gluten-free, that doesn't try to be something it's not, and most importantly - that I love to eat. And now you too!",
+"Welcome to Bread by Naama!💛 "
     ]
   }
 };
@@ -40,13 +46,13 @@ const { title, subtitle, paragraphs } = content[lang];
       <div class="grid md:grid-cols-2 gap-12 items-center">
         <div class="prose prose-lg max-w-none text-[var(--brand-text-dark) text-start">
           <h2 class="text-sm font-semibold uppercase tracking-wide text-[var(--brand-text-title)]">{title}</h2>
-          <h1 class="mt-2 font-serif text-4xl font-bold tracking-tight text-[var(--brand-text-title) sm:text-5xl">{subtitle}</h1>
+          <h1 class="mt-2 text-4xl font-bold tracking-tight text-[var(--brand-text-title) sm:text-5xl">{subtitle}</h1>
           {paragraphs.map(p => <p class="leading-relaxed text-brand-light">{p}</p>)}
         </div>
         <div class="aspect-[4/3] rounded-lg overflow-hidden shadow-xl">
           <img 
-            src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?q=80&w=2000" 
-            alt="Baker kneading dough"
+            src="/me.webp" 
+            alt="היוש"
             class="w-full h-full object-cover"
           />
         </div>

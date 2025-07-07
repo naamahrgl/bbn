@@ -16,15 +16,17 @@ declare const fbq: (...args: any[]) => void;
 const translations = {
   he: {
     nav_Products: 'חזרה למוצרים',
-    ourDailyBakes: 'מאפי היום שלנו',
-    prod_des: ' כל המוצרים נאפים כל בוקר ומגיעים אליכם טריים',
+    ourDailyBakes: 'מה יש בתנור?',
+    glu: 'כל המוצרים ללא גלוטן!',
+    prod_des: 'נאפים כל בוקר במטבח נקי מגלוטן',
     addToCart: 'הוסף לעגלה',
     noProducts: 'לא נמצאו מוצרים בקטגוריה זו.'
   },
   en: {
     nav_Products: 'Back to Products',
-    ourDailyBakes: 'Our Daily Bakes',
-        prod_des: 'All product are baked each morning and delivered fresh',
+    ourDailyBakes: 'What׳s in the oven?',
+        glu: 'All products are gluten-free!',
+        prod_des: 'Baked daily, made in a strictly gluten-free kitchen',
     addToCart: 'Add to Cart',
     noProducts: 'No products found in this category.'
   }
@@ -273,6 +275,8 @@ fbq('track', 'AddToCart', {
     <div className="px-4 py-8 sm:py-12">
       <div className="text-center mb-10">
         <h1 className=" text-3xl sm:text-4xl font-bold tracking-tight " style= {{ color: 'var(--brand-text-title)' }}>{t('ourDailyBakes')}</h1>
+                <h3 className=" text-s sm:text-s tracking-tight " style= {{ color: 'var(--brand-text-title)' }}>{t('glu')}</h3>
+
         <h3 className=" text-s sm:text-s tracking-tight " style= {{ color: 'var(--brand-text-title)' }}>{t('prod_des')}</h3>
       </div>
       <div className="flex justify-center mb-8 gap-2 flex-wrap">

@@ -68,9 +68,7 @@ export const PRODUCTS :Product[]= [
     nutrients: {},
     category: { he: 'לחמים', en: 'Breads' },
     imageUrls: [
-      '/photo.jpg',
-      '/photo.jpg',
-      '/photo.jpg'
+      '/products/sanw1.webp'
     ],   
     price: 35.0,
     isFeatured: true,
@@ -142,7 +140,7 @@ export const PRODUCTS :Product[]= [
 
     category: { he: "פוקצ'ה ופיצה", en: 'Focaccia & Pizza' },
     imageUrls: [
-      '/products/fo1.webp',
+      '/products/foca1.webp',
       '/products/fo2.mp4'
         ],   
         price: 25.0,
@@ -192,9 +190,8 @@ export const PRODUCTS :Product[]= [
 
     category: { he: "פוקצ'ה ופיצה", en: 'Focaccia & Pizza' },
     imageUrls: [
-      '/photo.jpg',
-      '/photo.jpg',
-      '/photo.jpg'
+      '/products/piz1.webp',
+      '/products/piz2.webp'
     ],   
         price: 25.0,
     isFeatured: true,

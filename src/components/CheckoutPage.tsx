@@ -15,9 +15,12 @@ export type CheckoutPageProps = {
 const translations = {
   he: {
     empty_cart: 'העגלה ריקה.',
+    checkout_message: 'אנא בחר את תאריך המשלוח או האיסוף המועדף עליך למטה, ולאחר מכן המשך לתשלום.'
   },
   en: {
     empty_cart: 'Your cart is empty.',
+        checkout_message: 'Please select your preferred delivery or pickup date below, then proceed to payment.'
+
   }
 };
 
@@ -51,7 +54,9 @@ const [dayColors, setDayColors] = useState<DayColorsMap>({});
 
   return (
 <div className="checkout-container space-y-6 max-w-3xl mx-auto px-4">
-        <span>{t('empty_cart')}</span>
+  <p></p>
+        <span>{t('checkout_message')}</span>
+        <p></p>
 
   {/* Order Summary */}
   <OrderSummary lang={lang} deliveryMethod={deliveryMethod} />
