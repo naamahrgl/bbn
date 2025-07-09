@@ -38,8 +38,15 @@ export default function CheckoutPage({ lang }: CheckoutPageProps) {
   const [deliveryMethod, setDeliveryMethod] = useState<
     'pickup' | 'delivery_near' | 'delivery_far' | undefined
   >();
-const [dayColors, setDayColors] = useState<DayColorsMap>({});
+  const [dayColors, setDayColors] = useState<DayColorsMap>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // ✅ NEW state for coupon and totals
+  const [coupon, setCoupon] = useState<{ code: string; amount: number } | null>(null);
+  const [totals, setTotals] = useState<{ finalTotal: number; deliveryFee: number }>({
+    finalTotal: 0,
+    deliveryFee: 0
+  });
 
   const t = (key: keyof typeof translations['he']) => translations[lang][key];
   const cartItems = getCart();
@@ -53,43 +60,48 @@ const [dayColors, setDayColors] = useState<DayColorsMap>({});
   }
 
   return (
-<div className="checkout-container space-y-6 max-w-3xl mx-auto px-4">
-  <p></p>
-        <span>{t('checkout_message')}</span>
-        <p></p>
+    <div className="checkout-container space-y-6 max-w-3xl mx-auto px-4">
+      <span>{t('checkout_message')}</span>
 
-  {/* Order Summary */}
-  <OrderSummary lang={lang} deliveryMethod={deliveryMethod} />
-
-  {/* Date + Method Selection Centered + Wrapped */}
-  <div className="space-y-4">
-<div className="shadow rounded-md p-4 bg-white flex justify-center items-center text-center ">
-      <DeliveryMethodSelector
+      {/* Order Summary */}
+      <OrderSummary
         lang={lang}
-        selectedMethod={deliveryMethod}
-        onSelect={setDeliveryMethod}
+        deliveryMethod={deliveryMethod}
+        onCouponChange={setCoupon}
+        onTotalsChange={setTotals}
       />
-    </div>
 
-<div className="shadow rounded-md p-4 bg-white flex justify-center items-center text-center ">
-      <DeliveryDateSelector
+      {/* Date + Method Selection */}
+      <div className="space-y-4">
+        <div className="shadow rounded-md p-4 bg-white flex justify-center items-center text-center">
+          <DeliveryMethodSelector
+            lang={lang}
+            selectedMethod={deliveryMethod}
+            onSelect={setDeliveryMethod}
+          />
+        </div>
+
+        <div className="shadow rounded-md p-4 bg-white flex justify-center items-center text-center">
+          <DeliveryDateSelector
+            lang={lang}
+            selectedDate={selectedDate}
+            setSelectedDate={setSelectedDate}
+            dayColors={dayColors}
+            setDayColors={setDayColors}
+          />
+        </div>
+      </div>
+
+      {/* Checkout Form */}
+      <CheckoutForm
         lang={lang}
         selectedDate={selectedDate}
-        setSelectedDate={setSelectedDate}
+        deliveryMethod={deliveryMethod}
         dayColors={dayColors}
-        setDayColors={setDayColors}
+        coupon={coupon}
+        deliveryFee={totals.deliveryFee}
+        finalTotal={totals.finalTotal}
       />
     </div>
-  </div>
-
-  {/* Checkout Form */}
-  <CheckoutForm
-    lang={lang}
-    selectedDate={selectedDate}
-    deliveryMethod={deliveryMethod}
-    dayColors={dayColors}
-  />
-</div>
-
   );
 }

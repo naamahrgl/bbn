@@ -4,7 +4,7 @@ import type { OrderData } from '../../lib/orders';
 
 export const prerender = false;
 
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz8KegmHjmbNPj5BxcVhf5aq4K9-3-OzklDJMdaRUbfumEG0F5db6BRBWrqbMvdSBT1/exec';
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzKiSNgDjH6O0MYhMW8EyuMELxaKy3MOwxjdDLCn9BIuYhKgoplV6-n6Y61f_qTOwj9/exec';
 
 export const POST: APIRoute = async ({ request }) => {
   try {

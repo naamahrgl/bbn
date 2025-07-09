@@ -13,6 +13,7 @@ import OrderSummary from './OrderSummary';
 import { createOrder } from '../lib/orders';
 import { isOrderLegal } from '../lib/isOrderLegal';
 
+
 type DayColor = {
   status: 'green' | 'orange' | 'red' | 'gray';
   soldOutProducts?: string[];
@@ -24,7 +25,11 @@ type CheckoutFormProps = {
   selectedDate: Date | undefined;
   deliveryMethod: 'pickup' | 'delivery_near' | 'delivery_far' | undefined;
   dayColors: Record<string, DayColor>;
+  coupon: { code: string; amount: number } | null;
+  deliveryFee: number;
+  finalTotal: number;
 };
+
 
 
 
@@ -55,11 +60,14 @@ const translations = {
   }
 };
 
-export default function CheckoutForm({ lang, selectedDate, deliveryMethod, dayColors }: CheckoutFormProps) {
+export default function CheckoutForm({ lang, selectedDate, deliveryMethod, dayColors, coupon, deliveryFee, finalTotal }: CheckoutFormProps) {
   const t = (key: keyof typeof translations['he']) => translations[lang][key];
   const [formData, setFormData] = useState({ name: '', email: '', phone: '', notes: '', address: '' });
   const [error, setError] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+
+
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { id, value } = e.target;
@@ -109,6 +117,12 @@ if (!selectedDate) {
      deliveryMethod: deliveryMethod,
     items,
     notes: formData.notes,
+      couponCode: coupon?.code || undefined,
+  couponAmount: coupon?.amount || 0,
+    amountToPay: finalTotal,
+      deliveryFee,
+
+
   };
 
   const orderError = isOrderLegal({

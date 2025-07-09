@@ -1,13 +1,14 @@
-// src/components/OrderSummary.tsx
-
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { getCart, cartTotal } from '../lib/cart';
 import { getProductById } from '../lib/products';
 
 export type OrderSummaryProps = {
   lang: 'he' | 'en';
   deliveryMethod?: 'pickup' | 'delivery_near' | 'delivery_far';
+  onCouponChange?: (coupon: { code: string; amount: number }) => void;
+  onTotalsChange?: (totals: { finalTotal: number; deliveryFee: number }) => void;
 };
+
 
 const translations = {
   he: {
@@ -16,6 +17,9 @@ const translations = {
     total: 'סה״כ',
     delivery_note: 'ייתכן שתתווסף עלות משלוח',
     delivery: 'משלוח',
+    apply_coupon: 'החל קופון',
+    coupon_placeholder: 'קוד קופון',
+    invalid_coupon: 'קופון לא תקף',
   },
   en: {
     your_order: 'Your Order',
@@ -23,19 +27,60 @@ const translations = {
     total: 'Total',
     delivery_note: 'Delivery fee may apply',
     delivery: 'Delivery',
+    apply_coupon: 'Apply Coupon',
+    coupon_placeholder: 'Coupon Code',
+    invalid_coupon: 'Invalid coupon',
   }
 };
 
-export default function OrderSummary({ lang, deliveryMethod }: OrderSummaryProps) {
+export default function OrderSummary({ lang, deliveryMethod, onCouponChange, onTotalsChange }: OrderSummaryProps) {
   const t = (key: keyof typeof translations['he']) => translations[lang][key];
   const cart = getCart();
   const subtotal = cartTotal();
+  const [couponCode, setCouponCode] = useState('');
+  const [discount, setDiscount] = useState(0);
+  const [couponError, setCouponError] = useState('');
 
   let deliveryFee = 0;
   if (deliveryMethod === 'delivery_near') deliveryFee = 10;
   if (deliveryMethod === 'delivery_far') deliveryFee = 20;
 
-  const finalTotal = subtotal + deliveryFee;
+  const applyCoupon = async () => {
+    setCouponError('');
+    if (!couponCode.trim()) return;
+    try {
+      const res = await fetch(`/api/coupon?code=${encodeURIComponent(couponCode.trim())}`);
+      const data = await res.json();
+      if (!data.valid) {
+        setCouponError(t('invalid_coupon'));
+        setDiscount(0);
+        return;
+      }
+
+      if (data.percent > 0) {
+        setDiscount(subtotal + deliveryFee * (data.percent / 100));
+      } else {
+        setDiscount(Math.min(subtotal + deliveryFee, data.amount));
+      }
+    } catch (e) {
+      setCouponError(t('invalid_coupon'));
+      setDiscount(0);
+    }
+  };
+
+  const finalTotal = subtotal + deliveryFee - discount;
+  useEffect(() => {
+  if (onCouponChange && couponCode && discount > 0) {
+    onCouponChange({ code: couponCode, amount: discount });
+  }
+}, [couponCode, discount]);
+
+useEffect(() => {
+  if (onTotalsChange) {
+    onTotalsChange({ finalTotal, deliveryFee });
+  }
+}, [finalTotal, deliveryFee]);
+
 
   return (
     <div className="bg-white p-4 rounded-lg shadow-sm border text-start">
@@ -71,6 +116,13 @@ export default function OrderSummary({ lang, deliveryMethod }: OrderSummaryProps
         </div>
       )}
 
+      {discount > 0 && (
+        <div className="mt-2 flex justify-between text-sm text-green-700">
+          <span>Coupon</span>
+          <span>-₪{discount.toFixed(2)}</span>
+        </div>
+      )}
+
       <div className="border-t mt-4 pt-4 flex justify-between text-sm font-bold">
         <span>{t('total')}</span>
         <span>₪{finalTotal.toFixed(2)}</span>
@@ -79,6 +131,23 @@ export default function OrderSummary({ lang, deliveryMethod }: OrderSummaryProps
       {!deliveryMethod && (
         <p className="text-xs text-stone-500 mt-2">{t('delivery_note')}</p>
       )}
+
+      <div className="mt-6">
+        <input
+          type="text"
+          className="w-full border rounded px-3 py-2 text-sm mb-2"
+          placeholder={t('coupon_placeholder')}
+          value={couponCode}
+          onChange={e => setCouponCode(e.target.value)}
+        />
+        <button
+          onClick={applyCoupon}
+          className="w-full bg-[var(--small-buttons)] hover:bg-[var(--small-buttons-hover)] text-white text-sm py-2 rounded"
+        >
+          {t('apply_coupon')}
+        </button>
+        {couponError && <p className="text-xs text-red-600 mt-1">{couponError}</p>}
+      </div>
     </div>
   );
 }

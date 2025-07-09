@@ -20,9 +20,13 @@ export type OrderData = {
   notes?: string;
   totalAmount: number;
   items: OrderItem[];
+  couponCode?: string;
+  couponAmount?: number;
   deliveryDate: Date; // ✅ תאריך בצורת yyyy-MM-dd
   deliveryMethod: 'pickup' | 'delivery_near' | 'delivery_far'; // ✅ כדי להציג גם בשיט
   paymentMethod?: 'cash' | 'credit'; // ✅ לשלב מאוחר יותר
+  amountToPay: number;
+deliveryFee?: number;
 };
 
 

@@ -49,24 +49,7 @@ function Hero({ lang }: HomePageProps) {
             {isRTL ? <ArrowLeft className="h-5 w-5" /> : <ArrowRight className="h-5 w-5" />}
           </a>
         </Button>
-        <button
-  onClick={() => {
-    localStorage.removeItem('cart');
-    alert('העגלה נוקתה!');
-  }}
-  style={{
-    position: 'fixed',
-    bottom: '1rem',
-    right: '1rem',
-    zIndex: 9999,
-    backgroundColor: 'red',
-    color: 'white',
-    padding: '0.5rem',
-    borderRadius: '0.5rem',
-  }}
->
-  נקה עגלה
-</button>
+
 
       </div>
     </div>

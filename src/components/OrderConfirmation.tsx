@@ -89,17 +89,33 @@ export default function OrderConfirmation({ lang }: Props) {
                 <span>₪{(item.price * item.quantity).toFixed(2)}</span>
               </div>
             ))}
-          </div>
+                                    {(order.deliveryFee ?? 0 )> 0 && (
+              <div className="flex justify-between">
+                <span>{order.deliveryMethod}</span>
+                <span>₪{(order.deliveryFee ?? 0).toFixed(2)}</span>
+              </div>
+            )}
+            {order.couponCode && (order.couponAmount ?? 0 )> 0 && (
+              <div className="flex justify-between text-sm text-green-700">
+                <span>{order.couponCode}</span>
+                <span>-₪{(order.couponAmount ?? 0).toFixed(2)}</span>
+              </div>
+            )}
+                        </div>
+
+
+
           {formattedDate && method && (
   <div className="mt-4 p-4 bg-brand-light rounded-md text-sm text-brand-dark text-start">
     <p><strong>{lang === 'he' ? 'תאריך משלוח:' : 'Delivery Date:'}</strong> {formattedDate}</p>
     <p><strong>{lang === 'he' ? 'אופן מסירה:' : 'Delivery Method:'}</strong> {method === 'pickup' ? (lang === 'he' ? 'איסוף עצמי' : 'Pickup') : (lang === 'he' ? 'משלוח' : 'Delivery')}</p>
   </div>
 )}
-          <div className="font-bold mt-4 flex justify-between border-t pt-4 text-lg">
-            <span>{t('total')}</span>
-            <span>₪{order.totalAmount.toFixed(2)}</span>
-          </div>
+<div className="font-bold mt-4 flex justify-between border-t pt-4 text-lg">
+  <span>{t('total')}</span>
+  <span>₪{(order.amountToPay).toFixed(2)}</span>
+</div>
+
         </div>
 
         <div className="mt-6">
