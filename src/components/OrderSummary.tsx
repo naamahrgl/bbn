@@ -45,28 +45,42 @@ export default function OrderSummary({ lang, deliveryMethod, onCouponChange, onT
   if (deliveryMethod === 'delivery_near') deliveryFee = 10;
   if (deliveryMethod === 'delivery_far') deliveryFee = 20;
 
-  const applyCoupon = async () => {
-    setCouponError('');
-    if (!couponCode.trim()) return;
-    try {
-      const res = await fetch(`/api/coupon?code=${encodeURIComponent(couponCode.trim())}`);
-      const data = await res.json();
-      if (!data.valid) {
-        setCouponError(t('invalid_coupon'));
-        setDiscount(0);
-        return;
-      }
+const applyCoupon = async (silent: boolean = false) => {
+  if (!couponCode.trim()) return;
+  try {
+    const res = await fetch(`/api/coupon?code=${encodeURIComponent(couponCode.trim())}`);
+    const data = await res.json();
 
-      if (data.percent > 0) {
-        setDiscount(subtotal + deliveryFee * (data.percent / 100));
-      } else {
-        setDiscount(Math.min(subtotal + deliveryFee, data.amount));
+    if (!data.valid) {
+      if (!silent) {
+        if (data.reason === 'used up') {
+          setCouponError(lang === 'he' ? 'הקופון כבר נוצל במלואו' : 'This coupon has been fully used');
+        } else if (data.reason === 'expired') {
+          setCouponError(lang === 'he' ? 'הקופון פג תוקף' : 'Coupon expired');
+        } else {
+          setCouponError(t('invalid_coupon'));
+        }
       }
-    } catch (e) {
-      setCouponError(t('invalid_coupon'));
       setDiscount(0);
+      return;
     }
-  };
+
+    setCouponError('');
+    const totalForDiscount = subtotal + deliveryFee;
+if (data.percent > 0) {
+  setDiscount((subtotal + deliveryFee) * (data.percent / 100));
+} else if (data.type === 'credit') {
+  setDiscount(Math.min(subtotal + deliveryFee, data.balance));
+} else {
+  setDiscount(Math.min(subtotal + deliveryFee, data.amount));
+}
+
+  } catch (e) {
+    if (!silent) setCouponError(t('invalid_coupon'));
+    setDiscount(0);
+  }
+};
+
 
   const finalTotal = subtotal + deliveryFee - discount;
   useEffect(() => {
@@ -80,6 +94,12 @@ useEffect(() => {
     onTotalsChange({ finalTotal, deliveryFee });
   }
 }, [finalTotal, deliveryFee]);
+useEffect(() => {
+  if (couponCode) {
+    applyCoupon(true); // silent=true
+  }
+}, [deliveryMethod]);
+
 
 
   return (
@@ -140,12 +160,13 @@ useEffect(() => {
           value={couponCode}
           onChange={e => setCouponCode(e.target.value)}
         />
-        <button
-          onClick={applyCoupon}
-          className="w-full bg-[var(--small-buttons)] hover:bg-[var(--small-buttons-hover)] text-white text-sm py-2 rounded"
-        >
-          {t('apply_coupon')}
-        </button>
+<button
+  onClick={() => applyCoupon(false)}
+  className="w-full bg-[var(--small-buttons)] hover:bg-[var(--small-buttons-hover)] text-white text-sm py-2 rounded"
+>
+  {t('apply_coupon')}
+</button>
+
         {couponError && <p className="text-xs text-red-600 mt-1">{couponError}</p>}
       </div>
     </div>
