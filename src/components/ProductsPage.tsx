@@ -126,7 +126,7 @@ useEffect(() => {
 </a>
 
         <div className="grid md:grid-cols-2 gap-8">
-          <div className="rounded-lg overflow-hidden  border-brand-primary">
+          <div className="rounded-lg overflow-hidden">
 
 
 
@@ -193,7 +193,7 @@ useEffect(() => {
 
 <div className="mt-8 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
   {/* Quantity Selector */}
-  <div className="inline-flex items-center rounded-md border border-stone-300 overflow-hidden self-start">
+  <div className="inline-flex items-center rounded-md border border-[#d0b8a8] overflow-hidden self-start text-[var(--brand-text-dark)] bg-[var(--brand-lighter)] ">
     <Button
       type="button"
       className="px-3 py-2 rounded-none"
@@ -291,9 +291,9 @@ fbq('track', 'AddToCart', {
         ))}
       </div>
 
-      <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 ">
 {selectedProducts.map(product => (
-  <div key={product.id} className=" rounded-lg overflow-hidden flex flex-col justify-between bg-[var(--brand-lighter)] shadow">
+  <div key={product.id} className=" rounded-lg overflow-hidden flex flex-col justify-between bg-[var(--brand-lighter)] shadow border border-[#d0b8a8]">
     <a href={`/${lang}/products?id=${product.id}`}>
       <img src={product.imageUrls[0]} alt={product.name[lang]} className="h-48 w-full object-cover" />
       <div className="p-4 ">
@@ -301,7 +301,7 @@ fbq('track', 'AddToCart', {
         <p className="text-sm text-brand-light">₪{product.price.toFixed(2)}</p>
       </div>
     </a>
-    <div className="px-4 pb-4 mt-auto">
+    <div className="px-4 pb-4 mt-auto ">
       <Button
         type="button"
         className="w-full bg-[var(--big-buttons)] hover:bg-[var(--big-buttons-hover)] text-white font-medium py-2 rounded"

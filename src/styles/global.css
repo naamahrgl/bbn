@@ -30,3 +30,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 }
+/* styles.css */
+.card-basic {
+  @apply shadow rounded-md p-4 bg-[var(--brand-lighter)] flex justify-center items-center text-center text-[var(--brand-text-title)] border border-[var(--small-buttons)];
+}

@@ -65,7 +65,7 @@ export const PRODUCTS :Product[]= [
       he: 'מחמצת, קמח דורה, קמח טפיוקה, קמח דוחן, קמח תפוחי אדמה, קליפות פסיליום, מייפל, מלח.',
       en: 'Sourdogh, sorghum flour, tapioca flour, millet flour, potato flour, psylium husks, maple syrup, salt.'
     },
-    nutrients: {},
+    nutrients: {cal : 173.620000, carbs : 38.940000, sugar : 2.950000, protein : 2.560000, fat : 1.020000, transFat : 0.130000, satFat : 0.090000, sodium : 343.590000, fiber : 4.610000, iron : 0.820000, magnesium : 10.130000, phosphorus : 25.330000, calcium : 4.240000},
     category: { he: 'לחמים', en: 'Breads' },
     imageUrls: [
       '/products/sanw1.webp'
@@ -161,7 +161,7 @@ export const PRODUCTS :Product[]= [
       he: 'מחמצת, קמח כוסמת, קמח דורה, קמח תפוחי אדמה, גבינת צדר לבנה, פלפל חלפיניו כבוש, קליפות פסיליום, סילאן, מלח.',
       en: 'Sourdogh, buckwheat flour, sorghum flour, potato flour, white chedder cheese, pickled jalapino pepper, psylium husks, date syrup, salt.'
     },
-        nutrients: {cal : 166.850000, carbs : 28.100000, sugar : 0.210000, protein : 5.320000, fat : 3.380000, transFat : 0.150000, satFat : 1.610000, sodium : 48.560000, fiber : 4.590000, iron : 0.780000, magnesium : 0.000000, phosphorus : 0.000000, calcium : 1.810000, cholesterol : 7.290000, potasium : 6.810000},
+        nutrients: {cal : 166.850000, carbs : 28.100000, sugar : 0.210000, protein : 5.320000, fat : 3.380000, transFat : 0.150000, satFat : 1.610000, sodium : 48.560000, fiber : 4.590000, iron : 0.780000, calcium : 1.810000, cholesterol : 7.290000, potasium : 6.810000},
 
     category: { he: 'לחמים', en: 'Breads' },
     imageUrls: [
@@ -186,7 +186,7 @@ export const PRODUCTS :Product[]= [
       he: 'מחמצת, קמח אורז מלא, קמח דורה, קמח כוסמת, קמח טפיוקה, קמח תפוחי אדמה, שמן זית, קליפות פסיליום, סילאן, מלח.',
       en: 'Sourdogh, sorghum flour, whole rice flour, buckwheat flour, tapioca flour,  potato flour, olive oil, psylium husks, date syrup, salt.'
     },
-        nutrients: {},
+        nutrients: {cal : 193.320000, carbs : 38.790000, sugar : 1.960000, protein : 3.150000, fat : 3.210000, transFat : 0.180000, satFat : 0.540000, sodium : 385.590000, fiber : 4.760000, iron : 0.500000,  calcium : 1.900000},
 
     category: { he: "פוקצ'ה ופיצה", en: 'Focaccia & Pizza' },
     imageUrls: [

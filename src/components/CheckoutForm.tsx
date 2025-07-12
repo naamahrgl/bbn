@@ -154,8 +154,8 @@ if (!selectedDate) {
   
 
   return (
-    <form onSubmit={handleSubmit} className="grid grid-cols-1 gap-4 max-w-xl mx-auto bg-white p-4 sm:p-6 rounded-md shadow-md">
-      <h2 className="text-lg sm:text-xl font-semibold">{t('contact_info')}</h2>
+    <form onSubmit={handleSubmit} className="grid grid-cols-1 gap-4 max-w-xl mx-auto bg-[var(--brand-lighter)] p-4 sm:p-6 rounded-md shadow-md text-[var(--brand-text-dark)] border border-[var(--small-buttons)]">
+      <h2 className="text-lg sm:text-xl font-semibold text-[var(--brand-text-dark)]">{t('contact_info')}</h2>
       {error && <Alert title="Error" description={error} />}
       <div>
         <Label htmlFor="name">{t('fullName')}</Label>

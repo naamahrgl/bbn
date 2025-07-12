@@ -34,12 +34,14 @@ const translations = {
     selected: (date: Date) => `תאריך נבחר: ${format(date, 'dd/MM/yyyy')}`,
     red: 'אחד מהפריטים אזל במלאי ליום זה',
     orange: 'לא כל הכמות זמינה - יש להתאים',
+    note: '',
   },
   en: {
     title: 'Choose a Date',
     selected: (date: Date) => `Selected date: ${format(date, 'dd/MM/yyyy')}`,
     red: 'One or more items are sold out on this date',
     orange: 'Not all items are available in full quantity',
+    note: 'Select a date for supply! - gray = sorry, were closed, red = some of the products are missing, orange = some of the products are partially available',
   },
 };
 
@@ -77,6 +79,7 @@ console.log('🎨 setDayColors', data);
 
   return (
     <div className="p-4">
+
       <h2 className="text-lg font-bold mb-2">{t.title}</h2>
 
 

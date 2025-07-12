@@ -59,11 +59,11 @@ export default function CartPage({ lang }: CartPageProps) {
 
   if (cartItems.length === 0) {
     return (
-      <div className="container mx-auto px-4 py-20 text-center items-center justify-center">
+      <div className="container mx-auto px-4 py-20 text-center items-center justify-center text-[var(--brand-text-dark)]">
         <ShoppingCart className="mx-auto h-16 w-16 text-stone-300" />
-        <h1 className="mt-4  text-3xl font-bold text-brand-dark">{t.emptyTitle}</h1>
+        <h1 className="mt-4  text-3xl font-bold text-[var(--brand-text-dark)]">{t.emptyTitle}</h1>
         <p className="mt-2 text-brand-light">{t.emptyDesc}</p>
-        <div className="flex justify-center mt-6">
+        <div className="flex justify-center mt-6 text-[var(--brand-text-dark)]">
 
 <a href={`/${lang}/products`}>
 <Button
@@ -88,24 +88,24 @@ export default function CartPage({ lang }: CartPageProps) {
       <div className="container mx-auto px-4 py-12">
         <h1 className=" text-3xl md:text-4xl font-bold text-brand-dark mb-8 text-center" style= {{ color: 'var(--brand-text-title)' }}>{t.title}</h1>
         <div className="grid lg:grid-cols-3 gap-8">
-          <div className="lg:col-span-2 bg-white p-4 md:p-6 rounded-lg shadow-sm border border-brand-primary">
+          <div className="lg:col-span-2 bg-[var(--brand-lighter)] p-4 md:p-6 rounded-lg shadow-sm border border-[#d0b8a8] text-[var(--brand-text-dark)]">
             {cartItems.map(item => {
               const product = getProductById(item.id);
               return (
-                <div key={item.id} className="flex items-center gap-4 py-4 border-b">
+                <div key={item.id} className="flex items-center gap-4 py-4 border-b border-stone-300">
                   <img src={product.imageUrls[0]} alt={product.name[lang]} className="w-20 h-20 md:w-24 md:h-24 rounded-md object-cover" />
                   <div className="flex-grow text-start">
-                    <h3 className="font-semibold text-brand-dark">{product.name[lang]}</h3>
-                    <p className="text-sm text-brand-light">₪{product.price.toFixed(2)}</p>
-                    <div className="flex items-center rounded-md border border-stone-300 w-fit mt-2">
+                    <h3 className="font-semibold text-[var(--brand-text-dark)]">{product.name[lang]}</h3>
+                    <p className="text-sm text-[var(--brand-text-dark)]">₪{product.price.toFixed(2)}</p>
+                    <div className="flex items-center rounded-md border border-stone-300 w-fit mt-2 text-[var(--brand-text-dark)]">
                       <button onClick={() => handleQuantityChange(item.id, item.quantity - 1)}><Minus className="h-4 w-4" /></button>
-                      <span className="w-10 text-center text-sm font-medium">{item.quantity}</span>
+                      <span className="w-10 text-center text-sm font-medium text-[var(--brand-text-dark)]">{item.quantity}</span>
                       <button onClick={() => handleQuantityChange(item.id, item.quantity + 1)}><Plus className="h-4 w-4" /></button>
                     </div>
                   </div>
                   <div className="text-end">
-                    <p className="font-semibold text-brand-dark">₪{(product.price * item.quantity).toFixed(2)}</p>
-                    <button className="text-brand-light hover:text-red-500 mt-2" onClick={() => handleRemove(item.id)}>
+                    <p className="font-semibold text-[var(--brand-text-dark)]">₪{(product.price * item.quantity).toFixed(2)}</p>
+                    <button className="text-[var(--brand-text-dark)] hover:text-red-500 mt-2" onClick={() => handleRemove(item.id)}>
                       <Trash2 className="h-4 w-4" />
                     </button>
                   </div>
@@ -114,17 +114,17 @@ export default function CartPage({ lang }: CartPageProps) {
             })}
           </div>
           <div className="lg:col-span-1">
-            <div className="bg-white p-4 md:p-6 rounded-lg shadow-sm border border-brand-primary sticky top-24 text-start">
-              <h2 className="text-xl font-semibold border-b pb-4">{t.summary}</h2>
-              <div className="flex justify-between mt-4 text-brand-light">
+            <div className="bg-[var(--brand-lighter)] p-4 md:p-6 rounded-lg shadow-sm border border-[#d0b8a8] sticky top-24 text-start text-[var(--brand-text-dark)]">
+              <h2 className="text-xl font-semibold border-b border-stone-300 pb-4 text-[var(--brand-text-dark)]">{t.summary}</h2>
+              <div className="flex justify-between mt-4 text-[var(--brand-text-dark)]t">
                 <p>{t.totalItems(cartCount())}</p>
                 <p>₪{cartTotal().toFixed(2)}</p>
               </div>
-              <div className="flex justify-between mt-2 text-brand-light">
+              <div className="flex justify-between mt-2 text-[var(--brand-text-dark)]">
                 <p>{t.vat}</p>
                 <p>-</p>
               </div>
-              <div className="flex justify-between mt-4 font-bold text-lg border-t pt-4">
+              <div className="flex justify-between mt-4 font-bold text-lg border-[var(--brand-text-dark)] pt-4 text-[var(--brand-text-dark)]">
                 <p>{t.toPay}</p>
                 <p>₪{cartTotal().toFixed(2)}</p>
               </div>

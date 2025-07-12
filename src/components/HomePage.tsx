@@ -30,7 +30,7 @@ function Hero({ lang }: HomePageProps) {
   const isRTL = lang === 'he';
 
   return (
-<div className="relative bg-brand-primary overflow-hidden min-h-[500px]">
+<div className="relative bg-brand-primary overflow-hidden min-h-[400px]">
   <div className="container mx-auto px-4 py-16 sm:py-20 md:py-28 relative z-10">
     <div className="max-w-2xl text-center md:text-start">
       <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-[var(--brand-text-title)]">
@@ -61,7 +61,7 @@ function Hero({ lang }: HomePageProps) {
       alt="Bread by Naama"
       className="h-full w-full object-cover opacity-20"
     />
-    <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-b from-transparent to-[var(--brand-background)]" />
+    <div className="absolute bottom-0 left-0 w-full h-100 bg-gradient-to-b from-transparent to-[var(--brand-background)]" />
   </div>
 </div>
 

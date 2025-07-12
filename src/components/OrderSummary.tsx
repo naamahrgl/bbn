@@ -92,18 +92,17 @@ if (data.percent > 0) {
 useEffect(() => {
   if (onTotalsChange) {
     onTotalsChange({ finalTotal, deliveryFee });
-  }
-}, [finalTotal, deliveryFee]);
-useEffect(() => {
-  if (couponCode) {
+      if (couponCode) {
     applyCoupon(true); // silent=true
   }
-}, [deliveryMethod]);
+  }
+}, [finalTotal, deliveryFee]);
+
 
 
 
   return (
-    <div className="bg-white p-4 rounded-lg shadow-sm border text-start">
+    <div className="bg-[var(--brand-lighter)] p-4 rounded-lg shadow-sm border border-[#d0b8a8] text-start">
       <h2 className="text-lg font-semibold mb-4 text-brand-dark">{t('your_order')}</h2>
       <div className="space-y-3">
         {cart.map(item => {
@@ -111,7 +110,7 @@ useEffect(() => {
           return (
             <div key={item.id} className="flex justify-between items-center gap-3">
               <div className="flex items-center gap-3">
-                <div className="w-14 h-14 overflow-hidden rounded border">
+                <div className="w-14 h-14 overflow-hidden rounded border border-[#d0b8a8]">
                   <img
                     src={product.imageUrls[0]}
                     alt={product.name[lang]}
@@ -143,7 +142,7 @@ useEffect(() => {
         </div>
       )}
 
-      <div className="border-t mt-4 pt-4 flex justify-between text-sm font-bold">
+      <div className="border-t border-stone-300 mt-4 pt-4 flex justify-between text-sm font-bold">
         <span>{t('total')}</span>
         <span>₪{finalTotal.toFixed(2)}</span>
       </div>
@@ -155,7 +154,7 @@ useEffect(() => {
       <div className="mt-6">
         <input
           type="text"
-          className="w-full border rounded px-3 py-2 text-sm mb-2"
+          className="w-full border border-stone-300 rounded px-3 py-2 text-sm mb-2"
           placeholder={t('coupon_placeholder')}
           value={couponCode}
           onChange={e => setCouponCode(e.target.value)}

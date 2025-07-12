@@ -55,7 +55,7 @@ fbq('track', 'AddToCart', {
   };
 
   return (
-    <div className="bg-[var(--brand-lighter)] rounded-lg shadow-sm border-color  overflow-hidden text-left rtl:text-right">
+    <div className="bg-[var(--brand-lighter)] rounded-lg shadow-sm border border-[#d0b8a8]  overflow-hidden text-left rtl:text-right">
       <a href={`/${lang}/products?id=${product.id}`}>
         <img
           src={product.imageUrls[0]}

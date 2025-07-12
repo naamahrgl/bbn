@@ -54,14 +54,16 @@ export default function CheckoutPage({ lang }: CheckoutPageProps) {
   if (cartItems.length === 0) {
     return (
       <div className="container mx-auto px-4 py-20 text-center">
-        <h1 className="text-2xl sm:text-3xl font-bold mb-6">{t('empty_cart')}</h1>
+        <h1 className="text-2xl sm:text-3xl font-bold mb-6 text-[var(--brand-text-dark)] border-text-[var(--brand-text-dark)]">{t('empty_cart')}</h1>
       </div>
     );
   }
 
   return (
     <div className="checkout-container space-y-6 max-w-3xl mx-auto px-4">
-      <span>{t('checkout_message')}</span>
+      <p></p>
+       <h1 className="text-l sm:text-l font-bold mb-6 text-[var(--brand-text-dark)]">{t('checkout_message')}</h1>
+      <p></p>
 
       {/* Order Summary */}
       <OrderSummary
@@ -73,16 +75,17 @@ export default function CheckoutPage({ lang }: CheckoutPageProps) {
 
       {/* Date + Method Selection */}
       <div className="space-y-4">
-        <div className="shadow rounded-md p-4 bg-white flex justify-center items-center text-center">
-          <DeliveryMethodSelector
+<div className="card-basic">
+            <DeliveryMethodSelector
             lang={lang}
             selectedMethod={deliveryMethod}
             onSelect={setDeliveryMethod}
           />
         </div>
 
-        <div className="shadow rounded-md p-4 bg-white flex justify-center items-center text-center">
-          <DeliveryDateSelector
+<div className="card-basic">
+  
+            <DeliveryDateSelector
             lang={lang}
             selectedDate={selectedDate}
             setSelectedDate={setSelectedDate}
