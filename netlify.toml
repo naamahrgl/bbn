@@ -1,0 +1,5 @@
+[[redirects]]
+  from = "https://breadbynaama.com/*"
+  to = "https://www.breadbynaama.com/:splat"
+  status = 301
+  force = true
