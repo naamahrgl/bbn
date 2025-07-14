@@ -105,6 +105,8 @@ export default function CheckoutPage({ lang }: CheckoutPageProps) {
         deliveryFee={totals.deliveryFee}
         finalTotal={totals.finalTotal}
       />
+            <p></p>
+
     </div>
   );
 }

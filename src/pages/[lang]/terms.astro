@@ -1,5 +1,4 @@
 ---
-// src/pages/[lang]/terms.astro
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
 export function getStaticPaths() {
@@ -11,55 +10,83 @@ export function getStaticPaths() {
 
 const { lang } = Astro.params;
 
-
-
 const translations = {
   he: {
-    title: 'תנאי שימוש ומדיניות',
-    intro: 'ברוכה הבאה לאתר "לחם נעמה". השימוש באתר כפוף להסכמה ולציות לתנאים הבאים:',
-    section1: '1. תנאי שימוש באתר',
-    section2: '2. מדיניות פרטיות',
+    title: 'תנאי שימוש ומדיניות פרטיות',
+    intro: 'ברוכה הבאה לאתר "לחם נעמה". השימוש באתר מחייב את הסכמתך המלאה לכל התנאים הבאים:',
+    section1: '1. תנאי שימוש',
+    section2: '2. מדיניות פרטיות ואבטחת מידע',
     section3: '3. מדיניות משלוחים וביטולים',
+
     terms: `
-• השימוש באתר מיועד לרכישת מוצרים בלבד.
-• אין להעתיק, לשכפל או להשתמש בתוכן האתר ללא אישור.
-• המחירים כוללים מע"מ. ההזמנה תקפה לאחר תשלום מלא ואישור זמינות.
-• ייתכן ביטול הזמנה עקב חוסר מלאי או נסיבות חריגות.
+• האתר מופעל על ידי "לחם נעמה" (עוסק פטור) ומיועד לרכישת מוצרי מאפה טריים בהזמנה מראש.
+• מחירי המוצרים כוללים מע"מ, במידה וחל.
+• ההזמנה תיקלט רק לאחר קבלת אישור מחברת הסליקה.
+• ייתכן ביטול הזמנה עקב חוסר זמינות או נסיבות חריגות. במקרה כזה, הסכום ששולם יוחזר במלואו.
+• תמונות המוצרים להמחשה בלבד. ייתכנו הבדלים בין התמונות לבין המוצר בפועל.
+• במקרים של טעות ברורה במחיר או בתיאור, תינתן אפשרות לרכוש במחיר הנכון או לבטל ללא חיוב.
+• על הלקוח למסור פרטים נכונים בעת ביצוע ההזמנה. הזנת פרטים כוזבים מהווה עבירה.
+• רכישה באתר מותרת לגילאי 18 ומעלה בלבד.
+• החברה רשאית לעדכן את תנאי השימוש מעת לעת.
     `,
+
     privacy: `
-• אנו שומרים את פרטייך לצורך ביצוע הזמנה בלבד.
-• המידע אינו מועבר לגורמים שלישיים למעט לצורך סליקה ומשלוח.
-• נעשה שימוש בקבצי cookies לשיפור חוויית המשתמש.
+• אנו שומרים מידע לצורך אספקת המוצרים בלבד - כגון שם, כתובת, טלפון, ודוא"ל, בהתאם לחוק הגנת הפרטיות, תשמ"א-1981.
+• המידע לא מועבר לגורמים שלישיים, למעט חברות סליקה ומשלוחים.
+• האתר משתמש בקבצי Cookies לשיפור חווית המשתמש ולאיסוף נתונים סטטיסטיים אנונימיים , בהתאם להוראות הדין.
+• פרטי כרטיס האשראי אינם נשמרים באתר - הם עוברים ישירות לחברת הסליקה באמצעות חיבור מאובטח.
+• על פי החוק, לקוחות רשאים לעיין, לעדכן או למחוק את המידע האישי שלהם ע״י פנייה לכתובת: breadbynaama@gmail.com.
+• ייתכן שימוש בנתוני גלישה לשם התאמת שירותים והצעות (באופן אנונימי בלבד).
+• האתר כולל קישורים חיצוניים. איננו אחראים למדיניות הפרטיות של אתרים אלו.
     `,
+
     shipping: `
-• איסוף עצמי - ללא תשלום, בתיאום מראש.
-• משלוחים - בתוספת תשלום לפי מיקום.
-• זמן אספקה - על פי זמינות המלאי וההזמנות. במידה וברצונך לשנות את מועד האספקה לאחר ההזמנה, יש להודיע לפחות 24 שעות מראש.
-• ביטול - עד 24 שעות לפני מועד האספקה או האיסוף.
+• איסוף עצמי - ללא עלות, בתיאום מראש.
+• משלוחים - בתוספת תשלום בהתאם לכתובת.
+• זמן אספקה - על פי זמינות המלאי ותיאום מראש.
+• ביטול עסקה - ניתן לבטל עד 24 שעות לפני מועד האספקה/איסוף, בהתאם לתקנות הגנת הצרכן (ביטול עסקה), תשע"א-2010.
+• במקרה של ביטול אחרי מועד זה, ייתכן חיוב על המשלוח שכבר בוצע.
+• מוצרי מאפה טריים נחשבים למוצרים פסידים - לא ניתן להחזירם לאחר מסירה.
     `
   },
+
   en: {
-    title: 'Terms & Policies',
-    intro: 'Welcome to "Lechem Naama". Use of the site is subject to the following terms:',
+    title: 'Terms of Use & Privacy Policy',
+    intro: 'Welcome to "Lechem Naama". Use of the website indicates your full agreement to the following terms:',
+
     section1: '1. Terms of Use',
-    section2: '2. Privacy Policy',
+    section2: '2. Privacy Policy & Data Security',
     section3: '3. Shipping & Cancellation Policy',
+
     terms: `
-• This site is intended solely for purchasing listed products.
-• Do not copy or use content without written permission.
-• Prices include VAT. Orders are confirmed only after full payment and availability check.
-• Orders may be canceled due to lack of inventory or special circumstances.
+• The website is operated by "Lechem Naama" (small home bakery) and is intended for ordering fresh baked goods.
+• Prices include VAT where applicable.
+• Orders are confirmed only after full payment and authorization from the payment processor.
+• Orders may be canceled in case of unavailability or special circumstances.  In such cases, full refunds will be issued.
+• Product images are for illustration purposes only; actual products may vary.
+• In case of an obvious error in price or description, the customer will be offered the correct price or a full cancellation.
+• Customers must provide accurate personal details. Submitting false details is a legal offense.
+• Purchases are allowed for individuals aged 18 and above only.
+• The terms may be updated from time to time.
     `,
+
     privacy: `
-• Personal details are stored for order processing only.
-• Data is not shared with third parties, except for payment and delivery.
-• Cookies are used to improve user experience.
+• We collect personal information solely for order fulfillment - name, address, phone, and email, according to the Privacy Protection Law, 1981.
+• We do not share personal data with third parties except for payment processing and delivery.
+• Cookies are used for improving user experience and collecting anonymous statistical data, in line with legal requirements.
+• Payment details are processed securely by the payment provider and are not stored on our website.
+• As permitted by law, you have the right to access, update or delete your personal data by contacting: breadbynaama@gmail.com.
+• Some browsing data may be used anonymously for service improvement and marketing.
+• External links may appear on the site. We are not responsible for third-party privacy practices.
     `,
+
     shipping: `
-• Self-pickup - free, by prior arrangement.
-• Delivery - extra cost based on location.
-• Delivery time - based on inventory and reservation. If you wish to change the delivery date after placing the order, please notify us at least 24 hours in advance.
-• Cancellations - up to 24 hours before delivery or pickup.
+• Self-pickup - free of charge, by prior arrangement.
+• Delivery - available at an extra cost, based on the delivery address.
+• Delivery time - based on inventory and coordination.
+• Order cancellation - up to 24 hours before the scheduled pickup or delivery,  in accordance with the Consumer Protection (Cancellation of Transaction) Regulations, 2010.
+• Cancellations after this time may incur delivery fees if already dispatched.
+• Fresh baked goods are considered perishable items and cannot be returned after delivery.
     `
   }
 };
@@ -69,7 +96,7 @@ const t = translations[lang as keyof typeof translations];
 ---
 
 <BaseLayout lang={lang}>
-  <section class="p-6 max-w-3xl mx-auto text-start">
+  <section class="p-6 max-w-3xl mx-auto text-start leading-relaxed">
     <h1 class="text-2xl font-bold mb-4">{t.title}</h1>
     <p class="mb-6 whitespace-pre-line">{t.intro}</p>
 

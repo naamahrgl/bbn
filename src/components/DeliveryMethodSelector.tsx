@@ -10,16 +10,15 @@ interface Props {
 const translations = {
   he: {
     title: 'שיטת משלוח',
-    pickup: 'איסוף עצמי',
+    pickup: 'איסוף עצמי מגן החשמל, ת״א',
     delivery_near: 'משלוח למרכז/דרום ת״א',
         delivery_far: ' משלוח בצפון ת״א/רמת גן/גבעתיים'
   },
   en: {
     title: 'Delivery Method',
-    pickup: 'Pickup',
+    pickup: 'Pickup from Gan HaHashmal, Tel Aviv',
     delivery_near: 'Delivery in Tel Aviv (center/south)',
             delivery_far: 'Delivery in Ramat Gan/Givataim/Tel Aviv (north)'
-
   },
 };
 
@@ -47,6 +46,8 @@ export default function DeliveryMethodSelector({
             onChange={() => onSelect('pickup')}
           />
           <span>{t.pickup}</span>
+                              <span className='text-stone-400'>{lang == 'he' ? "בתיאום מראש בלבד, בין השעות 10-20": 'by prior arrangement, between 10am-8pm'}</span>
+
         </label>
         <label className="flex items-center space-x-2">
           <input
@@ -57,6 +58,8 @@ export default function DeliveryMethodSelector({
             onChange={() => onSelect('delivery_near')}
           />
           <span>{t.delivery_near}</span>
+                              <span className='text-stone-400'>{lang == 'he' ? "35 ש״ח": '35 NIS'}</span>
+
         </label>
         <label className="flex items-center space-x-2">
           <input
@@ -67,6 +70,8 @@ export default function DeliveryMethodSelector({
             onChange={() => onSelect('delivery_far')}
           />
           <span>{t.delivery_far}</span>
+                    <span className='text-stone-400'>{lang == 'he' ? "45 ש״ח": '45 NIS'}</span>
+
         </label>
       </div>
     </div>

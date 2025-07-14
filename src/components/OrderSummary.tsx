@@ -42,8 +42,8 @@ export default function OrderSummary({ lang, deliveryMethod, onCouponChange, onT
   const [couponError, setCouponError] = useState('');
 
   let deliveryFee = 0;
-  if (deliveryMethod === 'delivery_near') deliveryFee = 10;
-  if (deliveryMethod === 'delivery_far') deliveryFee = 20;
+  if (deliveryMethod === 'delivery_near') deliveryFee = 35;
+  if (deliveryMethod === 'delivery_far') deliveryFee = 45;
 
 const applyCoupon = async (silent: boolean = false) => {
   if (!couponCode.trim()) return;

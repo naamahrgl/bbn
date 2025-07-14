@@ -25,7 +25,7 @@ const messages = {
     soldOut: (names: string) =>
       `המוצרים הבאים אזלו בתאריך שנבחר: ${names}. נא לשנות את ההזמנה או לבחור יום אחר.`,
     partial: (details: string) =>
-      `המלאי מוגבל עבור חלק מהמוצרים: ${details}. נא להתאים את ההזמנה.`
+      `המלאי מוגבל עבור חלק מהמוצרים. נותרו במלאי: ${details}.  נא להתאים את ההזמנה או לבחור יום אחר.`
   },
   en: {
     selectDate: 'Please select a delivery date.',
@@ -36,7 +36,7 @@ const messages = {
     soldOut: (names: string) =>
       `The following products are sold out: ${names}. Please choose a different date or adjust your order.`,
     partial: (details: string) =>
-      `Some items have limited availability: ${details}. Please adjust your order.`
+      `Some items have limited availability. Remaining products: ${details}. Please adjust your order or choose a different day.`
   }
 };
 
