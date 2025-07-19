@@ -10,7 +10,7 @@ export const POST: APIRoute = async ({ request }) => {
 
     const status = body.get('Status');
     const orderId = body.get('Order');
-    const origin = body.get('CustomField1'); // 👈 אל תשכחי לשלוח את זה ב־allpay-start
+    const origin = body.get('custom_field_1'); // 👈 אל תשכחי לשלוח את זה ב־allpay-start
 
     if (!orderId || !origin) {
       throw new Error('Missing orderId or origin');

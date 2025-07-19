@@ -74,7 +74,7 @@ export const POST: APIRoute = async ({ request }) => {
     client_phone: body.customerPhone,
     items,
     expire: Math.floor(Date.now() / 1000) + 3600,
-    custom_field_1: body.origin
+    custom_field_1: 'https://www.breadbynaama.com'
   };
 
   const sign = createAllpaySignature(payload, api_key);
