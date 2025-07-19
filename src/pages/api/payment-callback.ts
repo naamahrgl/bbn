@@ -21,7 +21,7 @@ export const POST: APIRoute = async ({ request }) => {
 
 
 
-await fetch(`${origin}/api/finalize-order`, {
+await fetch(`${origin}/api/complete-payment`, {
   method: 'POST',
   headers: { 'Content-Type': 'application/json' },
   body: JSON.stringify({ orderId }),

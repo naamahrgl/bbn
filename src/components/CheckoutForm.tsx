@@ -145,7 +145,12 @@ const handleSubmit = async (e: React.FormEvent) => {
       window.location.href = `/${lang}/orderconfirmation?id=${orderData.id}`;
 
     } else {
- 
+      //write checkout order in sheet
+      const response0 = await fetch('/api/create-order', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(orderData),
+      });
       // 💳 PAID ORDER - Create order ID & prepare for payment
       const response = await fetch('/api/allpay-start', {
         method: 'POST',

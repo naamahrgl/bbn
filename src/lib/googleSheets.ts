@@ -32,3 +32,21 @@ export async function getOrderById(id: string): Promise<OrderData> {
   return found;
 }
 
+export async function updateOrderInSheet(orderId: string, updates: Record<string, any>): Promise<void> {
+  const response = await fetch(APPS_SCRIPT_BASE, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      action: 'updateOrder',
+      orderId,
+      updates
+    })
+  });
+
+  const data = await response.json();
+
+  if (!data.success) {
+    throw new Error(data.error || 'Failed to update order in Google Sheets');
+  }
+}
+
