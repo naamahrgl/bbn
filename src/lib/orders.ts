@@ -21,12 +21,14 @@ export type OrderData = {
   totalAmount: number;
   items: OrderItem[];
   couponCode?: string;
-  couponAmount?: number;
+  couponAmount: number;
   deliveryDate: Date; // ✅ תאריך בצורת yyyy-MM-dd
   deliveryMethod: 'pickup' | 'delivery_near' | 'delivery_far'; // ✅ כדי להציג גם בשיט
   paymentMethod?: 'cash' | 'credit'; // ✅ לשלב מאוחר יותר
   amountToPay: number;
-deliveryFee?: number;
+deliveryFee: number;
+  receiptSerial?: number; // ✅ New field
+
 };
 
 
@@ -74,29 +76,4 @@ if (!response.ok) {
 
 
 
-export function getAllOrders(): OrderData[] {
-  if (typeof window === 'undefined') return [];
 
-  try {
-    const raw = localStorage.getItem('orders');
-    const orders = raw ? JSON.parse(raw) : [];
-
-    // ✨ המר תאריכים
-    return orders.map((order: any) => ({
-      ...order,
-      deliveryDate: new Date(order.deliveryDate),
-    }));
-  } catch {
-    return [];
-  }
-}
-
-
-export function getOrderById(id: string): Promise<OrderData> {
-  const orders = getAllOrders();
-  const found = orders.find(order => order.id === id);
-  if (!found) {
-    return Promise.reject(new Error('Order not found'));
-  }
-  return Promise.resolve(found);
-}

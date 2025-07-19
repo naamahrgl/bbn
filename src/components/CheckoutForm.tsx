@@ -9,8 +9,6 @@ import { Label } from './ui/label';
 import { Textarea } from './ui/textarea';
 import { Alert } from './ui/alert';
 import type { OrderData } from '../lib/orders';
-import OrderSummary from './OrderSummary';
-import { createOrder } from '../lib/orders';
 import { isOrderLegal } from '../lib/isOrderLegal';
 
 
@@ -74,7 +72,7 @@ export default function CheckoutForm({ lang, selectedDate, deliveryMethod, dayCo
     setFormData(prev => ({ ...prev, [id]: value }));
   };
 
- const handleSubmit = async (e: React.FormEvent) => {
+const handleSubmit = async (e: React.FormEvent) => {
   e.preventDefault();
 
   if (!formData.name || !formData.email) {
@@ -82,47 +80,40 @@ export default function CheckoutForm({ lang, selectedDate, deliveryMethod, dayCo
     return;
   }
 
-  setError('');
-  setIsSubmitting(true);
+  if (!deliveryMethod) {
+    alert(lang === 'he' ? 'יש לבחור שיטת משלוח' : 'Please choose a delivery method');
+    return;
+  }
 
-  const items = getCart().map(item => {
-    const product = getProductById(item.id);
-    return {
-      productId: item.id,
-      name: product.name[lang],
-      quantity: item.quantity,
-      price: product.price,
-    };
-  });
+  if (!selectedDate) {
+    alert(lang === 'he' ? 'יש לבחור תאריך' : 'Please choose a delivery date');
+    return;
+  }
 
-if (!deliveryMethod) {
-  alert(lang === 'he' ? 'יש לבחור שיטת משלוח' : 'Please choose a delivery method');
-  setIsSubmitting(false);
-  return;
-}
-
-if (!selectedDate) {
-  alert(lang === 'he' ? 'יש לבחור תאריך' : 'Please choose a delivery date');
-  setIsSubmitting(false);
-  return;
-}
-
-  const order: OrderData = {
+  const orderData: any = {
+      id: Math.random().toString(36).substring(2, 10), // ✅ ג׳יבריש
     customerName: formData.name,
     customerEmail: formData.email,
     customerPhone: formData.phone,
-    customerAddress:formData.address,
+    customerAddress: formData.address,
+    notes: formData.notes,
     totalAmount: cartTotal(),
     deliveryDate: selectedDate,
-     deliveryMethod: deliveryMethod,
-    items,
-    notes: formData.notes,
-      couponCode: coupon?.code || undefined,
-  couponAmount: coupon?.amount || 0,
+    deliveryMethod: deliveryMethod,
+    items: getCart().map(item => {
+      const product = getProductById(item.id);
+      return {
+        productId: item.id,
+        name: product.name[lang],
+        quantity: item.quantity,
+        price: product.price,
+      };
+    }),
+    couponCode: coupon?.code || undefined,
+    couponAmount: coupon?.amount || 0,
     amountToPay: finalTotal,
-      deliveryFee,
-
-
+    deliveryFee,
+    status: "checkout",
   };
 
   const orderError = isOrderLegal({
@@ -133,23 +124,56 @@ if (!selectedDate) {
 
   if (orderError) {
     alert(orderError);
-      setIsSubmitting(false);
-
     return;
   }
 
+  setIsSubmitting(true);
+
   try {
-    console.log('[order being created]', order);
-    const created = await createOrder(order);
-    clearCart();
-          window.location.href = `/${lang}/orderconfirmation?id=${created.id}&date=${selectedDate?.toISOString()}&method=${deliveryMethod}`;
-  } catch (e) {
-    console.error(e);
+    if (finalTotal === 0) {
+      orderData.status = 'submitted';
+      // 🚀 FREE ORDER - Call finalize-order directly
+      const response = await fetch('/api/finalize-order', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(orderData),
+      });
+
+      //const { receiptId } = await response.json();
+
+      clearCart();
+      window.location.href = `/${lang}/orderconfirmation?id=${orderData.id}`;
+
+    } else {
+ 
+      // 💳 PAID ORDER - Create order ID & prepare for payment
+      const response = await fetch('/api/allpay-start', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({
+    ...orderData,
+    origin: window.location.origin, // בשביל notifications_url
+    lang // תוודאי שזה מגיע נכון
+  }),
+      });
+
+const { paymentUrl } = await response.json();
+
+window.location.href = `/${lang}/payment?payment_url=${encodeURIComponent(paymentUrl)}`;
+
+
+    }
+
+  } catch (err) {
+    console.error(err);
     setError(t('order_failed'));
-  } finally {
     setIsSubmitting(false);
   }
 };
+
+
+
+
 
   
 

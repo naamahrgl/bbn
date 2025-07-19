@@ -96,7 +96,7 @@ export default function CheckoutPage({ lang }: CheckoutPageProps) {
       </div>
 
       {/* Checkout Form */}
-      <CheckoutForm
+      <CheckoutForm 
         lang={lang}
         selectedDate={selectedDate}
         deliveryMethod={deliveryMethod}

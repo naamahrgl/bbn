@@ -1,7 +1,6 @@
 ---
-// orderconfirmation.astro
+// src/pages/[lang]/orderconfirmation.astro
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import OrderConfirmation from '../../components/OrderConfirmation';
 
 export function getStaticPaths() {
   return [
@@ -10,17 +9,39 @@ export function getStaticPaths() {
   ];
 }
 
-interface Params {
-  lang: 'he' | 'en';
-}
+const { params, url } = Astro;
+const lang = (Astro.params.lang === 'en' || Astro.params.lang === 'he') ? Astro.params.lang : 'he';
 
-const { params } = Astro;
-const lang = (params as Params).lang;
-const title = lang === 'he' ? 'אישור ההזמנה' : 'Order Confirmation';
+const orderId = new URL(url).searchParams.get('id') || '—';
+
+
+const texts = {
+  he: {
+    title: 'הזמנתך נקלטה!',
+    subtitle: 'שלחנו סיכום וקבלה לכתובת המייל שלך.',
+    orderNumber: `מספר הזמנה: ${orderId}`,
+    contact: 'לכל שאלה אפשר לפנות ל־',
+    email: 'breadbynaama@gmail.com'
+  },
+  en: {
+    title: 'Your order is complete!',
+    subtitle: 'We’ve sent the summary and receipt to your email.',
+    orderNumber: `Order Number: ${orderId}`,
+    contact: 'For any questions, contact',
+    email: 'breadbynaama@gmail.com'
+  }
+};
+
+const t = texts[lang];
 ---
 
-<BaseLayout>
-  <div class="container mx-auto px-4 py-12">
-    <OrderConfirmation client:only="react" lang = {lang}/>
+<BaseLayout lang={lang}>
+  <div class="container mx-auto px-4 py-16 text-center max-w-lg">
+    <h1 class="text-2xl font-bold mb-4">{t.title}</h1>
+    <p class="text-lg mb-2">{t.subtitle}</p>
+    <p class="text-lg font-semibold mb-4">{t.orderNumber}</p>
+    <p class="text-sm text-gray-600">
+      {t.contact} <a href="mailto:{t.email}" class="underline">{t.email}</a>
+    </p>
   </div>
 </BaseLayout>

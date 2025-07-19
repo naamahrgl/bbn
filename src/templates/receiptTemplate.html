@@ -1,0 +1,75 @@
+<!-- src/templates/receiptTemplate.html -->
+
+<div dir="rtl" style="text-align: right;">
+
+<table width="100%">
+  <tr>
+    <td align="right" width="50%">
+      <img src="/images/bbn2.png" alt="Logo" width="100" style="margin-bottom: 0.5em;" /><br>
+      <strong>לחם נעמה / Bread by Naama</strong><br>
+      ח.פ 305471914<br>
+      החשמל 8, תל אביב<br>
+      breadbynaama@gmail.com<br>
+    </td>
+    <td align="right" width="50%" style="background-color: #c9927b; color: white; padding: 1em;">
+      <strong>לכבוד / To:</strong> {{customer.name}} <br>
+      <strong>טלפון / Phone:</strong> {{customer.phone}} <br>
+      <strong>Email:</strong> {{customer.email}} <br>
+      <strong>כתובת / Address:</strong> {{customer.address}} <br>
+      <h3 style="margin: 0;">קבלה מס׳ / Receipt No. {{serial}}</h3>
+      <strong>תאריך / Date:</strong> {{date}}
+    </td>
+  </tr>
+</table>
+
+---
+
+### 📦 הזמנה / Order No. {{serial}}
+
+<table width="100%" style="border-collapse: collapse; text-align: right;" border="1">
+  <thead style="background-color: #f3f3f3;">
+    <tr>
+      <th style="padding: 8px;">פריט / Item</th>
+      <th style="padding: 8px;">כמות / Qty</th>
+      <th style="padding: 8px;">מחיר / Price</th>
+      <th style="padding: 8px;">סה״כ / Total</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{items}}
+    <tr>
+      <td colspan="3" style="padding: 8px; text-align: left;"><strong>סה״כ / Total</strong></td>
+      <td style="padding: 8px;"><strong>₪{{totalItems}}</strong></td>
+    </tr>
+  </tbody>
+</table>
+
+---
+
+### 💳 תשלומים / Payments
+
+<table width="100%" style="border-collapse: collapse; text-align: right;" border="1">
+  <thead style="background-color: #f3f3f3;">
+    <tr>
+      <th style="padding: 8px;">אמצעי / Method</th>
+      <th style="padding: 8px;">פירוט / Details</th>
+      <th style="padding: 8px;">תאריך / Date</th>
+      <th style="padding: 8px;">סכום / Amount</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{payments}}
+    <tr>
+      <td colspan="3" style="padding: 8px; text-align: left;"><strong>סה״כ / Total</strong></td>
+      <td style="padding: 8px;"><strong>₪{{totalPayments}}</strong></td>
+    </tr>
+  </tbody>
+</table>
+
+---
+
+<br><br>
+
+**חתימה / Signature**: ______________________
+
+</div>
