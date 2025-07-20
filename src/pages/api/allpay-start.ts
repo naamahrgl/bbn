@@ -9,6 +9,9 @@ export const POST: APIRoute = async ({ request }) => {
   const api_url = 'https://allpay.to/app/?show=getpayment&mode=api8';
 
   const MIN_PRICE = 0.01; // אסור 0
+const origin = process.env.NODE_ENV === 'production'
+  ? 'https://www.breadbynaama.com'
+  : body.origin;
 
   const productItems = body.items;
 
@@ -67,14 +70,14 @@ export const POST: APIRoute = async ({ request }) => {
     amount: roundedItemsTotal,
     currency: 'ILS',
     lang: body.lang,
-    notifications_url: `${body.origin}/api/payment-callback`,
-    success_url: `${body.origin}/${body.lang}/orderconfirmation?id=${body.id}`,
+    notifications_url: `${origin}/api/payment-callback`,
+    success_url: `${origin}/${body.lang}/orderconfirmation?id=${body.id}`,
     client_name: body.customerName,
     client_email: body.customerEmail,
     client_phone: body.customerPhone,
     items,
     expire: Math.floor(Date.now() / 1000) + 3600,
-    add_field_1: body.origin
+    add_field_1: origin
   };
 
   console.log('[ALLPAY START] Sending to Allpay:', JSON.stringify(payload, null, 2));
