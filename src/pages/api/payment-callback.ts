@@ -6,17 +6,34 @@ const UPDATE_ORDER_URL = 'https://script.google.com/macros/s/AKfycbzKiSNgDjH6O0M
 
 export const POST: APIRoute = async ({ request }) => {
   try {
-    const body = await request.formData();
+let body: any;
+const contentType = request.headers.get('content-type') || '';
 
-    const status = body.get('Status');
-    const orderId = body.get('Order');
-    const origin = body.get('custom_field_1'); // 👈 אל תשכחי לשלוח את זה ב־allpay-start
+if (contentType.includes('application/json')) {
+    body = await request.json();
+} else if (contentType.includes('application/x-www-form-urlencoded') || contentType.includes('multipart/form-data')) {
+    const formData = await request.formData();
+    body = Object.fromEntries(formData.entries());
+} else {
+    return new Response(JSON.stringify({
+        error: 'Content-Type was not one of "multipart/form-data" or "application/x-www-form-urlencoded" or "application/json".'
+    }), { status: 400 });
+}
+
+console.log('[CALLBACK] Received Allpay callback');
+for (const key in body) {
+  console.log(`${key}: ${body[key]}`);
+}
+
+    const status = body.status;
+    const orderId = body.order_id;
+    const origin = body.add_field_1; // 👈 אל תשכחי לשלוח את זה ב־allpay-start
 
     if (!orderId || !origin) {
       throw new Error('Missing orderId or origin');
     }
 
-    if (status === '0') {
+    if (status === '1') {
       console.log(`✅ Payment success for order ${orderId}`);
 
 
