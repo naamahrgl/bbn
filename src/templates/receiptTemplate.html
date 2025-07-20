@@ -1,13 +1,13 @@
 <!-- src/templates/receiptTemplate.html -->
 
-<div dir="rtl" style="text-align: right; color: #3a241e; background-color: #fff9f5;">
+<div dir="rtl" style="text-align: right; color: #3a241e; background: #fff9f5 !important;">
 
 <table width="100%">
   <tr>
         <td align="right" width="30%" style="background-color: #D0B8A8;  padding: 1em;">
       <strong>לכבוד | To |</strong> {{customer.name}} <br>
       <strong>טלפון | Phone |</strong> {{customer.phone}} <br>
-      <strong>Email:</strong> {{customer.email}} <br>
+      <strong>מייל | Email |</strong> {{customer.email}} <br>
       <strong>כתובת | Address |</strong> {{customer.address}} <br>
       <br>
       <h3 style="margin: 0;">קבלה מס׳   Receipt No.  {{serial}}</h3>
@@ -28,7 +28,7 @@
 <h2> הזמנה מס.  Order No.  {{serial}} </h2>
 
 <table width="100%" style="border-collapse: collapse; text-align: right;" border="1">
-  <thead style="background-color: #F8EDE3;">
+  <thead style="background: #F8EDE3;">
     <tr>
       <th style="padding: 8px;">פריט | Item</th>
       <th style="padding: 8px;">כמות | Qty</th>
@@ -50,7 +50,7 @@
 <h2>  תשלומים | Payments </h2>
 
 <table width="100%" style="border-collapse: collapse; text-align: right;" border="1">
-  <thead style="background-color: #F8EDE3;">
+  <thead style="background: #F8EDE3;">
     <tr>
       <th style="padding: 8px;">אמצעי | Method</th>
       <th style="padding: 8px;">פירוט | Details</th>
@@ -70,7 +70,7 @@
 ---
 
 <br><br>
-        <td  width="50%" style="text-align:left; background-color: #D0B8A8;  padding: 1em;">
+        <td  width="50%" style="text-align:left; background: #D0B8A8;  padding: 1em;">
 <strong>
 חתימה | Signature |
 </strong> <img src="https://breadbynaama.netlify.app/sig.png" alt="Signature" width="150"/>

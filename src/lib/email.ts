@@ -21,7 +21,10 @@ export async function sendOrderEmail({ to, customerName, orderSummary, receiptHt
   const subject = `קבלה מספר ${receiptSerial} - לחם נעמה`;
 
   const orderItems = orderSummary.items.map(item => `- ${item.name} x ${item.quantity} - ₪${item.price * item.quantity}`).join('\n');
-
+  const totalItems = orderSummary.items.reduce((sum, i) => sum + (i.price * i.quantity), 0);
+    const finalTotal = totalItems + orderSummary.deliveryFee
+const expectedAmountToPay = totalItems + orderSummary.deliveryFee - orderSummary.couponAmount;
+  const amountToPay = orderSummary.amountToPay ?? expectedAmountToPay;
   const textBody = `
 היי ${customerName},
 
@@ -37,7 +40,7 @@ ${orderItems}
 
 ${orderSummary.couponAmount ? `🎟️ קופון: -₪${orderSummary.couponAmount}` : ''}
 
-💳 סה״כ לתשלום: ₪${orderSummary.amountToPay}
+💳 סה״כ לתשלום: ₪${amountToPay}
 
 ---
 
@@ -64,6 +67,12 @@ ${orderSummary.items.map(item => `
 </tr>`).join('')}
 </tbody>
 <tfoot>
+
+<tr>
+<td colspan="2">משלוח</td>
+<td>₪${orderSummary.deliveryMethod === 'pickup' ? 0 : orderSummary.deliveryFee}</td>
+</tr>
+
 ${orderSummary.couponAmount ? `
 <tr>
 <td colspan="2">הנחת קופון</td>
@@ -71,13 +80,8 @@ ${orderSummary.couponAmount ? `
 </tr>` : ''}
 
 <tr>
-<td colspan="2">משלוח</td>
-<td>₪${orderSummary.deliveryMethod === 'pickup' ? 0 : orderSummary.deliveryFee}</td>
-</tr>
-
-<tr>
 <td colspan="2"><strong>סה״כ לתשלום</strong></td>
-<td><strong>₪${orderSummary.amountToPay}</strong></td>
+<td><strong>₪${amountToPay}</strong></td>
 </tr>
 </tfoot>
 </table>

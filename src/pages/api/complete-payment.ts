@@ -5,12 +5,15 @@ import { generateNextReceiptId } from '../../lib/receiptSerial';
 import { getOrderById, updateOrderInSheet } from '../../lib/googleSheets';
 import { sendOrderEmail } from '../../lib/email';
 import { renderReceiptFromOrder } from '../../lib/renderReceipt';
+import type { OrderData } from '../../lib/orders';
 
 export const POST: APIRoute = async ({ request }) => {
+    
   try {
     const { orderId } = await request.json();
 
     if (!orderId) throw new Error('Missing orderId');
+console.log('[COMPLETE PAYMENT] triggered for orderId:', orderId);
 
     // 1. מחולל מספר קבלה
     const receiptSerial = await generateNextReceiptId();
@@ -22,11 +25,13 @@ export const POST: APIRoute = async ({ request }) => {
     });
 
     // 3. שולף את ההזמנה המלאה (כולל קבלה)
-    const fullOrderData = await getOrderById(orderId);
+    const fullOrderData: OrderData = await getOrderById(orderId);
 
     if (!fullOrderData) {
       throw new Error(`Order with ID ${orderId} not found`);
     }
+    
+console.log('[COMPLETE PAYMENT] fullOrderData:', JSON.stringify(fullOrderData, null, 2));
 
     // 4. מייצר HTML קבלה
     const receiptHtml = await renderReceiptFromOrder({

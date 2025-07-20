@@ -1,4 +1,5 @@
-import {type  OrderData } from "./orders";
+import {type  OrderData, type OrderItem } from "./orders";
+import { PRODUCTS } from './products';
 const APPS_SCRIPT_BASE = 'https://script.google.com/macros/s/AKfycbzKiSNgDjH6O0MYhMW8EyuMELxaKy3MOwxjdDLCn9BIuYhKgoplV6-n6Y61f_qTOwj9/exec';
 
 export async function getExistingOrdersMap(): Promise<Record<string, Record<string, number>>> {
@@ -22,6 +23,7 @@ export async function getAllOrders(): Promise<OrderData[]> {
     deliveryDate: new Date(order.deliveryDate), // Convert to Date
   }));
 }
+
 export async function getOrderById(id: string): Promise<OrderData> {
   const orders = await getAllOrders();
   const found = orders.find(order => order.id === id);
@@ -29,8 +31,39 @@ export async function getOrderById(id: string): Promise<OrderData> {
   if (!found) {
     throw new Error('Order not found');
   }
-  return found;
+
+  // 🛠️ טיפול בפריסה של items
+  if (typeof found.items === 'string') {
+    const rawItems: string[] = (found.items as string).split(',');
+const parsedItems: OrderItem[] = rawItems.map((itemStr: string) => {
+  const [name, quantityStr] = itemStr.split(':');
+  const cleanName = name.trim();
+  const quantity = parseInt(quantityStr.trim(), 10);
+
+  const matchedProduct = PRODUCTS.find(prod =>
+    prod.name.he === cleanName || prod.name.en === cleanName
+  );
+
+  if (!matchedProduct) {
+    console.warn(`[getOrderById] Unknown product: "${cleanName}"`);
+    throw new Error(`Product "${cleanName}" not found in PRODUCTS`);
+  }
+
+  return {
+    productId: matchedProduct.id, // מובטח חוקי כי matchedProduct נמצא
+    name: cleanName,
+    quantity,
+    price: matchedProduct.price
+  };
+});
+
+    (found as any).items = parsedItems;
+  }
+
+  return found as OrderData;
 }
+
+
 
 export async function updateOrderInSheet(orderId: string, updates: Record<string, any>): Promise<void> {
   const response = await fetch(APPS_SCRIPT_BASE, {

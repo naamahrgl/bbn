@@ -17,6 +17,7 @@ const paymentsRows: string[] = [];
   const date = new Date().toLocaleDateString('he-IL');
 const deliveryDate = new Date(order.deliveryDate);
 deliveryDate.setHours(deliveryDate.getHours() + 3);
+const deliverytitle = order.deliveryFee > 0 ? 'משלוח | delivery': 'איסוף | pickup';
 
 const deliveryDateFormatted = deliveryDate.toLocaleDateString('he-IL', {
   year: 'numeric',
@@ -35,7 +36,7 @@ const deliveryDateFormatted = deliveryDate.toLocaleDateString('he-IL', {
 
     const deliveryHtml = `
     <tr>
-      <td style="padding: 8px;">${order.deliveryMethod} | ${deliveryDateFormatted} </td>
+      <td style="padding: 8px;">${deliverytitle} | ${deliveryDateFormatted} </td>
       <td style="padding: 8px;">1</td>
       <td style="padding: 8px;">₪${order.deliveryFee}</td>
       <td style="padding: 8px;">₪${order.deliveryFee}</td>
@@ -54,23 +55,27 @@ if (order.couponAmount > 0) {
   `);
 }
 
-// תשלום רגיל
-if (order.amountToPay > 0) {
-  paymentsRows.push(`
-    <tr>
-      <td style="padding: 8px;">Allpay</td>
-      <td style="padding: 8px;">${order.paymentMethod || ''}</td>
-      <td style="padding: 8px;">${date}</td>
-      <td style="padding: 8px;">₪${order.amountToPay}</td>
-    </tr>
-  `);
-}
+ // 🟢 מחשבים את amountToPay אם הוא לא קיים
+  const totalItems = order.items.reduce((sum, i) => sum + (i.price * i.quantity), 0);
+    const finalTotal = totalItems + order.deliveryFee
+const expectedAmountToPay = totalItems + order.deliveryFee - order.couponAmount;
+  const amountToPay = order.amountToPay ?? expectedAmountToPay;
+
+  if (amountToPay > 0) {
+    paymentsRows.push(`
+      <tr>
+        <td style="padding: 8px;">Allpay</td>
+        <td style="padding: 8px;">${order.paymentMethod || ''}</td>
+        <td style="padding: 8px;">${date}</td>
+        <td style="padding: 8px;">₪${amountToPay}</td>
+      </tr>
+    `);
+  }
+
+
 
 const paymentsHtml = paymentsRows.join('');
 
-  const totalItems = order.items.reduce((sum, i) => sum + (i.price * i.quantity), 0);
-  const finalTotal = totalItems + order.deliveryFee
-  const totalPayments = order.amountToPay;
 
   return template
     .replace(/{{customer.name}}/g, order.customerName)
@@ -82,7 +87,7 @@ const paymentsHtml = paymentsRows.join('');
     .replace(/{{items}}/g, newitemsHtml )
     .replace(/{{payments}}/g, paymentsHtml)
     .replace(/{{totalItems}}/g, finalTotal.toString())
-    .replace(/{{totalPayments}}/g, totalPayments.toString());
+    .replace(/{{totalPayments}}/g, amountToPay.toString());
 }
 
 

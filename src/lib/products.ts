@@ -68,7 +68,7 @@ export const PRODUCTS :Product[]= [
     nutrients: {cal : 173.620000, carbs : 38.940000, sugar : 2.950000, protein : 2.560000, fat : 1.020000, transFat : 0.130000, satFat : 0.090000, sodium : 343.590000, fiber : 4.610000, iron : 0.820000, magnesium : 10.130000, phosphorus : 25.330000, calcium : 4.240000},
     category: { he: 'לחמים', en: 'Breads' },
     imageUrls: [
-      '/products/sanw1.webp'
+      '/products/sndw.webp'
     ],   
     price: 35.0,
     isFeatured: true,
