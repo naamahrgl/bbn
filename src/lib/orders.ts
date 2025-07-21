@@ -15,7 +15,7 @@ export type OrderData = {
   id?: string;
   customerName: string;
   customerEmail: string;
-  customerPhone?: string;
+  customerPhone: string;
   customerAddress?: string;
   notes?: string;
   totalAmount: number;
