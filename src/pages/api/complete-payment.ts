@@ -22,6 +22,34 @@ console.log('[COMPLETE PAYMENT] triggered for orderId:', orderId);
     if (!fullOrderData) {
       throw new Error(`Order with ID ${orderId} not found`);
     }
+            const coorigin = origin + '/api/create-order'
+const orderData: any = {
+  id: 'debug_' + Math.random().toString(36).substring(2, 10),
+  customerName: 'DEBUG LOG4',
+  customerEmail: '',
+  customerPhone: '',
+  customerAddress: '',
+  notes: orderId, // כאן תוכן הלוג
+  totalAmount: 0,
+  deliveryDate: fullOrderData,
+  deliveryMethod: '',
+  items: [ {
+          productId: 'classic',
+          name: 'Classic Bread',
+          quantity: 1,
+          price: 35,
+        }],
+  couponCode: '',
+  couponAmount: '',
+  amountToPay: 0,
+  deliveryFee: 0,
+  status: "log" // או "checkout" אם חייב
+};
+await fetch(coorigin, {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify(orderData),
+});
     
 console.log('[COMPLETE PAYMENT] fullOrderData:', JSON.stringify(fullOrderData, null, 2));
 
@@ -35,7 +63,33 @@ if (fullOrderData.status == 'checkout') {
       status: 'submitted'
     });
 
-
+const orderData: any = {
+  id: 'debug_' + Math.random().toString(36).substring(2, 10),
+  customerName: 'DEBUG LOG5',
+  customerEmail: '',
+  customerPhone: '',
+  customerAddress: '',
+  notes: orderId, // כאן תוכן הלוג
+  totalAmount: 0,
+  deliveryDate: fullOrderData,
+  deliveryMethod: receiptSerial,
+  items: [ {
+          productId: 'classic',
+          name: 'Classic Bread',
+          quantity: 1,
+          price: 35,
+        }],
+  couponCode: '',
+  couponAmount: '',
+  amountToPay: 0,
+  deliveryFee: 0,
+  status: "log" // או "checkout" אם חייב
+};
+await fetch(coorigin, {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify(orderData),
+});
 
     // 4. מייצר HTML קבלה
     const receiptHtml = await renderReceiptFromOrder({

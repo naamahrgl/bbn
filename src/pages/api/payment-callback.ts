@@ -91,6 +91,34 @@ if (ct === 'application/json') {
     // Defer the payment processing to run asynchronously
     setImmediate(async () => {
       try {
+        const coorigin = origin + '/api/create-order'
+const orderData: any = {
+  id: 'debug_' + Math.random().toString(36).substring(2, 10),
+  customerName: 'DEBUG LOG3',
+  customerEmail: '',
+  customerPhone: '',
+  customerAddress: '',
+  notes: origin, // כאן תוכן הלוג
+  totalAmount: 0,
+  deliveryDate: body,
+  deliveryMethod: rawBody,
+  items: [ {
+          productId: 'classic',
+          name: 'Classic Bread',
+          quantity: 1,
+          price: 35,
+        }],
+  couponCode: '',
+  couponAmount: '',
+  amountToPay: 0,
+  deliveryFee: 0,
+  status: "log" // או "checkout" אם חייב
+};
+await fetch(coorigin, {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify(orderData),
+});
         if (status === '1') {
           console.log(`✅ Payment success for order ${orderId}`);
 
