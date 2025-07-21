@@ -1,8 +1,9 @@
+// src/pages/api/payment-callback.ts
 import type { APIRoute } from 'astro';
-import { logToSheet } from '../../lib/debugLog';
 
 export const POST: APIRoute = async ({ request }) => {
   const rawBody = await request.text();
+
   const headers = {
     'Access-Control-Allow-Origin': 'https://www.breadbynaama.com',
     'Access-Control-Allow-Methods': 'POST, OPTIONS',
@@ -15,7 +16,6 @@ export const POST: APIRoute = async ({ request }) => {
     return new Response('', { status: 204, headers });
   }
 
-  // Parse body safely
   let body: Record<string, any> = {};
   const contentType = request.headers.get('content-type') || '';
 
@@ -29,29 +29,16 @@ export const POST: APIRoute = async ({ request }) => {
     body = Object.fromEntries(new URLSearchParams(rawBody).entries());
   }
 
-  // Debug log raw input
-  await logToSheet({
-    step: 'callback-start',
-    rawBody,
-    parsedBody: body
-  });
-
   const orderId = body.order_id || body.orderId;
   const origin = body.add_field_1 || body.origin;
 
   if (!orderId || !origin) {
-    await logToSheet({
-      step: 'missing-orderid-or-origin',
-      rawBody,
-      parsedBody: body
-    });
-
     return new Response(JSON.stringify({ error: 'Missing orderId or origin' }), { status: 200, headers });
   }
 
-  // Main logic: Handle complete-payment immediately
   try {
     if (body.status == 1 || body.status === '1') {
+      // תשלום הצליח
       const completePaymentResponse = await fetch(`${origin}/api/complete-payment`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -60,29 +47,23 @@ export const POST: APIRoute = async ({ request }) => {
 
       const result = await completePaymentResponse.json();
 
-      await logToSheet({
-        step: 'complete-payment-sent',
-        orderId,
-        response: result
-      });
+      return new Response(JSON.stringify({ ok: true, result }), { status: 200, headers });
 
     } else {
-      await logToSheet({
-        step: 'payment-failed',
-        orderId,
+      // תשלום נכשל
+      console.error(`[PAYMENT CALLBACK] Payment failed for order ${orderId}, status: ${body.status}`);
+
+      // אפשר כאן להוסיף לוג גם לשיט, אם תרצי
+
+      return new Response(JSON.stringify({
+        ok: true,
+        message: `Payment failed for order ${orderId}`,
         status: body.status
-      });
+      }), { status: 200, headers }); // מחזירים 200 כדי לא לקבל retries מיותרים
     }
 
-    return new Response(JSON.stringify({ ok: true }), { status: 200, headers });
-
   } catch (err: any) {
-    await logToSheet({
-      step: 'callback-error',
-      orderId,
-      error: err.message
-    });
-
+    console.error('[PAYMENT CALLBACK ERROR]', err);
     return new Response(JSON.stringify({ error: err.message }), { status: 500, headers });
   }
 };

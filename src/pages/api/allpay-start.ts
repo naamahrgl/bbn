@@ -5,43 +5,15 @@ export const POST: APIRoute = async ({ request }) => {
   const body = await request.json();
 
   const api_login = 'pp1010885';
-  const api_key = '1F502B6FC31BEC9E03BB1A7AB933D671';
+const api_key = import.meta.env.ALLPAY_API_KEY;
   const api_url = 'https://allpay.to/app/?show=getpayment&mode=api8';
 
   const MIN_PRICE = 0.01; // אסור 0
 const origin = process.env.NODE_ENV === 'production'
   ? 'https://www.breadbynaama.com'
   : body.origin;
-const coorigin = origin + '/api/create-order'
   console.log('Origin URL:', origin);
   console.log(`[ALLPAY START] Created order ${body.id} | Env: ${process.env.NODE_ENV}`);
-const orderData: any = {
-  id: 'debug_' + Math.random().toString(36).substring(2, 10),
-  customerName: 'DEBUG LOG',
-  customerEmail: '',
-  customerPhone: '',
-  customerAddress: '',
-  notes: origin, // כאן תוכן הלוג
-  totalAmount: 0,
-  deliveryDate: process.env.NODE_ENV,
-  deliveryMethod: body.id,
-  items: [ {
-          productId: 'classic',
-          name: 'Classic Bread',
-          quantity: 1,
-          price: 35,
-        }],
-  couponCode: '',
-  couponAmount: '',
-  amountToPay: 0,
-  deliveryFee: 0,
-  status: "log" // או "checkout" אם חייב
-};
-await fetch(coorigin, {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify(orderData),
-});
 
 
 
@@ -119,33 +91,6 @@ console.log(`Total: ${roundedItemsTotal}`);
 
   console.log('[ALLPAY START] Sending to Allpay:', JSON.stringify(payload, null, 2));
 
-const orderData2: any = {
-  id: 'debug_' + Math.random().toString(36).substring(2, 10),
-  customerName: 'DEBUG LOG2',
-  customerEmail: roundedItemsTotal,
-  customerPhone: JSON.stringify(items, null, 2),
-  customerAddress: payload.success_url,
-  notes: payload.notifications_url, // כאן תוכן הלוג
-  totalAmount: 0,
-  deliveryDate: JSON.stringify(payload, null, 2),
-  deliveryMethod: '',
-  items: [ {
-          productId: 'classic',
-          name: 'Classic Bread',
-          quantity: 1,
-          price: 35,
-        }],
-          couponCode: '',
-  couponAmount: '',
-  amountToPay: 0,
-  deliveryFee: 0,
-  status: "log" // או "checkout" אם חייב
-};
-await fetch(coorigin, {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify(orderData2),
-});
 
 
   const sign = createAllpaySignature(payload, api_key);
