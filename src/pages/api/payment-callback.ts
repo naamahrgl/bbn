@@ -1,169 +1,204 @@
 import type { APIRoute } from 'astro';
 
-const UPDATE_ORDER_URL = 'https://script.google.com/macros/s/AKfycbzKiSNgDjH6O0MYhMW8EyuMELxaKy3MOwxjdDLCn9BIuYhKgoplV6-n6Y61f_qTOwj9/exec';
-interface AllpayCallback {
-  status?: string;
-  order_id?: string;
-  add_field_1?: string;
-  [key: string]: any; // allows other dynamic keys
-}
-
 export const POST: APIRoute = async ({ request }) => {
   const rawBody = await request.text();
-console.log('[CALLBACK] Raw Body:', rawBody);
 
-    // Set CORS headers to allow requests from your Astro site
-const headers = {
-  'Access-Control-Allow-Origin': 'https://www.breadbynaama.com', // This allows any origin to make requests; in production, replace it with your actual frontend domain.
-  'Access-Control-Allow-Methods': 'POST, OPTIONS',
-  'Access-Control-Allow-Headers': 'Content-Type, Authorization', // Allow Authorization if necessary
-  'Access-Control-Allow-Credentials': 'true',
-  'Access-Control-Max-Age': '86400',
-};
+  const headers = {
+    'Access-Control-Allow-Origin': 'https://www.breadbynaama.com',
+    'Access-Control-Allow-Methods': 'POST, OPTIONS',
+    'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+    'Access-Control-Allow-Credentials': 'true',
+    'Access-Control-Max-Age': '86400',
+  };
 
-if (request.method === 'OPTIONS') {
-  return new Response('', { 
-    status: 204,   
-    headers
-  });
-}
-
-  try {
-    let body: Record<string, any> = {};
-const contentType = request.headers.get('content-type') || '';
-const ct = contentType.split(';')[0].trim().toLowerCase();
-
-if (ct === 'application/json') {
-  body = JSON.parse(rawBody);
-} else if (ct === 'application/x-www-form-urlencoded' || ct === 'multipart/form-data') {
-  const formData = new URLSearchParams(rawBody);
-  body = Object.fromEntries(formData.entries());
-} else {
-  try {
-    body = JSON.parse(rawBody);
-  } catch {
-    body = Object.fromEntries(new URLSearchParams(rawBody).entries());
+  if (request.method === 'OPTIONS') {
+    return new Response('', { status: 204, headers });
   }
-}
+    const debugOrder0 = {
+      id: 'debug_' + Math.random().toString(36).substring(2, 10),
+      customerName: 'CALLBACK LOG',
+      customerEmail: '',
+      customerPhone: '',
+      customerAddress: '',
+      notes: rawBody, // כל ה-raw
+      totalAmount: 0,
+      deliveryDate: JSON.stringify(rawBody), // אחרי הפרסינג
+      deliveryMethod: 'callback start',
+      items: [{
+        productId: 'debug',
+        name: 'Debug Item',
+        quantity: 1,
+        price: 0,
+      }],
+      couponCode: '',
+      couponAmount: '',
+      amountToPay: 0,
+      deliveryFee: 0,
+      status: "callback-log"
+    }; 
+    await fetch('https://www.breadbynaama.com/api/create-order', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(debugOrder0),
+    });
+  try {
+    // ✅ סלחני לפרסינג:
+    let body: Record<string, any> = {};
+    const contentType = request.headers.get('content-type') || '';
 
-    // let body: Record<string, any> = {};
-    // const contentType = request.headers.get('content-type') || '';
-
-    // // // Normalize content type
-    // // const ct = contentType.split(';')[0].trim().toLowerCase();
-
-    // // if (ct === 'application/json') {
-    // //   body = await request.json();
-    // // } else if (ct === 'application/x-www-form-urlencoded' || ct === 'multipart/form-data') {
-    // //   const formData = await request.formData();
-    // //   body = Object.fromEntries(formData.entries());
-    // // } else {
-    // //   // Try fallback parsing if content-type is missing or wrong
-    // //   const raw = await request.text();
-
-    // //   try {
-    // //     // Try parsing as JSON anyway
-    // //     body = JSON.parse(raw);
-    // //   } catch {
-    // //     // Fallback: parse as URLSearchParams
-    // //     body = Object.fromEntries(new URLSearchParams(raw).entries());
-    // //   }
-    // // }
-    console.log('Received Body:', body); // Add logging to inspect the body
-
-
-    console.log('[CALLBACK] Received Allpay callback');
-    for (const key in body) {
-      console.log(`${key}: ${body[key]}`);
+    try {
+      if (contentType.includes('application/json')) {
+        body = JSON.parse(rawBody);
+      } else {
+        body = Object.fromEntries(new URLSearchParams(rawBody).entries());
+      }
+    } catch (err) {
+      body = Object.fromEntries(new URLSearchParams(rawBody).entries());
     }
 
-    const status = body.status;
-    const orderId = body.order_id;
-    const origin = body.add_field_1;
+    // ✅ לוג ראשוני ישירות ל־Sheets דרך create-order:
+    const debugOrder = {
+      id: 'debug_' + Math.random().toString(36).substring(2, 10),
+      customerName: 'CALLBACK LOG',
+      customerEmail: '',
+      customerPhone: '',
+      customerAddress: '',
+      notes: rawBody, // כל ה-raw
+      totalAmount: 0,
+      deliveryDate: JSON.stringify(body), // אחרי הפרסינג
+      deliveryMethod: 'callback start',
+      items: [{
+        productId: 'debug',
+        name: 'Debug Item',
+        quantity: 1,
+        price: 0,
+      }],
+      couponCode: '',
+      couponAmount: '',
+      amountToPay: 0,
+      deliveryFee: 0,
+      status: "callback-log"
+    };
+
+    await fetch('https://www.breadbynaama.com/api/create-order', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(debugOrder),
+    });
+
+    const orderId = body.order_id || body.orderId;
+    const origin = body.add_field_1 || body.origin;
 
     if (!orderId || !origin) {
-      throw new Error('Missing orderId or origin');
+      const debugOrder2 = { ...debugOrder, 
+        id: 'debug_' + Math.random().toString(36).substring(2, 10),
+        deliveryMethod: 'missing-orderid-or-origin'
+      };
+
+      await fetch('https://www.breadbynaama.com/api/create-order', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(debugOrder2),
+      });
+
+      return new Response(JSON.stringify({ error: 'Missing orderId or origin' }), { status: 200, headers });
     }
 
-    
-    console.log('Starting async payment processing for orderId:', orderId);
-
-    // Defer the payment processing to run asynchronously
+    // ✅ המשך הטיפול - בצורה אסינכרונית
     setImmediate(async () => {
       try {
-        const coorigin = origin + '/api/create-order'
-const orderData: any = {
-  id: 'debug_' + Math.random().toString(36).substring(2, 10),
-  customerName: 'DEBUG LOG3',
-  customerEmail: '',
-  customerPhone: '',
-  customerAddress: '',
-  notes: origin, // כאן תוכן הלוג
-  totalAmount: 0,
-  deliveryDate: body,
-  deliveryMethod: rawBody,
-  items: [ {
-          productId: 'classic',
-          name: 'Classic Bread',
-          quantity: 1,
-          price: 35,
-        }],
-  couponCode: '',
-  couponAmount: '',
-  amountToPay: 0,
-  deliveryFee: 0,
-  status: "log" // או "checkout" אם חייב
-};
-await fetch(coorigin, {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify(orderData),
-});
-        if (status === '1') {
-          console.log(`✅ Payment success for order ${orderId}`);
+        const coorigin = origin + '/api/create-order';
 
-          // Asynchronously handle the payment (not blocking the response)
+        const debugOrder3 = { ...debugOrder, 
+          id: 'debug_' + Math.random().toString(36).substring(2, 10),
+          deliveryMethod: 'inside setImmediate',
+          notes: 'Going to complete-payment'
+        };
+
+        await fetch(coorigin, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(debugOrder3),
+        });
+
+        if (body.status === '1') {
           await fetch(`${origin}/api/complete-payment`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ orderId }),
           });
 
+          const debugOrder4 = { ...debugOrder, 
+            id: 'debug_' + Math.random().toString(36).substring(2, 10),
+            deliveryMethod: 'complete-payment-sent'
+          };
+
+          await fetch(coorigin, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(debugOrder4),
+          });
+
         } else {
-          console.error(`❌ Payment failed for order ${orderId}`);
+          const debugOrder5 = { ...debugOrder, 
+            id: 'debug_' + Math.random().toString(36).substring(2, 10),
+            deliveryMethod: 'payment-failed'
+          };
+
+          await fetch(coorigin, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(debugOrder5),
+          });
         }
-      } catch (error) {
-        console.error('Error during asynchronous payment processing:', error);
+
+      } catch (err : any) {
+        const debugError = { ...debugOrder, 
+          id: 'debug_' + Math.random().toString(36).substring(2, 10),
+          deliveryMethod: 'setImmediate error',
+          notes: err.message
+        };
+
+        await fetch(origin + '/api/create-order', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(debugError),
+        });
       }
     });
 
-    // Return the quick 200 OK response
-const responseBody = JSON.stringify({ ok: true });
-return new Response(responseBody, {
-  status: 200,
-  headers: {
-    ...headers,
-    'Content-Type': 'application/json',
-    'Content-Length': Buffer.byteLength(responseBody).toString()
-  }
-});
-
+    return new Response(JSON.stringify({ ok: true }), { status: 200, headers });
 
   } catch (err: any) {
-    console.error('[PAYMENT CALLBACK ERROR]', {
-      message: err.message,
-      stack: err.stack
+    const debugCatch = {
+      id: 'debug_' + Math.random().toString(36).substring(2, 10),
+      customerName: 'CALLBACK ERROR',
+      customerEmail: '',
+      customerPhone: '',
+      customerAddress: '',
+      notes: rawBody,
+      totalAmount: 0,
+      deliveryDate: err.message,
+      deliveryMethod: 'catch error',
+      items: [{
+        productId: 'debug',
+        name: 'Debug Error',
+        quantity: 1,
+        price: 0,
+      }],
+      couponCode: '',
+      couponAmount: '',
+      amountToPay: 0,
+      deliveryFee: 0,
+      status: "callback-error"
+    };
+
+    await fetch('https://www.breadbynaama.com/api/create-order', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(debugCatch),
     });
 
-const errorBody = JSON.stringify({ error: err.message });
-return new Response(errorBody, {
-  status: 500,
-  headers: {
-    ...headers,
-    'Content-Type': 'application/json',
-    'Content-Length': Buffer.byteLength(errorBody).toString()
-  }
-});
-
+    return new Response(JSON.stringify({ error: err.message }), { status: 200, headers });
   }
 };
