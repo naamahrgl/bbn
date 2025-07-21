@@ -8,7 +8,21 @@ import { renderReceiptFromOrder } from '../../lib/renderReceipt';
 import type { OrderData } from '../../lib/orders';
 
 export const POST: APIRoute = async ({ request }) => {
-    
+    await fetch('https://www.breadbynaama.com/api/create-order', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({
+    id: 'debug_' + Math.random().toString(36).substring(2, 10),
+    customerName: 'arrived into completepayment',
+    notes: '',
+    items: [],
+    totalAmount: 0,
+    deliveryDate: '',
+    deliveryMethod: 'complete-payment',
+    status: 'complete-payment'
+  })
+});
+
   try {
     const { orderId } = await request.json();
 
@@ -22,7 +36,7 @@ console.log('[COMPLETE PAYMENT] triggered for orderId:', orderId);
     if (!fullOrderData) {
       throw new Error(`Order with ID ${orderId} not found`);
     }
-            const coorigin = origin + '/api/create-order'
+            const coorigin = 'https://www.breadbynaama.com/api/create-order';
 const orderData: any = {
   id: 'debug_' + Math.random().toString(36).substring(2, 10),
   customerName: 'DEBUG LOG4',
@@ -106,6 +120,21 @@ await fetch(coorigin, {
       receiptSerial
     });
 } else {
+    await fetch('https://www.breadbynaama.com/api/create-order', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({
+    id: 'debug_' + Math.random().toString(36).substring(2, 10),
+    customerName: 'COMPLETE PAYMENT alreadyprocesed',
+    notes: '',
+    items: [],
+    totalAmount: 0,
+    deliveryDate: '',
+    deliveryMethod: 'already-processed',
+    status: 'already-processed'
+  })
+});
+
   console.log(`[COMPLETE PAYMENT] Order ${orderId} already processed with status ${fullOrderData.status}. Skipping.`);
   return new Response(JSON.stringify({ skipped: true }), { status: 200 });
 
@@ -115,6 +144,21 @@ await fetch(coorigin, {
     return new Response(JSON.stringify({ success: true }), { status: 200 });
 
   } catch (err: any) {
+    await fetch('https://www.breadbynaama.com/api/create-order', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({
+    id: 'debug_' + Math.random().toString(36).substring(2, 10),
+    customerName: 'COMPLETE PAYMENT ERROR',
+    notes: err.message,
+    items: [],
+    totalAmount: 0,
+    deliveryDate: '',
+    deliveryMethod: 'complete-payment-error',
+    status: 'callback-error'
+  })
+});
+
     console.error('[COMPLETE PAYMENT ERROR]', err);
     return new Response(JSON.stringify({ error: err.message }), { status: 500 });
   }
