@@ -121,7 +121,7 @@ export const POST: APIRoute = async ({ request }) => {
           body: JSON.stringify(debugOrder3),
         });
 
-        if (body.status === '1') {
+        if (body.status === 1) {
           await fetch(`${origin}/api/complete-payment`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
