@@ -8,6 +8,9 @@ export const POST: APIRoute = async ({ request }) => {
 const api_key = import.meta.env.ALLPAY_API_KEY;
   const api_url = 'https://allpay.to/app/?show=getpayment&mode=api8';
 
+  console.log('ALLPAY_API_KEY:', api_key);
+
+
   const MIN_PRICE = 0.01; // אסור 0
 const origin = process.env.NODE_ENV === 'production'
   ? 'https://www.breadbynaama.com'
