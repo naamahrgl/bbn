@@ -27,7 +27,8 @@ export type OrderData = {
   paymentMethod?: 'cash' | 'credit'; // ✅ לשלב מאוחר יותר
   amountToPay: number;
 deliveryFee: number;
-  receiptSerial?: number; // ✅ New field
+  receiptSerial?: number; // ✅ New field,
+  status?: string;
 
 };
 

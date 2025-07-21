@@ -14,7 +14,18 @@ export const POST: APIRoute = async ({ request }) => {
 
     if (!orderId) throw new Error('Missing orderId');
 console.log('[COMPLETE PAYMENT] triggered for orderId:', orderId);
+ console.log(`Triggering complete-payment for ${orderId} /complete-payment`);
 
+// 3. שולף את ההזמנה המלאה (כולל קבלה)
+    const fullOrderData: OrderData = await getOrderById(orderId);
+
+    if (!fullOrderData) {
+      throw new Error(`Order with ID ${orderId} not found`);
+    }
+    
+console.log('[COMPLETE PAYMENT] fullOrderData:', JSON.stringify(fullOrderData, null, 2));
+
+if (fullOrderData.status == 'checkout') {
     // 1. מחולל מספר קבלה
     const receiptSerial = await generateNextReceiptId();
 
@@ -24,14 +35,7 @@ console.log('[COMPLETE PAYMENT] triggered for orderId:', orderId);
       status: 'submitted'
     });
 
-    // 3. שולף את ההזמנה המלאה (כולל קבלה)
-    const fullOrderData: OrderData = await getOrderById(orderId);
 
-    if (!fullOrderData) {
-      throw new Error(`Order with ID ${orderId} not found`);
-    }
-    
-console.log('[COMPLETE PAYMENT] fullOrderData:', JSON.stringify(fullOrderData, null, 2));
 
     // 4. מייצר HTML קבלה
     const receiptHtml = await renderReceiptFromOrder({
@@ -47,6 +51,12 @@ console.log('[COMPLETE PAYMENT] fullOrderData:', JSON.stringify(fullOrderData, n
       receiptHtml,
       receiptSerial
     });
+} else {
+  console.log(`[COMPLETE PAYMENT] Order ${orderId} already processed with status ${fullOrderData.status}. Skipping.`);
+  return new Response(JSON.stringify({ skipped: true }), { status: 200 });
+
+
+}
 
     return new Response(JSON.stringify({ success: true }), { status: 200 });
 

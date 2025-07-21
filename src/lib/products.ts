@@ -32,7 +32,7 @@ export const PRODUCTS :Product[]= [
       en: 'Rich and statisfying bread that live to its potential.'
     },
         directions: {
-      he: ' להקפיא ביום המשלוח, או לשמור על השיש ליומיים/שלושה. להפשיר במיקרו/טוסטר/תנור.',
+      he: 'להקפיא ביום המשלוח, או לשמור על השיש ליומיים/שלושה. להפשיר במיקרו/טוסטר/תנור.',
       en: 'freeze the day of delivery, or keep fresh on the counter for two/three days'
     },
         ingredients: {
@@ -123,7 +123,7 @@ export const PRODUCTS :Product[]= [
   },
     {
     id: 'focaccia',
-    name: { he: 'פוקצ׳ה ', en: 'Focaccia' },
+    name: { he: 'פוקצ׳ה', en: 'Focaccia' },
     description: {
       he: 'מפנקת ומנחמת - היא רכה מפנים ופריכה מבחוץ',
       en: 'Indulgent and comforting - this focaccia is both soft and crunchy'

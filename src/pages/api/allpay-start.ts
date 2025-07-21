@@ -13,6 +13,11 @@ const origin = process.env.NODE_ENV === 'production'
   ? 'https://www.breadbynaama.com'
   : body.origin;
 
+  console.log('Origin URL:', origin);
+  console.log(`[ALLPAY START] Created order ${body.id} | Env: ${process.env.NODE_ENV}`);
+
+
+
   const productItems = body.items;
 
   const productsTotal = productItems.reduce((sum: number, item: any) => sum + (item.price * item.quantity), 0);
@@ -79,6 +84,11 @@ const origin = process.env.NODE_ENV === 'production'
     expire: Math.floor(Date.now() / 1000) + 3600,
     add_field_1: origin
   };
+  console.log(`Callback URL: ${payload.notifications_url}`);
+console.log('items:', JSON.stringify(items, null, 2));
+
+  console.log(`Success URL: ${payload.success_url}`);
+console.log(`Total: ${roundedItemsTotal}`);
 
   console.log('[ALLPAY START] Sending to Allpay:', JSON.stringify(payload, null, 2));
 
@@ -92,6 +102,11 @@ const origin = process.env.NODE_ENV === 'production'
   });
 
   const data = await res.json();
+console.log('[ALLPAY RESPONSE]', res.status, data);
+if (!data.payment_url) {
+  console.error('[ALLPAY ERROR]', data);
+  throw new Error(data.error_msg || 'Unknown error from Allpay');
+}
 
   return new Response(JSON.stringify({
     paymentUrl: data.payment_url,
