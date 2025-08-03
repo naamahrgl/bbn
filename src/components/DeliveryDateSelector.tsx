@@ -30,18 +30,20 @@ type DeliveryDateSelectorProps = {
 
 const translations = {
   he: {
-    title: 'בחרי תאריך',
+    title: 'בחרו תאריך',
     selected: (date: Date) => `תאריך נבחר: ${format(date, 'dd/MM/yyyy')}`,
-    red: 'אחד מהפריטים אזל במלאי ליום זה',
-    orange: 'לא כל הכמות זמינה - יש להתאים',
-    note: '',
+    red: 'חלק מהפריטים אזלו במלאי',
+    orange: 'זמין חלקית במלאי',
+    gray: 'סליחה, אנחנו סגורים ביום זה',
+    green: 'זמין במלאי',
   },
   en: {
     title: 'Choose a Date',
     selected: (date: Date) => `Selected date: ${format(date, 'dd/MM/yyyy')}`,
-    red: 'One or more items are sold out on this date',
-    orange: 'Not all items are available in full quantity',
-    note: 'Select a date for supply! - gray = sorry, were closed, red = some of the products are missing, orange = some of the products are partially available',
+    red: 'Some items are sold out',
+    orange: 'Partial stock available',
+    gray: 'Sorry, we are closed',
+    green: 'Available in stock',
   },
 };
 
@@ -94,19 +96,46 @@ console.log('🎨 setDayColors', data);
   modifiers={{
     red: (day) => dayColors[format(day, 'yyyy-MM-dd')]?.status === 'red',
     orange: (day) => dayColors[format(day, 'yyyy-MM-dd')]?.status === 'orange',
-    gray: (day) => dayColors[format(day, 'yyyy-MM-dd')]?.status === 'gray'
+    gray: (day) => dayColors[format(day, 'yyyy-MM-dd')]?.status === 'gray',
+        green: (day) => dayColors[format(day, 'yyyy-MM-dd')]?.status === 'green'
+
   }}
   modifiersClassNames={{
     red: 'bg-red-200 text-red-800',
     orange: 'bg-yellow-200 text-yellow-800',
-    gray: 'bg-gray-200 text-gray-600 line-through'
+    gray: 'bg-gray-200 text-gray-600 line-through',
+    green: 'bg-green-200 text-green-800'
   }}
   modifiersStyles={{
     red: { cursor: 'not-allowed' },
     orange: { cursor: 'pointer' },
-    gray: { cursor: 'not-allowed' }
+    gray: { cursor: 'not-allowed' },
+        green: { cursor: 'pointer' }
   }}
 />
+
+    {/* 🔑 Color Legend */}
+<div className="mb-4 flex flex-col items-center">
+  <ul className="flex flex-col gap-2 text-sm">
+    <li className="flex items-center gap-2">
+      <span className="w-4 h-4 rounded-full bg-green-200 border border-green-800"></span>
+      <span>{t.green}</span>
+    </li>
+    <li className="flex items-center gap-2">
+      <span className="w-4 h-4 rounded-full bg-yellow-200 border border-yellow-800"></span>
+      <span>{t.orange}</span>
+    </li>
+    <li className="flex items-center gap-2">
+      <span className="w-4 h-4 rounded-full bg-red-200 border border-red-800"></span>
+      <span>{t.red}</span>
+    </li>
+    <li className="flex items-center gap-2">
+      <span className="w-4 h-4 rounded-full bg-gray-200 border border-gray-600"></span>
+      <span>{t.gray}</span>
+    </li>
+  </ul>
+</div>
+
 
 
 

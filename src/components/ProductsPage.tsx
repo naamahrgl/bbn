@@ -6,6 +6,7 @@ import { addToCart } from '../lib/cart';
 import { ArrowLeft, Plus, Minus, ArrowRight, ChevronLeft } from 'lucide-react';
 import { Button } from './ui/button';
 import { Alert } from './ui/alert';
+import { tagLabels } from '../lib/products';
 import { NutrientsTable } from './NutrientsTable';
 declare const gtag: (...args: any[]) => void;
 declare const fbq: (...args: any[]) => void;
@@ -131,6 +132,21 @@ useEffect(() => {
 
 
 <div className="relative w-full overflow-hidden rounded-lg shadow">
+  {/* Tag on single product view */}
+{product.tags?.map(tag => {
+  const label = tagLabels[lang][tag.key];
+  if (!label) return null;
+
+  return (
+    <div
+      key={tag.key}
+      className="absolute top-2 left-2 bg-[var(--small-buttons)] text-[var(--brand-lighter)] text-xs font-semibold px-2 py-1 rounded-full shadow z-10"
+    >
+      {label}
+    </div>
+  );
+})}
+
   <div
     ref={scrollRef}
     className="flex overflow-x-auto scroll-smooth no-scrollbar"
@@ -293,8 +309,23 @@ fbq('track', 'AddToCart', {
 
       <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 ">
 {selectedProducts.map(product => (
-  <div key={product.id} className=" rounded-lg overflow-hidden flex flex-col justify-between bg-[var(--brand-lighter)] shadow border border-[#d0b8a8]">
+  <div key={product.id} className="relative rounded-lg overflow-hidden flex flex-col justify-between bg-[var(--brand-lighter)] shadow border border-[#d0b8a8]">
     <a href={`/${lang}/products?id=${product.id}`}>
+        {/* Floating tag */}
+    {product.tags?.map(tag => {
+      const label = tagLabels[lang][tag.key];
+      if (!label) return null;
+
+      return (
+        <div
+          key={tag.key}
+          className="absolute top-2 left-2 bg-[var(--small-buttons)] text-[var(--brand-lighter)] text-xs font-semibold px-2 py-1 rounded-full shadow z-10"
+        >
+          {label}
+        </div>
+      );
+    })}
+
       <img src={product.imageUrls[0]} alt={product.name[lang]} className="h-48 w-full object-cover" />
       <div className="p-4 ">
         <h3 className="text-lg font-semibold text-brand-dark">{product.name[lang]}</h3>

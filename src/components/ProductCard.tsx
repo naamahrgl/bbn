@@ -4,6 +4,8 @@ import React from 'react';
 import { addToCart } from '../lib/cart';
 import type { Product } from '../lib/products';
 import { Button } from './ui/button';
+import { tagLabels } from '../lib/products';
+
 declare const gtag: (...args: any[]) => void;
 declare const fbq: (...args: any[]) => void;
 
@@ -55,8 +57,9 @@ fbq('track', 'AddToCart', {
   };
 
   return (
-    <div className="bg-[var(--brand-lighter)] rounded-lg shadow-sm border border-[#d0b8a8]  overflow-hidden text-left rtl:text-right">
+<div className="relative bg-[var(--brand-lighter)] rounded-lg shadow-sm border border-[#d0b8a8] overflow-hidden text-left rtl:text-right">
       <a href={`/${lang}/products?id=${product.id}`}>
+      
         <img
           src={product.imageUrls[0]}
           alt={product.name[lang]}
@@ -70,6 +73,24 @@ fbq('track', 'AddToCart', {
             ₪{product.price.toFixed(2)}
           </p>
         </div>
+          {/* Floating tag label */}
+  {product.tags?.map(tag => {
+    const label = tagLabels[lang][tag.key];
+    const isExpired =
+      tag.key === 'limited' && tag.until && new Date(tag.until) < new Date();
+
+    if (!label || isExpired) return null;
+
+    return (
+      <div
+        key={tag.key}
+        className="absolute top-2 left-2 bg-[var(--big-buttons)] text-[var(--brand-lighter)] text-xs font-semibold px-2 py-1 rounded-full shadow z-10"
+      >
+        {label}
+      </div>
+    );
+  })}
+
       </a>
       <div className="px-4 pb-4">
         <Button

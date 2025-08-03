@@ -1,7 +1,11 @@
 // lib/products.ts
 
-export type ProductId = 'classic' | 'sandwich' | 'chedder-jalapino' | 'focaccia' | 'cracker' | 'brownie' | 'pizzas';
+export type ProductId = 'classic' | 'sandwich' | 'chedder-jalapino' | 'focaccia' | 'cracker' | 'brownie' | 'pizzas' | 'alfajores';
 
+type Tag = {
+  key: 'new' | 'limited' | 'bestseller'; // You can add more
+  until?: string; // Optional: for 'limited' items
+};
 
 export type Product = {
   id: ProductId;
@@ -18,9 +22,22 @@ nutrients?: Partial<Record<
   imageUrls: string[]; 
   price: number;
   isFeatured: boolean;
+  tags?: Tag[]; 
 };
 
 
+export const tagLabels: Record<'he' | 'en', Record<string, string>> = {
+  he: {
+    new: 'חדש!',
+    limited: 'ספיישל',
+    bestseller: 'רב מכר',
+  },
+  en: {
+    new: 'New!',
+    limited: 'Limited Edition',
+    bestseller: 'Bestseller',
+  },
+};
 
 
 export const PRODUCTS :Product[]= [
@@ -68,10 +85,14 @@ export const PRODUCTS :Product[]= [
     nutrients: {cal : 173.620000, carbs : 38.940000, sugar : 2.950000, protein : 2.560000, fat : 1.020000, transFat : 0.130000, satFat : 0.090000, sodium : 343.590000, fiber : 4.610000, iron : 0.820000, magnesium : 10.130000, phosphorus : 25.330000, calcium : 4.240000},
     category: { he: 'לחמים', en: 'Breads' },
     imageUrls: [
-      '/products/sndw.webp'
+            '/products/sand3.webp',
+      '/products/sndw.webp',
+      '/products/sand2.webp',
     ],   
     price: 35.0,
     isFeatured: true,
+      tags: [{ key: 'new' }]
+
   },
     {
     id: 'cracker',
@@ -170,6 +191,7 @@ export const PRODUCTS :Product[]= [
     ],   
         price: 50.0,
     isFeatured: true,
+      tags: [{ key: 'limited'}]
   },
       {
     id: 'pizzas',
@@ -195,6 +217,34 @@ export const PRODUCTS :Product[]= [
     ],   
         price: 25.0,
     isFeatured: true,
+  },
+        {
+    id: 'alfajores',
+    name: { he: 'אלפחורס', en: 'Alfajores' },
+    description: {
+      he: '4 עוגיות סנדביץ׳ נימוחות מפוצצות בריבת חלב',
+      en: '4 Delicate cookie sandwitch filled with heaps on dulce de leche. '
+    },
+            directions: {
+      he: 'ישמר טרי עד 5 ימים',
+      en: 'Keeps fresh for up to 5 days'
+    },
+        ingredients: {
+      he: 'קמח אורז לבן, קמח דורה, קמח שקדים, קמח טפיוקה, חמאה, ביצים, ריבת חלב, קוקס טחון, קליפות פסיליום, וניל',
+      en: 'Sorghum flour, white rice flour, almond meal, tapioca flour,  butter, eggs, psylium husks, dulce e leche, cocunut flakes, vanilla.'
+    },
+        nutrients: {cal : 347.730000, carbs : 59.070000, sugar : 43.710000, protein : 6.380000, fat : 9.690000, transFat : 0.260000, satFat : 4.830000, sodium : 163.120000, fiber : 1.360000, iron : 0.110000, cholesterol : 36.870000, potasium : 35.670000},
+
+            category: { he: 'מתוקים', en: 'Sweets' },
+    imageUrls: [
+            '/products/alf1.webp',
+      '/products/alf2.webp',
+      '/products/alf3.webp'
+    ],   
+        price: 30.0,
+    isFeatured: true,
+          tags: [{ key: 'new' }]
+
   },
 ];
 
