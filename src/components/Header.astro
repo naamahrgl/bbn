@@ -9,8 +9,8 @@ const lang = ['he', 'en'].includes(Astro.url.pathname.split("/")[1])
   const isHebrew = lang === "he";
 
 const translations = {
-  he: { home: "בית", products: "מוצרים", about: "אודות" },
-  en: { home: "Home", products: "Products", about: "About" }
+  he: { home: "בית", products: "מוצרים", about: "אודות", aboutbread: "על הלחם" },
+  en: { home: "Home", products: "Products", about: "About", aboutbread: "Our Bread" }
 };
 
 const t = translations[lang];
@@ -205,6 +205,7 @@ const t = translations[lang];
     <a href={`/${lang}/`}>{t.home}</a>
     <a href={`/${lang}/products`}>{t.products}</a>
     <a href={`/${lang}/about`}>{t.about}</a>
+      <a href={`/${lang}/about-bread`}>{t.aboutbread}</a>
   </nav>
 </div>
 

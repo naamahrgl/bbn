@@ -1,0 +1,77 @@
+---
+// src/pages/[lang]/about-bread.astro
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export function getStaticPaths() {
+  return [
+    { params: { lang: 'he' } },
+    { params: { lang: 'en' } },
+  ];
+}
+
+const content = {
+  he: {
+    title: 'על הלחם',
+    subtitle: 'הלחם שלי בא להרים לכם',
+    paragraphs: [
+      "כשניגשתי לאפות לחם ללא גלוטן, רציתי לחם נקי ובסיסי, עם טעם לא מתפשר. רציתי לפשט: רק קמח, מים, ודבק טבעי שיחליף את הגלוטן.",
+      "מאחר ואין דגן או קטניה ללא גלוטן הדומים לחיטה בטעם, בהרכב ובמרקם - התעמקתי במתכונים המשלבים כמה סוגי קמחים, ולאט לאט למדתי מה כל קמח מביא איתו. רציתי ליצור הרמוניה - שכל רכיב במתכון יהיה משמעותי, עם תרומה ייחודית וברורה.",
+      "כך נולד הלחם שלי: עשוי מקמחים טובים, מאוזן, עשיר, ובעל מרקם יוצא דופן. בלי קמח אורז, בלי קסנטן, בלי שמרים.",
+      "זה לחם חי, בעבודת יד, בתסיסה איטית ממחמצת טבעית. נאפה כל בוקר בתנור לחם מיוחד. ללא גלוטן. והעיקר - טעים.",
+      "הוא מתאים לצליאקים, לרגישים לגלוטן, וגם לכל מי שמחפש לחם טבעי עם ערך תזונתי גבוה באמת.",
+      " ועוד מילה על בריאות: הלחם הזה בא לעשות טוב - מבפנים ובחוץ. הצליאק והחיפוש אחר הלחם שלי גרמו לי לשים לב למה שאני אוכלת - בלי להתכוון הפכתי להיות הרבה יותר מודעת למה יש בלחם שלי: סיבים, חלבון, נתרן וברזל. רציתי שיהיה בו כל מה שעושה טוב לגוף, מבלי לוותר על הטעם שאני אוהבת.",
+      " את הערכים התזונתיים המדויקים תמצאו בכל דף מוצר, כי יש במה להתגאות."
+    ],
+    more: 'קראו עוד:',
+        nav_classic: 'לחם קלאסי',
+    nav_sand: 'לחם סנדביץ׳'
+  },
+  en: {
+    title: 'About the Bread',
+    subtitle: 'My bread is here to lift you up',
+    paragraphs: [
+      "When I set out to bake gluten-free bread, I wanted a clean, basic bread, with an uncompromising flavor. I wanted to simplify: just flour, water, and a natural binder to replace gluten.",
+      "Since no gluten-free grain or legume tastes, feels, or behaves quite like wheat - I explored recipes that combine several types of flours, gradually learning what each one brings to the table. I wanted harmony - every ingredient having its own meaningful and distinct role.",
+      "This is how my bread was born: made from good flours, balanced, rich, and with an exceptional texture. No rice flour, no xanthan, no yeast.",
+      "It’s a living bread, handmade, slowly fermented with natural sourdough. Baked fresh every morning in a special bread oven. Gluten-free. And above all - delicious.",
+      "It’s suitable for celiac, those sensitive to gluten, and anyone looking for a natural bread with truly high nutritional value.",
+      "Another word on health: This bread was created to do good - inside and out. My celiac and the search for my bread made me pay attention to what I eat - without meaning to, I became much more aware of what’s in my bread: fiber, protein, sodium, and iron. I wanted it to contain everything that’s good for the body, without giving up the taste I love.",
+      "You can find the exact nutritional values on every product page, because they are something to be proud of."
+    ],
+    more: 'Read More:',
+    nav_classic: 'Classic Bread',
+    nav_sand: 'Sandwich Bread',
+  }
+};
+
+const lang = (Astro.params.lang === 'en' || Astro.params.lang === 'he') ? Astro.params.lang : 'he';
+const { title, subtitle, paragraphs, nav_classic, nav_sand, more } = content[lang];
+---
+
+<BaseLayout currentPageName={title}>
+  <section class="bg-brand-background">
+    <div class="container mx-auto px-4 py-16 md:py-24">
+      <div class="grid md:grid-cols-2 gap-12 items-center">
+        <div class="prose prose-lg max-w-none text-[var(--brand-text-dark)] text-start">
+          <h2 class="text-sm font-semibold uppercase tracking-wide text-[var(--brand-text-title)]">{title}</h2>
+          <h1 class="mt-2 text-4xl font-bold tracking-tight text-[var(--brand-text-title)] sm:text-5xl">{subtitle}</h1>
+          {paragraphs.map(p => <p class="leading-relaxed text-brand-light">{p}</p>)}
+
+        </div>
+        <div class="aspect-[4/3] rounded-lg overflow-hidden shadow-xl">
+          <img 
+            src="/bread.webp" 
+            alt={subtitle}
+            class="w-full h-full object-cover"
+          />
+          
+        </div>
+        
+      </div>
+                    <p>{more}</p>
+          <li><a href={`/${lang}/products?id=classic`} class="hover:underline hover:text-brand-dark">{nav_classic}</a></li>
+          <li><a href={`/${lang}/products?id=sandwich`} class="hover:underline hover:text-brand-dark">{nav_sand}</a></li>
+
+    </div>
+  </section>
+</BaseLayout>

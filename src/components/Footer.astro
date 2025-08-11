@@ -10,6 +10,7 @@ const lang = ['he', 'en'].includes(Astro.url.pathname.split("/")[1])
     nav_Home: 'דף הבית',
     nav_Products: 'מוצרים',
     nav_About: 'אודות',
+    nav_aboutbread: "על הלחם",
     footer_contactUs: 'דברו איתנו',
     footer_contactText: 'אפשר לשלוח לנו מייל בכל שאלה, הערה או המלצה :)',
     footer_copyright: 'כל הזכויות שמורות ללחם נעמה © 2025',
@@ -22,6 +23,8 @@ const lang = ['he', 'en'].includes(Astro.url.pathname.split("/")[1])
     nav_Home: 'Home',
     nav_Products: 'Products',
     nav_About: 'About',
+        nav_aboutbread: "Our Bread",
+
     footer_contactUs: 'Contact Us',
     footer_contactText: 'Feel free to email us with any question, comment, or suggestion :)',
     footer_copyright: 'All rights reserved to Lechem Naama © 2025',
@@ -54,6 +57,7 @@ const t = translations[lang as keyof typeof translations];
           <li><a href={`/${lang}/about`} class="hover:underline hover:text-brand-dark">{t.nav_About}</a></li>
           <li><a href={`/${lang}/`} class="hover:underline hover:text-brand-dark">{t.nav_Home}</a></li>
           <li><a href={`/${lang}/products`} class="hover:underline hover:text-brand-dark">{t.nav_Products}</a></li>
+                    <li><a href={`/${lang}/about-bread`} class="hover:underline hover:text-brand-dark">{t.nav_aboutbread}</a></li>
         </ul>
       </div>
 
