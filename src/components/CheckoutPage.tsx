@@ -36,7 +36,7 @@ type DayColorsMap = Record<string, DayColor>;
 export default function CheckoutPage({ lang }: CheckoutPageProps) {
   const [selectedDate, setSelectedDate] = useState<Date | undefined>();
   const [deliveryMethod, setDeliveryMethod] = useState<
-    'pickup' | 'delivery_near' | 'delivery_far' | undefined
+    'pickup' | 'delivery_near' | 'delivery_far' | 'delivery_sharon' | undefined
   >();
   const [dayColors, setDayColors] = useState<DayColorsMap>({});
   const [isSubmitting, setIsSubmitting] = useState(false);

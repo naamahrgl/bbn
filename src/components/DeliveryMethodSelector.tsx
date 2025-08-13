@@ -12,13 +12,16 @@ const translations = {
     title: 'שיטת משלוח',
     pickup: 'איסוף עצמי מגן החשמל, ת״א',
     delivery_near: 'משלוח למרכז/דרום ת״א',
-        delivery_far: ' משלוח בצפון ת״א/רמת גן/גבעתיים'
+    delivery_far: ' משלוח בצפון ת״א/רמת גן/גבעתיים',
+    delivery_sharon: 'משלוח בשרון - רמת השרון/הוד השרוןֿֿ/הרצליה/רעננה/כפר סבא'
   },
   en: {
     title: 'Delivery Method',
     pickup: 'Pickup from Gan HaHashmal, Tel Aviv',
     delivery_near: 'Delivery in Tel Aviv (center/south)',
-            delivery_far: 'Delivery in Ramat Gan/Givataim/Tel Aviv (north)'
+    delivery_far: 'Delivery in Ramat Gan/Givataim/Tel Aviv (north)',
+    delivery_sharon: 'Delivery in Ramat HaSharon/Hod Hasharon/Herzeliya/Kefar Saba/Raanana'
+
   },
 };
 
@@ -28,8 +31,8 @@ export default function DeliveryMethodSelector({
   onSelect,
 }: {
   lang: 'he' | 'en';
-  selectedMethod: 'pickup' | 'delivery_near' | 'delivery_far' | undefined;
-  onSelect: (method: 'pickup' | 'delivery_near' | 'delivery_far') => void;
+  selectedMethod: 'pickup' | 'delivery_near' | 'delivery_far' | 'delivery_sharon' | undefined;
+  onSelect: (method: 'pickup' | 'delivery_near' | 'delivery_far' | 'delivery_sharon') => void;
 }) {
   const t = translations[lang];
 
@@ -70,7 +73,18 @@ export default function DeliveryMethodSelector({
             onChange={() => onSelect('delivery_far')}
           />
           <span>{t.delivery_far}</span>
-                    <span className='text-stone-400'>{lang == 'he' ? "45 ש״ח": '45 NIS'}</span>
+                    <span className='text-stone-400'>{lang == 'he' ? "40 ש״ח": '40 NIS'}</span>
+        </label>
+        <label className="flex items-center space-x-2">
+          <input
+            type="radio"
+            name="deliveryMethod"
+            value="delivery_sharon"
+            checked={selectedMethod === 'delivery_sharon'}
+            onChange={() => onSelect('delivery_sharon')}
+          />
+          <span>{t.delivery_sharon}</span>
+                    <span className='text-stone-400'>{lang == 'he' ? "ימי שלישי אחת לשבועיים, 50 ש״ח": 'Every other Tuesday, 50 NIS'}</span>
 
         </label>
       </div>

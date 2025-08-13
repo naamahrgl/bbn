@@ -1,6 +1,7 @@
 // lib/isOrderLegal.ts
-import { format, isSameDay, differenceInCalendarDays } from 'date-fns';
+import { format, isSameDay, differenceInCalendarDays, differenceInCalendarWeeks } from 'date-fns';
 import { getProductById } from './products';
+
 
 type DayColorEntry = {
   status: 'green' | 'orange' | 'red' | 'gray';
@@ -10,7 +11,7 @@ type DayColorEntry = {
 
 interface OrderContext {
   selectedDate: Date | undefined;
-  deliveryMethod: 'pickup' | 'delivery_near' | 'delivery_far';
+  deliveryMethod: 'pickup' | 'delivery_near' | 'delivery_far' | 'delivery_sharon';
   dayColors: Record<string, DayColorEntry>;
   lang: 'he' | 'en';
 }
@@ -74,6 +75,23 @@ export function isOrderLegal({
       .join(', ');
     return t.partial(details);
   }
+
+  // Add at the top, near imports
+
+// Add this inside isOrderLegal(), before returning null:
+if (deliveryMethod === 'delivery_sharon') {
+  const startTuesday = new Date(2025, 7, 19); // Aug 19, 2025 as baseline valid Tuesday
+
+  const isTuesday = selectedDate.getDay() === 2; // 0=Sun, 1=Mon, 2=Tue...
+  const weekDiff = differenceInCalendarWeeks(selectedDate, startTuesday);
+
+  if (!isTuesday || weekDiff % 2 !== 0) {
+    return lang === 'he'
+      ? 'משלוח לשרון זמין רק בימי שלישי אחת לשבועיים. ביום שבחרתם אין משלוחים - נסו יום שלישי אחר'
+      : 'Delivery to Sharon is available only every other Tuesday. The selected day is invalid - try anther Tuesday';
+  }
+}
+
 
   if (selectedDate.getDay() === 6) {
     return t.saturday;

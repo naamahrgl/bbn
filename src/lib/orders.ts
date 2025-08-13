@@ -23,7 +23,7 @@ export type OrderData = {
   couponCode?: string;
   couponAmount: number;
   deliveryDate: Date; // ✅ תאריך בצורת yyyy-MM-dd
-  deliveryMethod: 'pickup' | 'delivery_near' | 'delivery_far'; // ✅ כדי להציג גם בשיט
+  deliveryMethod: 'pickup' | 'delivery_near' | 'delivery_far' | 'delivery_sharon'; // ✅ כדי להציג גם בשיט
   paymentMethod?: 'cash' | 'credit'; // ✅ לשלב מאוחר יותר
   amountToPay: number;
 deliveryFee: number;

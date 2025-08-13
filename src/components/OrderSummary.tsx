@@ -4,7 +4,7 @@ import { getProductById } from '../lib/products';
 
 export type OrderSummaryProps = {
   lang: 'he' | 'en';
-  deliveryMethod?: 'pickup' | 'delivery_near' | 'delivery_far';
+  deliveryMethod?: 'pickup' | 'delivery_near' | 'delivery_far' | 'delivery_sharon';
   onCouponChange?: (coupon: { code: string; amount: number }) => void;
   onTotalsChange?: (totals: { finalTotal: number; deliveryFee: number }) => void;
 };

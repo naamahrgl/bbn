@@ -21,7 +21,7 @@ type DayColor = {
 type CheckoutFormProps = {
   lang: 'he' | 'en';
   selectedDate: Date | undefined;
-  deliveryMethod: 'pickup' | 'delivery_near' | 'delivery_far' | undefined;
+  deliveryMethod: 'pickup' | 'delivery_near' | 'delivery_far' | 'delivery_sharon' | undefined;
   dayColors: Record<string, DayColor>;
   coupon: { code: string; amount: number } | null;
   deliveryFee: number;

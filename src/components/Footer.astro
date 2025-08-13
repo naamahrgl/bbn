@@ -6,6 +6,7 @@ const lang = ['he', 'en'].includes(Astro.url.pathname.split("/")[1])
   he: {
     hero_title: 'לחם נעמה',
     hero_slogan: 'מחמצת ללא גלוטן',
+    gan: 'גן החשמל, תל אביב',
     footer_quickLinks: 'קישורים מהירים',
     nav_Home: 'דף הבית',
     nav_Products: 'מוצרים',
@@ -19,6 +20,7 @@ const lang = ['he', 'en'].includes(Astro.url.pathname.split("/")[1])
   en: {
     hero_title: 'Lechem Naama',
     hero_slogan: 'Gluten Free Sourdough',
+    gan: 'Gan HaHashmal, Tel Aviv',
     footer_quickLinks: 'Quick Links',
     nav_Home: 'Home',
     nav_Products: 'Products',
@@ -42,6 +44,7 @@ const t = translations[lang as keyof typeof translations];
       <div class="basis-1/3 px-2 break-words text-center">
         <h4 class="font-semibold mb-1">{t.hero_title}</h4>
         <p class="text-brand-text-light mb-3">{t.hero_slogan}</p>
+                <p class="text-brand-text-light mb-3">{t.gan}</p>
         <a href={`/${lang}/terms`} class="block text-sm hover:underline mb-2">{t.terms}</a>
         <div class="flex items-center justify-center gap-2 mt-2 ">
           <a href="https://www.instagram.com/breadbynaama/"><img src='/Instagram_Glyph_Black.svg' alt="Instagram" class="w-6 h-6" /></a>
