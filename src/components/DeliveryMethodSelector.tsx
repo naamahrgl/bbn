@@ -12,15 +12,15 @@ const translations = {
     title: 'שיטת משלוח',
     pickup: 'איסוף עצמי מגן החשמל, ת״א',
     delivery_near: 'משלוח למרכז/דרום ת״א',
-    delivery_far: ' משלוח בצפון ת״א/רמת גן/גבעתיים',
-    delivery_sharon: 'משלוח בשרון - רמת השרון/הוד השרוןֿֿ/הרצליה/רעננה/כפר סבא'
+    delivery_far: ' משלוח בצפון ת״א / רמת גן / גבעתיים',
+    delivery_sharon: 'משלוח לרמת השרון / הוד השרוןֿֿ / הרצליה / רעננה / כפר סבא'
   },
   en: {
     title: 'Delivery Method',
     pickup: 'Pickup from Gan HaHashmal, Tel Aviv',
     delivery_near: 'Delivery in Tel Aviv (center/south)',
     delivery_far: 'Delivery in Ramat Gan/Givataim/Tel Aviv (north)',
-    delivery_sharon: 'Delivery in Ramat HaSharon/Hod Hasharon/Herzeliya/Kefar Saba/Raanana'
+    delivery_sharon: 'Delivery in Ramat HaSharon/ Hod Hasharon/ Herzeliya/ Kefar Saba/ Raanana'
 
   },
 };
