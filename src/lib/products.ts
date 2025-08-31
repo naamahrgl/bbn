@@ -1,6 +1,6 @@
 // lib/products.ts
 
-export type ProductId = 'classic' | 'sandwich' | 'chedder-jalapino' | 'focaccia' | 'cracker' | 'brownie' | 'pizzas' | 'alfajores';
+export type ProductId = 'classic' | 'sandwich' | 'chedder-jalapino' | 'focaccia' | 'cracker' | 'brownie' | 'pizzas' | 'alfajores' | 'rolls' | 'breadcrumbs';
 
 type Tag = {
   key: 'new' | 'limited' | 'bestseller'; // You can add more
@@ -22,6 +22,7 @@ nutrients?: Partial<Record<
   imageUrls: string[]; 
   price: number;
   isFeatured: boolean;
+   isAvailable: boolean;
   tags?: Tag[]; 
 };
 
@@ -66,6 +67,7 @@ export const PRODUCTS :Product[]= [
     ],    
     price: 35.0,
     isFeatured: true,
+      isAvailable: true,
   },
   {
     id: 'sandwich',
@@ -91,7 +93,7 @@ export const PRODUCTS :Product[]= [
     ],   
     price: 35.0,
     isFeatured: true,
-      tags: [{ key: 'new' }]
+      isAvailable: true,
 
   },
     {
@@ -118,6 +120,7 @@ export const PRODUCTS :Product[]= [
         ],   
         price: 30.0,
     isFeatured: true,
+      isAvailable: true,
   },
     {
     id: 'brownie',
@@ -141,6 +144,8 @@ export const PRODUCTS :Product[]= [
     ],   
         price: 20.0,
     isFeatured: false,
+          isAvailable: true,
+
   },
     {
     id: 'focaccia',
@@ -166,6 +171,8 @@ export const PRODUCTS :Product[]= [
         ],   
         price: 25.0,
     isFeatured: true,
+          isAvailable: true,
+
   },
     {
     id: 'chedder-jalapino',
@@ -190,7 +197,8 @@ export const PRODUCTS :Product[]= [
       '/products/ched2.mp4'
     ],   
         price: 50.0,
-    isFeatured: true,
+    isFeatured: false,
+      isAvailable: false,
       tags: [{ key: 'limited'}]
   },
       {
@@ -217,6 +225,8 @@ export const PRODUCTS :Product[]= [
     ],   
         price: 25.0,
     isFeatured: true,
+          isAvailable: true,
+
   },
         {
     id: 'alfajores',
@@ -243,7 +253,75 @@ export const PRODUCTS :Product[]= [
     ],   
         price: 30.0,
     isFeatured: true,
-          tags: [{ key: 'new' }]
+          isAvailable: true
+
+  },
+    {
+    id: 'rolls',
+    name: { he: 'מארז לחמניות', en: '4 Rolls' },
+    description: {
+      he: 'ארבע לחמניות מתקתקות ובהירות, טעימות עם הכל',
+      en: 'four light and sweet rolls, that goes well with everything'
+    },
+            directions: {
+      he: 'יש להקפיא ביום המשלוח, או לשמור טרי על השיש במשך יומיים/שלושה. יש להפשיר במיקרוגל/טוסטר/תנור.',
+      en: 'freeze the day of delivery, or keep fresh on the counter for two/three days. Defrost in microwave/toaster/oven.'
+    },
+        ingredients: {
+      he: 'מחמצת, קמח דורה, קמח טפיוקה, קמח דוחן, קמח תפוחי אדמה, קליפות פסיליום, מייפל, מלח.',
+      en: 'Sourdogh, sorghum flour, tapioca flour, millet flour, potato flour, psylium husks, maple syrup, salt.'
+    },
+    nutrients: {cal : 173.620000, carbs : 38.940000, sugar : 2.950000, protein : 2.560000, fat : 1.020000, transFat : 0.130000, satFat : 0.090000, sodium : 343.590000, fiber : 4.610000, iron : 0.820000, magnesium : 10.130000, phosphorus : 25.330000, calcium : 4.240000},
+    category: { he: 'לחמים', en: 'Breads' },
+    imageUrls: [
+            '/products/rolls1.webp',
+      '/products/rolls2.webp',
+    ],   
+    price: 23.0,
+    isFeatured: true,
+      isAvailable: true,
+      tags: [{ key: 'new' }]
+
+  },
+      {
+    id: 'breadcrumbs',
+    name: { he: 'פירורי לחם', en: 'Bread Crumbs' },
+    description: {
+      he: 'פירורי לחם אמיתיים שיקפיצו כל מנה! טעימים ובריאים - עשויים מהלחמים המעולים שלי (250 גרם)',
+      en: 'Real bread crumbs that will elevate your kitchen! Yummy and Healthy - made from my great bread.'
+    },
+            directions: {
+      he: 'ישמרו סביבות שלושה חודשים במקום קריר ויבש',
+      en: 'keep for around three months in a cool and dry place'
+    },
+        ingredients: {
+      he: 'מחמצת, קמח דורה, קמח טפיוקה, קמח דוחן, קמח תפוחי אדמה, קליפות פסיליום, מייפל, מלח.',
+      en: 'Sourdogh, sorghum flour, tapioca flour, millet flour, potato flour, psylium husks, maple syrup, salt.'
+    },
+nutrients: {
+  cal: 332.800000,
+  carbs: 73.540000,
+  sugar: 4.380000,
+  protein: 5.480000,
+  fat: 2.100000,
+  transFat: 0.270000,
+  satFat: 0.190000,
+  sodium: 720.600000,
+  fiber: 9.760000,
+  iron: 1.710000,
+  magnesium: 16.920000,
+  phosphorus: 42.320000,
+  calcium: 6.300000
+},    category: { he: 'לחמים', en: 'Breads' },
+    imageUrls: [
+            '/products/crumb2.webp',
+
+            '/products/crumbs1.webp',
+    ],   
+    price: 25.0,
+    isFeatured: true,
+      isAvailable: true,
+      tags: [{ key: 'new' }]
 
   },
 ];

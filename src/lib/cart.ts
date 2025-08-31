@@ -68,14 +68,18 @@ export function cartTotal(): number {
 
   return cart.reduce((total, item) => {
     const product = PRODUCTS.find(p => p.id === item.id);
-    if (!product) return total; // מוצר לא קיים – דלג
+    if (!product || !product.isAvailable) return total; // מוצר לא קיים – דלג
     return total + product.price * item.quantity;
   }, 0);
 }
-
 export function cartCount(): number {
-  return getCart().reduce((count, item) => count + item.quantity, 0);
+  return getCart().reduce((count, item) => {
+    const product = PRODUCTS.find(p => p.id === item.id);
+    if (!product || !product.isAvailable) return count;
+    return count + item.quantity;
+  }, 0);
 }
+
 
 export function clearCart() {
   setLocalStorage('cart', []);

@@ -59,9 +59,10 @@ export default function ProductsPage({ lang }: ProductsPageProps) {
 useEffect(() => {
   // getProducts כן עדיין אסינכרונית, אז זה תקין:
   getProducts(lang).then(products => {
-    setAllProducts(products);
+        const filtered = products.filter(p => p.isAvailable !== false);
+    setAllProducts(filtered);
     if (!productId) {
-      setSelectedProducts(products);
+      setSelectedProducts(filtered);
     }
   });
 

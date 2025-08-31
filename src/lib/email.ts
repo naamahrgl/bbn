@@ -19,7 +19,6 @@ type EmailParams = {
 
 export async function sendOrderEmail({ to, customerName, orderSummary, receiptHtml, receiptSerial }: EmailParams) {
   const subject = `קבלה מספר ${receiptSerial} - לחם נעמה`;
-
   const orderItems = orderSummary.items.map(item => `- ${item.name} x ${item.quantity} - ₪${item.price * item.quantity}`).join('\n');
   const totalItems = orderSummary.items.reduce((sum, i) => sum + (i.price * i.quantity), 0);
     const finalTotal = totalItems + orderSummary.deliveryFee
@@ -29,6 +28,13 @@ const expectedAmountToPay = totalItems + orderSummary.deliveryFee - orderSummary
 היי ${customerName},
 
 תודה על ההזמנה!
+
+<p style="margin-top:10px; font-weight: bold;">
+${orderSummary.deliveryMethod === 'pickup' 
+  ? `המזנתך תהיה מוכנה לאיסוף מרחוב החשמל 8, תל אביב ביום ${orderSummary.deliveryDate}. נשלח הודעה כאשר הזמנתך זמינה לאיסוף!`
+  : `הזמנתך תגיע עד אליך במשלוח ביום ${orderSummary.deliveryDate}. נשלח הודעה כאשר הזמנתך בדרך אליך!`}
+</p>
+
 
 📦 סיכום הזמנה:
 
@@ -48,11 +54,25 @@ Bread by Naama
 
 `;
 
+const date = new Date(orderSummary.deliveryDate);
+const formatted = new Intl.DateTimeFormat('he-IL', { day: 'numeric', month: 'numeric', year: 'numeric' }).format(date);
+// "31.8.2025"
+
+
 const combinedHtml = `
 <div style="direction: rtl; font-family: Arial, sans-serif; text-align: center;">
 
 <p><strong>${orderSummary.customerName}</strong></p>
 <p>היי! תודה על ההזמנה.</p>
+
+<p style="margin-top:10px; font-weight: bold;">
+${orderSummary.deliveryMethod === 'pickup' 
+  ? `הזמנתך תהיה מוכנה לאיסוף מרחוב החשמל 8, תל אביב ביום ${formatted}. 
+  נשלח הודעה כאשר הזמנתך זמינה לאיסוף!`
+  : `הזמנתך תגיע עד אליך במשלוח ביום ${formatted}. 
+  נשלח הודעה כאשר הזמנתך בדרך אליך!`}
+</p>
+
 
 <table style="margin: 0 auto; text-align: right;">
 <thead>

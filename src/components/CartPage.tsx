@@ -44,8 +44,16 @@ export default function CartPage({ lang }: CartPageProps) {
   const [cartItems, setCartItems] = useState(getCart());
 
   useEffect(() => {
-    setCartItems(getCart());
-  }, []);
+      const cart = getCart();
+  const availableCart = cart.filter(item => {
+    const product = getProductById(item.id);
+    return product && product.isAvailable;
+  });
+    setCartItems(availableCart);
+
+  const removedItems = cart.filter(item => !availableCart.includes(item));
+  removedItems.forEach(item => removeFromCart(item.id));
+}, []);
 
   const handleQuantityChange = (id: string, quantity: number) => {
     updateQuantity(id, quantity);
