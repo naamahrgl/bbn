@@ -55,8 +55,13 @@ Bread by Naama
 `;
 
 const date = new Date(orderSummary.deliveryDate);
-const formatted = new Intl.DateTimeFormat('he-IL', { day: 'numeric', month: 'numeric', year: 'numeric' }).format(date);
-// "31.8.2025"
+
+const formatted = new Intl.DateTimeFormat('he-IL', { 
+  day: 'numeric', 
+  month: 'numeric', 
+  year: 'numeric',
+  timeZone: 'Asia/Jerusalem'
+}).format(date);
 
 
 const combinedHtml = `
@@ -68,9 +73,9 @@ const combinedHtml = `
 <p style="margin-top:10px; font-weight: bold;">
 ${orderSummary.deliveryMethod === 'pickup' 
   ? `הזמנתך תהיה מוכנה לאיסוף מרחוב החשמל 8, תל אביב ביום ${formatted}. 
-  נשלח הודעה כאשר הזמנתך זמינה לאיסוף!`
+  תקבלו הודעה כאשר הזמנתך זמינה לאיסוף!`
   : `הזמנתך תגיע עד אליך במשלוח ביום ${formatted}. 
-  נשלח הודעה כאשר הזמנתך בדרך אליך!`}
+  תקבלו הודעה כאשר הזמנתך בדרך אליך!`}
 </p>
 
 

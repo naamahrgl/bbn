@@ -258,13 +258,13 @@ export const PRODUCTS :Product[]= [
   },
     {
     id: 'rolls',
-    name: { he: 'מארז לחמניות', en: '4 Rolls' },
+    name: { he: 'מארז לחמניות', en: '5 Rolls' },
     description: {
-      he: 'ארבע לחמניות מתקתקות ובהירות, טעימות עם הכל',
-      en: 'four light and sweet rolls, that goes well with everything'
+      he: 'חמש לחמניות מתקתקות ובהירות, טעימות עם הכל',
+      en: 'Five light and sweet rolls, that goes well with everything'
     },
             directions: {
-      he: 'יש להקפיא ביום המשלוח, או לשמור טרי על השיש במשך יומיים/שלושה. יש להפשיר במיקרוגל/טוסטר/תנור.',
+      he: 'יש להקפיא ביום המשלוח, או לשמור טרי על השיש במשך יומיים. אפשר להפשיר במיקרוגל/טוסטר/תנור.',
       en: 'freeze the day of delivery, or keep fresh on the counter for two/three days. Defrost in microwave/toaster/oven.'
     },
         ingredients: {
@@ -277,7 +277,7 @@ export const PRODUCTS :Product[]= [
             '/products/rolls1.webp',
       '/products/rolls2.webp',
     ],   
-    price: 23.0,
+    price: 35.0,
     isFeatured: true,
       isAvailable: true,
       tags: [{ key: 'new' }]
@@ -312,7 +312,8 @@ nutrients: {
   magnesium: 16.920000,
   phosphorus: 42.320000,
   calcium: 6.300000
-},    category: { he: 'לחמים', en: 'Breads' },
+},    
+category: { he: 'לחמים', en: 'Breads' },
     imageUrls: [
             '/products/crumb2.webp',
 
