@@ -106,7 +106,9 @@ const handleSubmit = async (e: React.FormEvent) => {
         productId: item.id,
         name: product.name[lang],
         quantity: item.quantity,
-        price: product.price,
+        price: item.price ?? product.price,
+        size: item.size,
+        multiplier: item.multiplier,
       };
     }),
     couponCode: coupon?.code || undefined,

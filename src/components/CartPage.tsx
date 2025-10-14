@@ -42,17 +42,17 @@ const translations = {
 export default function CartPage({ lang }: CartPageProps) {
   const t = translations[lang];
   const [cartItems, setCartItems] = useState(getCart());
-
   useEffect(() => {
       const cart = getCart();
   const availableCart = cart.filter(item => {
     const product = getProductById(item.id);
+
     return product && product.isAvailable;
   });
     setCartItems(availableCart);
 
   const removedItems = cart.filter(item => !availableCart.includes(item));
-  removedItems.forEach(item => removeFromCart(item.id));
+  removedItems.forEach(item => removeFromCart(item.id, item.size));
 }, []);
 
   const handleQuantityChange = (id: string, quantity: number) => {
@@ -60,10 +60,11 @@ export default function CartPage({ lang }: CartPageProps) {
     setCartItems(getCart());
   };
 
-  const handleRemove = (id: string) => {
-    removeFromCart(id);
-    setCartItems(getCart());
-  };
+const handleRemove = (id: string, size?: string) => {
+  removeFromCart(id, size);
+  setCartItems(getCart());
+};
+
 
   if (cartItems.length === 0) {
     return (
@@ -100,11 +101,12 @@ export default function CartPage({ lang }: CartPageProps) {
             {cartItems.map(item => {
               const product = getProductById(item.id);
               return (
-                <div key={item.id} className="flex items-center gap-4 py-4 border-b border-stone-300">
+                <div key={item.id + item.size}  className="flex items-center gap-4 py-4 border-b border-stone-300">
                   <img src={product.imageUrls[0]} alt={product.name[lang]} className="w-20 h-20 md:w-24 md:h-24 rounded-md object-cover" />
                   <div className="flex-grow text-start">
                     <h3 className="font-semibold text-[var(--brand-text-dark)]">{product.name[lang]}</h3>
-                    <p className="text-sm text-[var(--brand-text-dark)]">₪{product.price.toFixed(2)}</p>
+                                        <h3 className="text-xs text-[var(--brand-text-dark)]">{item.size}</h3>
+                    <p className="text-sm text-[var(--brand-text-dark)]">₪{item.price }</p>
                     <div className="flex items-center rounded-md border border-stone-300 w-fit mt-2 text-[var(--brand-text-dark)]">
                       <button onClick={() => handleQuantityChange(item.id, item.quantity - 1)}><Minus className="h-4 w-4" /></button>
                       <span className="w-10 text-center text-sm font-medium text-[var(--brand-text-dark)]">{item.quantity}</span>
@@ -112,8 +114,11 @@ export default function CartPage({ lang }: CartPageProps) {
                     </div>
                   </div>
                   <div className="text-end">
-                    <p className="font-semibold text-[var(--brand-text-dark)]">₪{(product.price * item.quantity).toFixed(2)}</p>
-                    <button className="text-[var(--brand-text-dark)] hover:text-red-500 mt-2" onClick={() => handleRemove(item.id)}>
+                    <p className="font-semibold text-[var(--brand-text-dark)]">₪{((item.price ?? product.price) * item.quantity).toFixed(2)}</p>
+<button
+  className="text-[var(--brand-text-dark)] hover:text-red-500 mt-2"
+  onClick={() => handleRemove(item.id, item.size)}
+>
                       <Trash2 className="h-4 w-4" />
                     </button>
                   </div>
@@ -146,7 +151,7 @@ onClick={() => {
           item_name: product.name[lang],
           item_id: product.id,
           quantity: item.quantity,
-          price: product.price
+          price: product.price,
         };
       });
 

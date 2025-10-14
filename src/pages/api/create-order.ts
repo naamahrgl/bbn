@@ -1,6 +1,7 @@
 // src/pages/api/create-order.ts
 import type { APIRoute } from 'astro';
 import type { OrderData } from '../../lib/orders';
+import { normalizeOrderForSheet } from '../../lib/orders';
 
 export const prerender = false;
 
@@ -11,12 +12,14 @@ export const POST: APIRoute = async ({ request }) => {
     const data: OrderData = await request.json();
     console.log('[📦 Sending order to Apps Script]', data);
 
+        const normalized = normalizeOrderForSheet(data);
+
     const response = await fetch(APPS_SCRIPT_URL, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify(normalized),
     });
 
     const result = await response.json();

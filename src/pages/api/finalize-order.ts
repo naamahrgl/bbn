@@ -4,6 +4,7 @@ import { generateNextReceiptId } from '../../lib/receiptSerial';
 import type { OrderData } from '../../lib/orders';
 import { sendOrderEmail } from '../../lib/email';
 import { renderReceiptFromOrder } from '../../lib/renderReceipt';
+import { normalizeOrderForSheet } from '../../lib/orders';
 
 
 
@@ -17,15 +18,18 @@ export const POST: APIRoute = async ({ request }) => {
 
     // 1️⃣ Generate serial receipt id
     const receiptSerial = await generateNextReceiptId();
+            const normalized = normalizeOrderForSheet(order);
 
     // 2️⃣ Save order to DB (Google Sheets)
-    order.receiptSerial = receiptSerial;
+    normalized.receiptSerial = receiptSerial;
     //order.id = receiptSerial.toString(); 
+    
+    console.log('normorder added:', normalized);
 
     const response = await fetch(APPS_SCRIPT_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(order),
+      body: JSON.stringify(normalized),
     });
 
     const result = await response.json();
@@ -38,7 +42,7 @@ export const POST: APIRoute = async ({ request }) => {
 
 
 const receiptHtml = await renderReceiptFromOrder({
-  order: order, // יש לך את ההזמנה כבר
+  order: normalized, // יש לך את ההזמנה כבר
   serial: receiptSerial,
 });
 
@@ -47,7 +51,7 @@ const receiptHtml = await renderReceiptFromOrder({
     await sendOrderEmail({
       to: order.customerEmail,
       customerName: order.customerName,
-      orderSummary: order,
+      orderSummary: normalized,
       receiptHtml,
       receiptSerial
     });

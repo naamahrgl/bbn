@@ -1,6 +1,6 @@
 // lib/products.ts
 
-export type ProductId = 'classic' | 'sandwich' | 'chedder-jalapino' | 'focaccia' | 'cracker' | 'brownie' | 'pizzas' | 'alfajores' | 'rolls' | 'breadcrumbs';
+export type ProductId = 'classic' | 'sandwich' | 'chedder-jalapino' | 'focaccia' | 'cracker' | 'brownie' | 'pizzas' | 'alfajores' | 'rolls' | 'breadcrumbs' |'tam';
 
 type Tag = {
   key: 'new' | 'limited' | 'bestseller'; // You can add more
@@ -24,6 +24,11 @@ nutrients?: Partial<Record<
   isFeatured: boolean;
    isAvailable: boolean;
   tags?: Tag[]; 
+    variants?: {
+    size: Record<string, string>;   // e.g. "single", "tray"
+    price: number;
+      multiplier?: number;         
+  }[];
 };
 
 
@@ -69,6 +74,33 @@ export const PRODUCTS :Product[]= [
     isFeatured: true,
       isAvailable: true,
   },
+      {
+    id: 'tam',
+    name: { he: 'לחם תם', en: 'Soft Bread' },
+    description: {
+      he: 'לחם סנדביץ׳ בשם חדש! \nלחם רך ומנחם, טעים עם הכל ובא להרים.',
+      en: 'Light, soft and comforting bread, that can carry anything.\n Formerly called Sandwich Bread - in hebrew its now called Tam Bread - meaning ingenuous/innocent.'
+    },
+            directions: {
+      he: 'יש להקפיא ביום המשלוח, או לשמור טרי על השיש במשך יומיים/שלושה. יש להפשיר במיקרוגל/טוסטר/תנור.',
+      en: 'freeze the day of delivery, or keep fresh on the counter for two/three days. Defrost in microwave/toaster/oven.'
+    },
+        ingredients: {
+      he: 'מחמצת, קמח דורה, קמח טפיוקה, קמח דוחן, קמח תפוחי אדמה, קליפות פסיליום, מייפל, מלח.',
+      en: 'Sourdogh, sorghum flour, tapioca flour, millet flour, potato flour, psylium husks, maple syrup, salt.'
+    },
+    nutrients: {cal : 173.620000, carbs : 38.940000, sugar : 2.950000, protein : 2.560000, fat : 1.020000, transFat : 0.130000, satFat : 0.090000, sodium : 343.590000, fiber : 4.610000, iron : 0.820000, magnesium : 10.130000, phosphorus : 25.330000, calcium : 4.240000},
+    category: { he: 'לחמים', en: 'Breads' },
+    imageUrls: [
+            '/products/sand3.webp',
+      '/products/sndw.webp',
+      '/products/sand2.webp',
+    ],   
+    price: 35.0,
+    isFeatured: true,
+      isAvailable: true,
+
+  },
   {
     id: 'sandwich',
     name: { he: 'לחם סנדביץ׳', en: 'Sandwich Bread' },
@@ -92,8 +124,8 @@ export const PRODUCTS :Product[]= [
       '/products/sand2.webp',
     ],   
     price: 35.0,
-    isFeatured: true,
-      isAvailable: true,
+    isFeatured: false,
+      isAvailable: false,
 
   },
     {
@@ -143,8 +175,9 @@ export const PRODUCTS :Product[]= [
       '/products/brow1.webp'
     ],   
         price: 20.0,
-    isFeatured: false,
+    isFeatured: true,
           isAvailable: true,
+          variants: [{size: {he: 'אישי', en: "single"}, price: 20}, {size: {he: 'עוגה 20*30', en: "Tray 20*30"}, price: 110, multiplier: 8}]
 
   },
     {
@@ -325,19 +358,34 @@ category: { he: 'לחמים', en: 'Breads' },
       tags: [{ key: 'new' }]
 
   },
+
 ];
+
 
 
 
 export function getProducts(lang: string) {
   return Promise.resolve(PRODUCTS);
 }
-
-export function getProductById(id: string) {
+export function getProductById(id: string, size?: string) {
   const product = PRODUCTS.find(p => p.id === id);
-  if (!product) throw new Error('Product not found');
+  if (!product) throw new Error(`Product not found: ${id}`);
+
+  if (size && Array.isArray(product.variants)) {
+    const variant = product.variants.find(v =>
+      Object.values(v.size || {}).some(s => s === size)
+    );
+
+    if (variant) {
+      return { ...product, ...variant };
+    }
+  }
+
   return product;
 }
+
+
+
 
 
 export function getFeaturedProducts(limit: number = 20) {

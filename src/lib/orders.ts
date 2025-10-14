@@ -9,6 +9,8 @@ export type OrderItem = {
   name: string;
   quantity: number;
   price: number;
+  size?: string;
+  multiplier?: number;
 };
 
 export type OrderData = {
@@ -72,6 +74,26 @@ if (!response.ok) {
 
 
   return order;
+}
+
+export function normalizeOrderForSheet(order: OrderData): OrderData {
+  const normalizedItems: OrderItem[] = order.items.map(item => {
+    const nameWithSize = item.size ? `${item.name} (${item.size})` : item.name;
+
+    const multiplier = item.multiplier ?? 1;
+
+
+
+
+    return {
+      ...item,
+      name: nameWithSize,
+      quantity: item.quantity * multiplier,
+      productquantity: item.quantity
+    };
+  });
+
+  return { ...order, items: normalizedItems };
 }
 
 

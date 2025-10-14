@@ -110,7 +110,7 @@ useEffect(() => {
         {cart.map(item => {
           const product = getProductById(item.id);
           return (
-            <div key={item.id} className="flex justify-between items-center gap-3">
+            <div key={item.id + item.size} className="flex justify-between items-center gap-3">
               <div className="flex items-center gap-3">
                 <div className="w-14 h-14 overflow-hidden rounded border border-[#d0b8a8]">
                   <img
@@ -121,10 +121,11 @@ useEffect(() => {
                 </div>
                 <div>
                   <p className="text-sm font-medium leading-tight">{product.name[lang]}</p>
+                                    <p className="text-xs text-gray-500"> {item.size}</p>
                   <p className="text-xs text-gray-500">{t('qty')}: {item.quantity}</p>
                 </div>
               </div>
-              <p className="text-sm font-semibold">₪{(product.price * item.quantity).toFixed(2)}</p>
+              <p className="text-sm font-semibold">₪{((item.price ?? product.price) * item.quantity).toFixed(2)}</p>
             </div>
           );
         })}

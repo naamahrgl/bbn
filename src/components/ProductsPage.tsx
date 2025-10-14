@@ -44,16 +44,35 @@ type ProductsPageProps = {
 
 export default function ProductsPage({ lang }: ProductsPageProps) {
   const url = typeof window !== 'undefined' ? new URL(window.location.href) : null;
-  const productId = url?.searchParams.get('id') || '';
+  const productIdraw = url?.searchParams.get('id') || '';
   const t = (key: keyof typeof translations['he']) => translations[lang][key];
   const categories = categoriesByLang[lang];
 
   const [allProducts, setAllProducts] = useState<Product[]>([]);
   const [product, setProduct] = useState<Product | null>(null);
   const [quantity, setQuantity] = useState(1);
+  const [selectedVariant, setSelectedVariant] = useState<null | { size: Record<'he' | 'en', string>; price: number }>(null);
+
   const [activeCategory, setActiveCategory] = useState(categories[0]);
   const [selectedProducts, setSelectedProducts] = useState<Product[]>([]);
   const scrollRef = useRef<HTMLDivElement>(null);
+const redirectMap: Record<string, string> = {
+  sandwich: 'tam',
+  soft: 'tam',
+};
+const productId = redirectMap[productIdraw] || productIdraw;
+useEffect(() => {
+  if (!productIdraw) return;
+
+  const redirectTarget = redirectMap[productIdraw];
+  if (redirectTarget) {
+    const currentUrl = new URL(window.location.href);
+    currentUrl.searchParams.set('id', redirectTarget);
+
+    // replace URL without reload
+    window.history.replaceState({}, '', currentUrl.toString());
+  }
+}, [productIdraw]);
 
 
 useEffect(() => {
@@ -65,6 +84,7 @@ useEffect(() => {
       setSelectedProducts(filtered);
     }
   });
+
 
   // אבל getProductById היא סינכרונית, אז לא צריך then
   if (productId) {
@@ -205,7 +225,45 @@ useEffect(() => {
           <div className="text-start">
             <p className="text-sm font-medium text-brand-secondary">{product.category[lang]}</p>
             <h1 className=" text-3xl sm:text-4xl font-bold text-brand-dark mt-2">{product.name[lang]}</h1>
-            <p className="text-2xl sm:text-3xl font-bold text-brand-dark mt-4">₪{product.price.toFixed(2)}</p>
+{/* Price + Variant Selector */}
+<div className="mt-4">
+  {product.variants ? (
+    <>
+      {/* Variant dropdown */}
+      <label className="block text-sm font-medium text-brand-dark mb-2">
+        {lang === 'he' ? 'בחרו גודל' : 'Choose size'}
+      </label>
+
+      <select
+        value={selectedVariant?.size?.[lang] || product.variants[0].size[lang]}
+        onChange={(e) => {
+          const variant = product.variants?.find(
+            (v) => v.size[lang] === e.target.value
+          );
+          setSelectedVariant(variant || null);
+        }}
+        className="border border-[#d0b8a8] rounded px-3 py-2 bg-[var(--brand-lighter)] text-[var(--brand-text-dark)]"
+      >
+        {product.variants.map((variant, i) => (
+          <option key={i} value={variant.size[lang]}>
+            {variant.size[lang]} — ₪{variant.price.toFixed(2)}
+          </option>
+        ))}
+      </select>
+
+      {/* Display price dynamically */}
+      <p className="text-2xl sm:text-3xl font-bold text-brand-dark mt-4">
+        ₪{(selectedVariant?.price ?? product.variants[0].price).toFixed(2)}
+      </p>
+    </>
+  ) : (
+    // No variants — show regular price
+    <p className="text-2xl sm:text-3xl font-bold text-brand-dark mt-4">
+      ₪{product.price.toFixed(2)}
+    </p>
+  )}
+</div>
+
             <p className="mt-6 text-brand-light leading-relaxed whitespace-pre-line">{product.description[lang]}</p>
 
 <div className="mt-8 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
@@ -233,7 +291,7 @@ useEffect(() => {
     type="button"
     className="w-full sm:w-auto bg-[var(--big-buttons)] hover:bg-[var(--big-buttons-hover)] text-white font-medium py-2 rounded"
     onClick={() => {
-      addToCart(product, quantity);
+      addToCart(product, quantity, selectedVariant?.size[lang], selectedVariant?.price);
       gtag('event', 'add_to_cart', {
   currency: 'ILS',
   value: product.price,
@@ -338,7 +396,7 @@ fbq('track', 'AddToCart', {
         type="button"
         className="w-full bg-[var(--big-buttons)] hover:bg-[var(--big-buttons-hover)] text-white font-medium py-2 rounded"
         onClick={() => {
-          addToCart(product, 1);
+          addToCart(product, 1, selectedVariant?.size[lang], selectedVariant?.price);
               gtag('event', 'add_to_cart', {
   currency: 'ILS',
   value: product.price,
