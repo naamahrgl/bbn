@@ -205,6 +205,8 @@ export const PRODUCTS :Product[]= [
         price: 25.0,
     isFeatured: true,
           isAvailable: true,
+                    variants: [{size: {he: 'אישי', en: "single"}, price: 25}, {size: {he: 'גדול', en: "Double"}, price: 50, multiplier: 2}]
+
 
   },
     {
