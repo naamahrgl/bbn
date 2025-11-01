@@ -10,14 +10,14 @@ interface Props {
 const translations = {
   he: {
     title: 'שיטת משלוח',
-    pickup: 'איסוף עצמי מגן החשמל, ת״א',
+    pickup: 'איסוף עצמי מקפה החשמל - החשמל 12, ת״א',
     delivery_near: 'משלוח למרכז/דרום ת״א',
     delivery_far: ' משלוח בצפון ת״א / רמת גן / גבעתיים',
     delivery_sharon: 'משלוח לרמת השרון / הוד השרוןֿֿ / הרצליה / רעננה / כפר סבא'
   },
   en: {
     title: 'Delivery Method',
-    pickup: 'Pickup from Gan HaHashmal, Tel Aviv',
+    pickup: 'Pickup from Cafe HaHashmal - HaHashmal St 12, Tel Aviv',
     delivery_near: 'Delivery in Tel Aviv (center/south)',
     delivery_far: 'Delivery in Ramat Gan/Givataim/Tel Aviv (north)',
     delivery_sharon: 'Delivery in Ramat HaSharon/ Hod Hasharon/ Herzeliya/ Kefar Saba/ Raanana'
@@ -49,7 +49,7 @@ export default function DeliveryMethodSelector({
             onChange={() => onSelect('pickup')}
           />
           <span>{t.pickup}</span>
-                              <span className='text-stone-400'>{lang == 'he' ? "בתיאום מראש בלבד, בין השעות 10-20": 'by prior arrangement, between 10am-8pm'}</span>
+                              <span className='text-stone-400'>{lang == 'he' ? "תקבלו הודעה כאשר ההזמנה זמינה לאיסוף": 'You will be informed once your order is available for pickup'}</span>
 
         </label>
         <label className="flex items-center space-x-2">

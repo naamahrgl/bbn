@@ -72,7 +72,7 @@ const combinedHtml = `
 
 <p style="margin-top:10px; font-weight: bold;">
 ${orderSummary.deliveryMethod === 'pickup' 
-  ? `הזמנתך תהיה מוכנה לאיסוף מרחוב החשמל 8, תל אביב ביום ${formatted}. 
+  ? `הזמנתך תהיה מוכנה לאיסוף מקפה החשמל - רחוב החשמל 12, תל אביב ביום ${formatted}. 
   תקבלו הודעה כאשר הזמנתך זמינה לאיסוף!`
   : `הזמנתך תגיע עד אליך במשלוח ביום ${formatted}. 
   תקבלו הודעה כאשר הזמנתך בדרך אליך!`}
