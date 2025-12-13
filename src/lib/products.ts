@@ -25,6 +25,7 @@ nutrients?: Partial<Record<
    isAvailable: boolean;
   tags?: Tag[]; 
     variants?: {
+      sizeid: string;
     size: Record<string, string>;   // e.g. "single", "tray"
     price: number;
       multiplier?: number;         
@@ -177,7 +178,7 @@ export const PRODUCTS :Product[]= [
         price: 20.0,
     isFeatured: true,
           isAvailable: true,
-          variants: [{size: {he: 'אישי', en: "single"}, price: 20}, {size: {he: 'עוגה 20*30', en: "Tray 20*30"}, price: 110, multiplier: 8}]
+        //  variants: [{sizeid: 's', size: {he: 'אישי', en: "single"}, price: 20}, {sizeid: 'l', size: {he: 'עוגה 20*30', en: "Tray 20*30"}, price: 110, multiplier: 8}]
 
   },
     {
@@ -205,7 +206,7 @@ export const PRODUCTS :Product[]= [
         price: 25.0,
     isFeatured: true,
           isAvailable: true,
-                    variants: [{size: {he: 'אישי', en: "single"}, price: 25}, {size: {he: 'גדול', en: "Double"}, price: 50, multiplier: 2}]
+                  //  variants: [{sizeid: 's', size: {he: 'אישי', en: "single"}, price: 25}, {sizeid: 'd', size: {he: 'גדול', en: "Double"}, price: 50, multiplier: 2}]
 
 
   },

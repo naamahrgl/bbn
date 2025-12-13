@@ -6,6 +6,7 @@ export type CartItem = {
   id: ProductId;
   quantity: number;
   size?: string;
+  sizeid?: string;
   price?: number;
   multiplier?: number;
 };
@@ -36,12 +37,14 @@ export function getCart(): CartItem[] {
   return safeLocalStorage<CartItem[]>('cart', []);
 }
 
-export function addToCart(product: Product, quantity: number, size?: string, price?: number) {
+export function addToCart(product: Product, quantity: number, sizeid?:string, size?: string, price?: number) {
   // ✅ 1. apply default size & price if not provided
-const defaultVariant = product.variants?.[0] ?? { size: { he: '', en: '' }, price: product.price };
+const defaultVariant = product.variants?.[0] ?? {sizeid: '', size: { he: '', en: '' }, price: product.price };
   const lang = getCurrentLang();
 
-  const finalSize = size || defaultVariant?.size?.[lang] || '';
+  const finalSize = size || defaultVariant?.size?.[lang]  || '';
+    const finalSizeןd = sizeid || defaultVariant?.sizeid || '';
+
   const finalPrice = price ?? defaultVariant?.price ?? product.price;
   
   const cart = getCart();
@@ -54,6 +57,7 @@ const defaultVariant = product.variants?.[0] ?? { size: { he: '', en: '' }, pric
       id: product.id as ProductId,
       quantity,
       size: finalSize,
+      sizeid: finalSizeןd,
       price: finalPrice
     };
     cart.push(cartItem);

@@ -9,6 +9,7 @@ export type OrderItem = {
   name: string;
   quantity: number;
   price: number;
+  sizeid?: string;
   size?: string;
   multiplier?: number;
 };
@@ -25,7 +26,7 @@ export type OrderData = {
   couponCode?: string;
   couponAmount: number;
   deliveryDate: Date; // ✅ תאריך בצורת yyyy-MM-dd
-  deliveryMethod: 'pickup' | 'delivery_near' | 'delivery_far' | 'delivery_sharon'; // ✅ כדי להציג גם בשיט
+  deliveryMethod: 'pickup_hashmal' | 'pickup_kingdom' | 'delivery_near' | 'delivery_far' | 'delivery_sharon'; // ✅ כדי להציג גם בשיט
   paymentMethod?: 'cash' | 'credit'; // ✅ לשלב מאוחר יותר
   amountToPay: number;
 deliveryFee: number;
@@ -78,7 +79,7 @@ if (!response.ok) {
 
 export function normalizeOrderForSheet(order: OrderData): OrderData {
   const normalizedItems: OrderItem[] = order.items.map(item => {
-    const nameWithSize = item.size ? `${item.name} (${item.size})` : item.name;
+    const nameWithSize = item.size ? `${item.name} (${item.sizeid}) ` : item.name;
 
     const multiplier = item.multiplier ?? 1;
 

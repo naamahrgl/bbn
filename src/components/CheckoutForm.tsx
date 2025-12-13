@@ -21,7 +21,7 @@ type DayColor = {
 type CheckoutFormProps = {
   lang: 'he' | 'en';
   selectedDate: Date | undefined;
-  deliveryMethod: 'pickup' | 'delivery_near' | 'delivery_far' | 'delivery_sharon' | undefined;
+  deliveryMethod: 'pickup_hashmal' | 'pickup_kingdom' | 'delivery_near' | 'delivery_far' | 'delivery_sharon' | undefined;
   dayColors: Record<string, DayColor>;
   coupon: { code: string; amount: number } | null;
   deliveryFee: number;
@@ -107,6 +107,7 @@ const handleSubmit = async (e: React.FormEvent) => {
         name: product.name[lang],
         quantity: item.quantity,
         price: item.price ?? product.price,
+        sizeid: item.sizeid,
         size: item.size,
         multiplier: item.multiplier,
       };

@@ -291,7 +291,7 @@ useEffect(() => {
     type="button"
     className="w-full sm:w-auto bg-[var(--big-buttons)] hover:bg-[var(--big-buttons-hover)] text-white font-medium py-2 rounded"
     onClick={() => {
-      addToCart(product, quantity, selectedVariant?.size[lang], selectedVariant?.price);
+      addToCart(product, quantity);
       gtag('event', 'add_to_cart', {
   currency: 'ILS',
   value: product.price,
@@ -396,7 +396,7 @@ fbq('track', 'AddToCart', {
         type="button"
         className="w-full bg-[var(--big-buttons)] hover:bg-[var(--big-buttons-hover)] text-white font-medium py-2 rounded"
         onClick={() => {
-          addToCart(product, 1, selectedVariant?.size[lang], selectedVariant?.price);
+          addToCart(product, 1);
               gtag('event', 'add_to_cart', {
   currency: 'ILS',
   value: product.price,

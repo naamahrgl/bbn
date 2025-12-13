@@ -30,8 +30,13 @@ const expectedAmountToPay = totalItems + orderSummary.deliveryFee - orderSummary
 תודה על ההזמנה!
 
 <p style="margin-top:10px; font-weight: bold;">
-${orderSummary.deliveryMethod === 'pickup' 
-  ? `המזנתך תהיה מוכנה לאיסוף מרחוב החשמל 8, תל אביב ביום ${orderSummary.deliveryDate}. נשלח הודעה כאשר הזמנתך זמינה לאיסוף!`
+${orderSummary.deliveryMethod === 'pickup_hashmal' 
+  ? `המזנתך תהיה מוכנה לאיסוף מקפה החשמל - רחוב החשמל 12, תל אביב ביום ${orderSummary.deliveryDate}. נשלח הודעה כאשר הזמנתך זמינה לאיסוף!`
+  : `הזמנתך תגיע עד אליך במשלוח ביום ${orderSummary.deliveryDate}. נשלח הודעה כאשר הזמנתך בדרך אליך!`}
+</p>
+<p style="margin-top:10px; font-weight: bold;">
+${orderSummary.deliveryMethod === 'pickup_kingdom' 
+  ? `המזנתך תהיה מוכנה לאיסוף מממלכה ללא גלוטן - שדרות מסריק 16, תל אביב ביום ${orderSummary.deliveryDate}. נשלח הודעה כאשר הזמנתך זמינה לאיסוף!`
   : `הזמנתך תגיע עד אליך במשלוח ביום ${orderSummary.deliveryDate}. נשלח הודעה כאשר הזמנתך בדרך אליך!`}
 </p>
 
@@ -40,7 +45,7 @@ ${orderSummary.deliveryMethod === 'pickup'
 
 ${orderItems}
 
-🗓️ משלוח: ${orderSummary.deliveryMethod === 'pickup' 
+🗓️ משלוח: ${orderSummary.deliveryMethod === 'pickup_hashmal' || orderSummary.deliveryMethod === 'pickup_kingdom'
   ? `איסוף עצמי - ${orderSummary.deliveryDate} - ₪0`
   : `${orderSummary.customerAddress}, ${orderSummary.deliveryDate} - ₪${orderSummary.deliveryFee}`}
 
@@ -71,12 +76,16 @@ const combinedHtml = `
 <p>היי! תודה על ההזמנה.</p>
 
 <p style="margin-top:10px; font-weight: bold;">
-${orderSummary.deliveryMethod === 'pickup' 
+${orderSummary.deliveryMethod === 'pickup_hashmal' 
   ? `הזמנתך תהיה מוכנה לאיסוף מקפה החשמל - רחוב החשמל 12, תל אביב ביום ${formatted}. 
+  תקבלו הודעה כאשר הזמנתך זמינה לאיסוף!`
+  : orderSummary.deliveryMethod === 'pickup_kingdom' 
+  ? `הזמנתך תהיה מוכנה לאיסוף מממלכה ללא גלוטן - שדרות מסריק 16, תל אביב ביום ${formatted}. 
   תקבלו הודעה כאשר הזמנתך זמינה לאיסוף!`
   : `הזמנתך תגיע עד אליך במשלוח ביום ${formatted}. 
   תקבלו הודעה כאשר הזמנתך בדרך אליך!`}
 </p>
+
 
 
 <table style="margin: 0 auto; text-align: right;">
@@ -95,7 +104,7 @@ ${orderSummary.items.map(item => `
 
 <tr>
 <td colspan="2">משלוח</td>
-<td>₪${orderSummary.deliveryMethod === 'pickup' ? 0 : orderSummary.deliveryFee}</td>
+<td>₪${orderSummary.deliveryMethod === 'pickup_hashmal' || orderSummary.deliveryMethod === 'pickup_kingdom' ? 0 : orderSummary.deliveryFee}</td>
 </tr>
 
 ${orderSummary.couponAmount ? `

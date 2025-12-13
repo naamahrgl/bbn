@@ -11,7 +11,7 @@ type DayColorEntry = {
 
 interface OrderContext {
   selectedDate: Date | undefined;
-  deliveryMethod: 'pickup' | 'delivery_near' | 'delivery_far' | 'delivery_sharon';
+  deliveryMethod: 'pickup_hashmal' | 'pickup_kingdom'  | 'delivery_near' | 'delivery_far' | 'delivery_sharon';
   dayColors: Record<string, DayColorEntry>;
   lang: 'he' | 'en';
 }
