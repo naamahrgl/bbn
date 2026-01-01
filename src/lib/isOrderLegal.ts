@@ -80,7 +80,7 @@ export function isOrderLegal({
 
 // Add this inside isOrderLegal(), before returning null:
 if (deliveryMethod === 'delivery_sharon') {
-  const startTuesday = new Date(2026, 1, 8); // Aug 19, 2025 as baseline valid Tuesday
+  const startTuesday = new Date(2026, 1, 1); // Aug 19, 2025 as baseline valid Tuesday
 
   const isTuesday = selectedDate.getDay() === 4; // 0=Sun, 1=Mon, 2=Tue...
   const weekDiff = differenceInCalendarWeeks(selectedDate, startTuesday);
