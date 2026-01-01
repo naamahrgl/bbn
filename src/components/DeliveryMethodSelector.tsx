@@ -14,7 +14,7 @@ const translations = {
     pickup_kingdom: 'איסוף עצמי מממלכה ללא גלוטן - מסריק 16, ת״א',
     delivery_near: 'משלוח למרכז/דרום ת״א',
     delivery_far: ' משלוח בצפון ת״א / רמת גן / גבעתיים',
-    delivery_sharon: 'משלוח לרמת השרון / הוד השרוןֿֿ / הרצליה / רעננה / כפר סבא'
+    delivery_sharon: 'משלוח לקרית אונו / יהוד-מונוסון / אור יהודה / סביון'
   },
   en: {
     title: 'Delivery Method',
@@ -22,7 +22,7 @@ const translations = {
         pickup_kingdom: 'Pickup from Gluten Free Kingdom - Masarik St 16, Tel Aviv',
     delivery_near: 'Delivery in Tel Aviv (center/south)',
     delivery_far: 'Delivery in Ramat Gan/Givataim/Tel Aviv (north)',
-    delivery_sharon: 'Delivery in Ramat HaSharon/ Hod Hasharon/ Herzeliya/ Kefar Saba/ Raanana'
+    delivery_sharon: 'Delivery in Kiryat Ono / Yehud-Monoson / Or-Yehuda / Savyon'
 
   },
 };
@@ -98,7 +98,7 @@ export default function DeliveryMethodSelector({
             onChange={() => onSelect('delivery_sharon')}
           />
           <span>{t.delivery_sharon}</span>
-                    <span className='text-stone-400'>{lang == 'he' ? "ימי שלישי אחת לשבועיים, 50 ש״ח": 'Every other Tuesday, 50 NIS'}</span>
+                    <span className='text-stone-400'>{lang == 'he' ? "ימי חמישי אחת לשבועיים, 45 ש״ח": 'Every other Thursdays, 45 NIS'}</span>
 
         </label>
       </div>
