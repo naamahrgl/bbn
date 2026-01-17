@@ -17,6 +17,8 @@ const translations = {
     section1: '1. תנאי שימוש',
     section2: '2. מדיניות פרטיות ואבטחת מידע',
     section3: '3. מדיניות משלוחים וביטולים',
+        section4: '4. הצהרת נגישות',
+
 
     terms: `
 • האתר מופעל על ידי "לחם נעמה" (עוסק פטור, החשמל 8 ת״א) ומיועד לרכישת מוצרי מאפה טריים בהזמנה מראש.
@@ -35,7 +37,7 @@ const translations = {
 • המידע לא מועבר לגורמים שלישיים, למעט חברות סליקה ומשלוחים.
 • האתר משתמש בקבצי Cookies לשיפור חווית המשתמש ולאיסוף נתונים סטטיסטיים אנונימיים , בהתאם להוראות הדין.
 • פרטי כרטיס האשראי אינם נשמרים באתר - הם עוברים ישירות לחברת הסליקה באמצעות חיבור מאובטח.
-• על פי החוק, לקוחות רשאים לעיין, לעדכן או למחוק את המידע האישי שלהם ע״י פנייה לכתובת: breadbynaama@gmail.com.
+• על פי החוק, לקוחות רשאים לעיין, לעדכן או למחוק את המידע האישי שלהם ע״י פנייה לכתובת: info@breadbynaama.com.
 • ייתכן שימוש בנתוני גלישה לשם התאמת שירותים והצעות (באופן אנונימי בלבד).
 • האתר כולל קישורים חיצוניים. איננו אחראים למדיניות הפרטיות של אתרים אלו.
     `,
@@ -47,7 +49,17 @@ const translations = {
 • ביטול עסקה - ניתן לבטל עד 24 שעות לפני מועד האספקה/איסוף, בהתאם לתקנות הגנת הצרכן (ביטול עסקה), תשע"א-2010.
 • במקרה של ביטול אחרי מועד זה, ייתכן חיוב על המשלוח שכבר בוצע.
 • מוצרי מאפה טריים נחשבים למוצרים פסידים - לא ניתן להחזירם לאחר מסירה.
-    `
+    `,
+accessibility: `
+האתר "לחם נעמה" שואף לספק חוויית שימוש נגישה ככל האפשר לכלל המשתמשים, לרבות אנשים עם מוגבלות.
+
+האתר נבנה תוך מאמץ לעמידה בהנחיות הנגישות בהתאם לתקן הישראלי ת"י 5568, המבוסס על תקן WCAG 2.1 ברמה AA. עם זאת, ייתכן כי חלקים מסוימים באתר טרם הונגשו במלואם.
+
+אם נתקלתם בקושי כלשהו בשימוש באתר או יש לכם הערות בנושא נגישות, ניתן לפנות אלינו ואנו נעשה מאמץ סביר לטפל בפנייה:
+
+דוא"ל: info@breadbynaama.com
+`
+
   },
 
   en: {
@@ -57,6 +69,7 @@ const translations = {
     section1: '1. Terms of Use',
     section2: '2. Privacy Policy & Data Security',
     section3: '3. Shipping & Cancellation Policy',
+    section4: '4. Accessibility Statement',
 
     terms: `
 • The website is operated by "Lechem Naama" (small home bakery, HaHashmal 8 Tel Aviv) and is intended for ordering fresh baked goods.
@@ -75,7 +88,7 @@ const translations = {
 • We do not share personal data with third parties except for payment processing and delivery.
 • Cookies are used for improving user experience and collecting anonymous statistical data, in line with legal requirements.
 • Payment details are processed securely by the payment provider and are not stored on our website.
-• As permitted by law, you have the right to access, update or delete your personal data by contacting: breadbynaama@gmail.com.
+• As permitted by law, you have the right to access, update or delete your personal data by contacting: info@breadbynaama.com.
 • Some browsing data may be used anonymously for service improvement and marketing.
 • External links may appear on the site. We are not responsible for third-party privacy practices.
     `,
@@ -87,7 +100,18 @@ const translations = {
 • Order cancellation - up to 24 hours before the scheduled pickup or delivery,  in accordance with the Consumer Protection (Cancellation of Transaction) Regulations, 2010.
 • Cancellations after this time may incur delivery fees if already dispatched.
 • Fresh baked goods are considered perishable items and cannot be returned after delivery.
-    `
+    `,
+
+accessibility: `
+The website "Lechem Naama" aims to provide an accessible user experience for all users, including people with disabilities.
+
+The site has been built with efforts to comply with the Israeli Standard 5568, based on WCAG 2.1 Level AA guidelines. However, some parts of the website may not yet be fully accessible.
+
+If you encounter any accessibility-related difficulties or have feedback, please contact us and we will make a reasonable effort to address the issue:
+
+Email: info@breadbynaama.com
+`
+
   }
 };
 
@@ -108,5 +132,9 @@ const t = translations[lang as keyof typeof translations];
 
     <h2 class="text-xl font-semibold mt-6 mb-2">{t.section3}</h2>
     <p class="whitespace-pre-line mb-6">{t.shipping}</p>
+
+    <h2 class="text-xl font-semibold mt-6 mb-2">{t.section4}</h2>
+<p class="whitespace-pre-line mb-6">{t.accessibility}</p>
+
   </section>
 </BaseLayout>
