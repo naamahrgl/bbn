@@ -1,6 +1,6 @@
 // lib/products.ts
 
-export type ProductId = 'classic' | 'sandwich' | 'chedder-jalapino' | 'focaccia' | 'cracker' | 'brownie' | 'pizzas' | 'alfajores' | 'rolls' | 'breadcrumbs' |'tam';
+export type ProductId = 'classic' | 'sandwich' | 'chedder-jalapino' | 'focaccia' | 'cracker' | 'brownie' | 'pizzas' | 'alfajores' | 'rolls' | 'breadcrumbs' |'tam' | 'hamantash' | 'meat-dumplings8' | 'potato-dumplings8' | 'meat-dumplings18' | 'potato-dumplings18';
 
 type Tag = {
   key: 'new' | 'limited' | 'bestseller'; // You can add more
@@ -260,8 +260,8 @@ export const PRODUCTS :Product[]= [
       '/products/piz2.webp'
     ],   
         price: 25.0,
-    isFeatured: true,
-          isAvailable: true,
+    isFeatured: false,
+          isAvailable: false,
 
   },
         {
@@ -316,7 +316,6 @@ export const PRODUCTS :Product[]= [
     price: 35.0,
     isFeatured: true,
       isAvailable: true,
-      tags: [{ key: 'new' }]
 
   },
       {
@@ -358,10 +357,158 @@ category: { he: 'לחמים', en: 'Breads' },
     price: 25.0,
     isFeatured: true,
       isAvailable: true,
-      tags: [{ key: 'new' }]
 
   },
+     {
+    id: 'hamantash',
+    name: { he: 'אזני המן', en: 'Hamantash' },
+    description: {
+      he: '8 אזני המן במילוי נוטלה',
+      en: '8 Hamantash cookies filled with Nutella'
+    },
+            directions: {
+      he: ' ',
+      en: ''
+    },
+        ingredients: {
+      he: 'קמח אורז לבן, קמח דורה, קמח שקדים, קמח טפיוקה, חמאה, ביצים, נוטלה, קוקס טחון, קליפות פסיליום, וניל',
+      en: 'Sorghum flour, white rice flour, almond meal, tapioca flour,  butter, eggs, psylium husks, nutella, cocunut flakes, vanilla.'
+    },
+nutrients: {
+  cal: 332.800000,
+  carbs: 73.540000,
+  sugar: 4.380000,
+  protein: 5.480000,
+  fat: 2.100000,
+  transFat: 0.270000,
+  satFat: 0.190000,
+  sodium: 720.600000,
+  fiber: 9.760000,
+  iron: 1.710000,
+  magnesium: 16.920000,
+  phosphorus: 42.320000,
+  calcium: 6.300000
+},    
+            category: { he: 'מתוקים', en: 'Sweets' },
+    imageUrls: [
+            '/products/haman.webp',
 
+    ],   
+    price: 40.0,
+    isFeatured: true,
+      isAvailable: true,
+      tags: [{ key: 'limited'}]
+
+  },
+     {
+    id: 'meat-dumplings8',
+    name: { he: 'כיסונים קפואים במילוי בשר (קרעפלך) - 8 יחידות', en: 'Dumpligns filled with ground beef (eastern-europian style) - 8 frozen units' },
+    description: {
+      he: '8 כיסונים קפואים במילוי בשר ובצל מטוגן (קרעפלך)',
+      en: '8 frozen dumplings filled with ground beef and fried onion'
+    },
+            directions: {
+      he: 'שמרו קפוא. כשרוצים לאכול - מוסיפים את הכיסונים הקפואים למים רותחים עם מעט מלח. מבשלים כמה דקות עד שהכיסונים צפים.',
+      en: 'Keep frozen. When youre hungry - just add the frozen dumplings into salted boiling water, cook a few minutes until the dumpling floats.'
+    },
+        ingredients: {
+      he: 'קמח אורז לבן, קמח טפיוקה, קליפות פסיליום, בשר טחון, בצל מטוגן, מלח',
+      en: 'White rice flour, tapioca flour, psylium husks, ground beef, fried onion, salt.'
+    },
+  
+            category: { he: 'מיוחדים', en: 'Specials' },
+    imageUrls: [
+     '/products/krep1.webp',
+            '/products/dump1.webp',
+    ],   
+    price: 40.0,
+    isFeatured: true,
+      isAvailable: true,
+      tags: [{ key: 'new'}]
+
+  },
+       {
+    id: 'meat-dumplings18',
+    name: { he: 'כיסונים קפואים במילוי בשר (קרעפלך) - 18 יחידות', en: 'Dumpligns filled with ground beef (eastern-europian style) - 18 frozen units' },
+    description: {
+      he: '18 כיסונים קפואים במילוי בשר ובצל מטוגן (קרעפלך)',
+      en: '18 frozen dumplings filled with ground beef and fried onion'
+    },
+            directions: {
+      he: 'שמרו קפוא. כשרוצים לאכול - מוסיפים את הכיסונים הקפואים למים רותחים עם מעט מלח. מבשלים כמה דקות עד שהכיסונים צפים.',
+      en: 'Keep frozen. When youre hungry - just add the frozen dumplings into salted boiling water, cook a few minutes until the dumpling floats.'
+    },
+        ingredients: {
+      he: 'קמח אורז לבן, קמח טפיוקה, קליפות פסיליום, בשר טחון, בצל מטוגן, מלח',
+      en: 'White rice flour, tapioca flour, psylium husks, ground beef, fried onion, salt.'
+    },
+  
+            category: { he: 'מיוחדים', en: 'Specials' },
+    imageUrls: [
+            '/products/krep1.webp',
+            '/products/dump1.webp',
+
+    ],   
+    price: 80.0,
+    isFeatured: true,
+      isAvailable: true,
+      tags: [{ key: 'new'}]
+
+  },
+       {
+    id: 'potato-dumplings8',
+    name: { he: 'כיסונים קפואים במילוי תפ״א (ורניקס) - 8 יחידות', en: 'Dumpligns filled with potato (eastern-europian style) - 8 frozen units' },
+    description: {
+      he: '8 כיסונים קפואים במילוי תפ״א ובצל מטוגן (ורניקס)',
+      en: '8 frozen dumplings filled with mashed potato and fried onion'
+    },
+            directions: {
+      he: 'שמרו קפוא. כשרוצים לאכול - מוסיפים את הכיסונים הקפואים למים רותחים עם מעט מלח. מבשלים כמה דקות עד שהכיסונים צפים.',
+      en: 'Keep frozen. When youre hungry - just add the frozen dumplings into salted boiling water, cook a few minutes until the dumpling floats.'
+    },
+        ingredients: {
+      he: 'קמח אורז לבן, קמח טפיוקה, קליפות פסיליום, תפ״א, בצל מטוגן, מלח',
+      en: 'White rice flour, tapioca flour, psylium husks, mashed potato, fried onion, salt.'
+    },
+  
+            category: { he: 'מיוחדים', en: 'Specials' },
+    imageUrls: [
+     '/products/dump0.webp',
+            '/products/dump1.webp',
+    ],   
+    price: 40.0,
+    isFeatured: true,
+      isAvailable: true,
+      tags: [{ key: 'new'}]
+
+  },
+       {
+    id: 'potato-dumplings18',
+    name: { he: 'כיסונים קפואים במילוי תפ״א (ורניקס) - 18 יחידות', en: 'Dumpligns filled with potato (eastern-europian style) - 18 frozen units' },
+    description: {
+      he: '18 כיסונים קפואים במילוי תפ״א ובצל מטוגן (ורניקס)',
+      en: '18 frozen dumplings filled with mashed potato and fried onion'
+    },
+            directions: {
+      he: 'שמרו קפוא. כשרוצים לאכול - מוסיפים את הכיסונים הקפואים למים רותחים עם מעט מלח. מבשלים כמה דקות עד שהכיסונים צפים.',
+      en: 'Keep frozen. When youre hungry - just add the frozen dumplings into salted boiling water, cook a few minutes until the dumpling floats.'
+    },
+        ingredients: {
+      he: 'קמח אורז לבן, קמח טפיוקה, קליפות פסיליום, תפ״א, בצל מטוגן, מלח',
+      en: 'White rice flour, tapioca flour, psylium husks, mashed potato, fried onion, salt.'
+    },
+  
+            category: { he: 'מיוחדים', en: 'Specials' },
+    imageUrls: [
+     '/products/dump0.webp',
+            '/products/dump1.webp',
+    ],   
+    price: 80.0,
+    isFeatured: true,
+      isAvailable: true,
+      tags: [{ key: 'new'}]
+
+  },
 ];
 
 

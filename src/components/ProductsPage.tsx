@@ -34,8 +34,8 @@ const translations = {
 };
 
 const categoriesByLang = {
-  he: ['הכל', 'לחמים', "פוקצ'ה ופיצה", 'קרקרים', 'מתוקים'],
-  en: ['All', 'Breads', 'Focaccia & Pizza', 'Crackers', 'Sweets'],
+  he: ['הכל', 'לחמים', "פוקצ'ה ופיצה", 'קרקרים', 'מתוקים', 'מיוחדים'],
+  en: ['All', 'Breads', 'Focaccia & Pizza', 'Crackers', 'Sweets', 'Specials'],
 };
 
 type ProductsPageProps = {
