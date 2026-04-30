@@ -395,8 +395,8 @@ nutrients: {
 
     ],   
     price: 40.0,
-    isFeatured: true,
-      isAvailable: true,
+    isFeatured: false,
+      isAvailable: false,
       tags: [{ key: 'limited'}]
 
   },
@@ -423,7 +423,7 @@ nutrients: {
     ],   
     price: 40.0,
     isFeatured: true,
-      isAvailable: true,
+      isAvailable: false,
       tags: [{ key: 'new'}]
 
   },
@@ -451,7 +451,7 @@ nutrients: {
     ],   
     price: 80.0,
     isFeatured: true,
-      isAvailable: true,
+      isAvailable: false,
       tags: [{ key: 'new'}]
 
   },
@@ -478,7 +478,7 @@ nutrients: {
     ],   
     price: 40.0,
     isFeatured: true,
-      isAvailable: true,
+      isAvailable: false,
       tags: [{ key: 'new'}]
 
   },
@@ -505,7 +505,7 @@ nutrients: {
     ],   
     price: 80.0,
     isFeatured: true,
-      isAvailable: true,
+      isAvailable: false,
       tags: [{ key: 'new'}]
 
   },

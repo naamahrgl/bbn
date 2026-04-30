@@ -9,6 +9,8 @@ import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
+    site: 'https://breadbynaama.com',
+
   integrations: [react(), sitemap()],
    output: "server",
   adapter: netlify(),

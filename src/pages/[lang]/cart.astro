@@ -12,7 +12,7 @@ export function getStaticPaths() {
 interface Params {
   lang: 'he' | 'en';
 }
-
+export const prerender = true;
 const { params } = Astro;
 const lang = (params as Params).lang;
 const title = lang === 'he' ? 'העגלה שלי' : 'My Cart';
