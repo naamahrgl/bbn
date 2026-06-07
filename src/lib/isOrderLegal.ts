@@ -82,13 +82,13 @@ export function isOrderLegal({
 if (deliveryMethod === 'delivery_sharon') {
   const startTuesday = new Date(2026, 1, 1); // Aug 19, 2025 as baseline valid Tuesday
 
-  const isTuesday = selectedDate.getDay() === 4; // 0=Sun, 1=Mon, 2=Tue...
+  const isTuesday = selectedDate.getDay() ===1 || selectedDate.getDay() ===3; // 0=Sun, 1=Mon, 2=Tue...
   const weekDiff = differenceInCalendarWeeks(selectedDate, startTuesday);
 
-  if (!isTuesday || weekDiff % 2 !== 0) {
+  if (!isTuesday ) {
     return lang === 'he'
-      ? 'משלוח לבקעת אונו זמין רק בימי חמישי אחת לשבועיים. ביום שבחרתם אין משלוחים - נסו יום חמישי אחר'
-      : 'Delivery to Biqat Ono is available only every other Thursday. The selected day is invalid - try anther Thursday';
+      ? 'משלוח למידטאון זמין רק בימי שני ורביעי. ביום שבחרתם אין משלוחים - נסו יום אחר'
+      : 'Delivery to Midtown is available only on Mondays and Wednesdays. The selected day is invalid - try another day';
   }
 }
 
