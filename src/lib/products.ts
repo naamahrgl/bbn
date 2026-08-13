@@ -262,6 +262,8 @@ export const PRODUCTS :Product[]= [
         price: 30.0,
     isFeatured: true,
           isAvailable: true,
+                tags: [{ key: 'new'}]
+
 
   },
         {
@@ -533,7 +535,9 @@ nutrients: {
     ],   
         price: 27.0,
     isFeatured: true,
-          isAvailable: true
+          isAvailable: true,
+                tags: [{ key: 'new'}]
+
 
   },
 ];
