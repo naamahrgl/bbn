@@ -326,7 +326,7 @@ export const PRODUCTS :Product[]= [
       en: 'Real bread crumbs that will elevate your kitchen! Yummy and Healthy - made from my great bread.'
     },
             directions: {
-      he: 'ישמרו סביבות שלושה חודשים במקום קריר ויבש',
+      he: 'ישמרו לפחות חצי שנה במקום קריר ויבש',
       en: 'keep for around three months in a cool and dry place'
     },
         ingredients: {
@@ -422,7 +422,7 @@ nutrients: {
             '/products/dump1.webp',
     ],   
     price: 40.0,
-    isFeatured: true,
+    isFeatured: false,
       isAvailable: false,
       tags: [{ key: 'new'}]
 
@@ -450,7 +450,7 @@ nutrients: {
 
     ],   
     price: 80.0,
-    isFeatured: true,
+    isFeatured: false,
       isAvailable: false,
       tags: [{ key: 'new'}]
 
@@ -477,7 +477,7 @@ nutrients: {
             '/products/dump1.webp',
     ],   
     price: 40.0,
-    isFeatured: true,
+    isFeatured: false,
       isAvailable: false,
       tags: [{ key: 'new'}]
 
@@ -504,7 +504,7 @@ nutrients: {
             '/products/dump1.webp',
     ],   
     price: 80.0,
-    isFeatured: true,
+    isFeatured: false,
       isAvailable: false,
       tags: [{ key: 'new'}]
 
