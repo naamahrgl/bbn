@@ -1,6 +1,6 @@
 // lib/products.ts
 
-export type ProductId = 'classic' | 'sandwich' | 'chedder-jalapino' | 'focaccia' | 'cracker' | 'brownie' | 'pizzas' | 'alfajores' | 'rolls' | 'breadcrumbs' |'tam' | 'hamantash' | 'meat-dumplings8' | 'potato-dumplings8' | 'meat-dumplings18' | 'potato-dumplings18';
+export type ProductId = 'classic' | 'sandwich' | 'chedder-jalapino' | 'focaccia' | 'cracker' | 'brownie' | 'pizzas' | 'alfajores' | 'rolls' | 'breadcrumbs' |'tam' | 'hamantash' | 'meat-dumplings8' | 'potato-dumplings8' | 'meat-dumplings18' | 'potato-dumplings18' | 'cookies';
 
 type Tag = {
   key: 'new' | 'limited' | 'bestseller'; // You can add more
@@ -151,7 +151,7 @@ export const PRODUCTS :Product[]= [
       '/products/cracker1.webp',
       '/products/cracker2.mp4'
         ],   
-        price: 30.0,
+        price: 35.0,
     isFeatured: true,
       isAvailable: true,
   },
@@ -175,7 +175,7 @@ export const PRODUCTS :Product[]= [
     imageUrls: [
       '/products/brow1.webp'
     ],   
-        price: 20.0,
+        price: 24.0,
     isFeatured: true,
           isAvailable: true,
         //  variants: [{sizeid: 's', size: {he: 'אישי', en: "single"}, price: 20}, {sizeid: 'l', size: {he: 'עוגה 20*30', en: "Tray 20*30"}, price: 110, multiplier: 8}]
@@ -259,9 +259,9 @@ export const PRODUCTS :Product[]= [
       '/products/piz1.webp',
       '/products/piz2.webp'
     ],   
-        price: 25.0,
-    isFeatured: false,
-          isAvailable: false,
+        price: 30.0,
+    isFeatured: true,
+          isAvailable: true,
 
   },
         {
@@ -288,8 +288,8 @@ export const PRODUCTS :Product[]= [
       '/products/alf3.webp'
     ],   
         price: 30.0,
-    isFeatured: true,
-          isAvailable: true
+    isFeatured: false,
+          isAvailable: false
 
   },
     {
@@ -507,6 +507,33 @@ nutrients: {
     isFeatured: true,
       isAvailable: false,
       tags: [{ key: 'new'}]
+
+  },
+  {
+    id: 'cookies',
+    name: { he: 'עוגיות חמאה ווניל', en: 'Butter-Vanilla Cookies' },
+    description: {
+      he: '12 עוגיות פריכות, דקות וביתיות שקשה להפסיק לאכול',
+      en: '12 thin butter cookies that feels like home '
+    },
+            directions: {
+      he: 'ישמר טרי עד 5 ימים',
+      en: 'Keeps fresh for up to 5 days'
+    },
+        ingredients: {
+      he: 'קמח אורז לבן, קמח דורה, קמח שקדים, קמח טפיוקה, חמאה, ביצים, קליפות פסיליום, וניל',
+      en: 'Sorghum flour, white rice flour, almond meal, tapioca flour,  butter, eggs, psylium husks, , vanilla.'
+    },
+        nutrients: {cal : 448.290000, carbs : 50.520000, sugar : 14.770000, protein : 5.940000, fat : 25.090000, transFat : 0.670000, satFat : 12.500000, sodium : 17.870000, fiber : 3.530000, iron : 0.280000, magnesium : 0.000000, phosphorus : 0.000000, calcium : 0.000000, cholesterol : 95.440000, potasium : 92.330000},
+
+            category: { he: 'מתוקים', en: 'Sweets' },
+    imageUrls: [
+            '/products/coo1.webp',
+      '/products/cook2.webp',
+    ],   
+        price: 27.0,
+    isFeatured: true,
+          isAvailable: true
 
   },
 ];

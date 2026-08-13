@@ -2,27 +2,27 @@
 import fs from 'fs/promises';
 import { renderReceiptFromOrder } from './src/lib/renderReceipt.ts'; // Adjust path if needed
 
-const MANUAL_SERIAL = 1139; // <--- CHANGE THIS TO YOUR DESIRED ID
+const MANUAL_SERIAL = 1152; // <--- CHANGE THIS TO YOUR DESIRED ID
 
 const sampleOrder = {
-  customerName: "irregular",
+  customerName: "Riskified",
   customerPhone: "",
   customerEmail: "",
   customerAddress: "",
-  deliveryDate: "2026-05-31",
-  deliveryFee: 245,
-  couponAmount: 140,
-  paymentMethod: "cash",
+  deliveryDate: "2026-06-17",
+  deliveryFee: 35,
+  couponAmount: 20,
+  paymentMethod: "bank_transfer",
   items: [
-    { name: "לחם קלאסי", quantity: 7, price: 35 },
-        { name: "קרקר", quantity: 4, price: 30 },
-                { name: "בראוני", quantity: 1, price: 20 },
-        { name: "אלפחורס", quantity: 1, price: 30 },
+    { name: "לחם קלאסי", quantity: 2, price: 35 },
+       // { name: "קרקר", quantity: 4, price: 30 },
+         //       { name: "בראוני", quantity: 1, price: 20 },
+        //{ name: "אלפחורס", quantity: 1, price: 30 },
 
 
  //  { name: "בראוני אישי", quantity: 2, price: 20 }
   ],
-  amountToPay: 520 // (35*3 - 15)
+  amountToPay: 85 // (2000*1)
 };
 
 async function run() {
