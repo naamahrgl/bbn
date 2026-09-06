@@ -1,6 +1,6 @@
 // lib/products.ts
 
-export type ProductId = 'classic' | 'sandwich' | 'chedder-jalapino' | 'focaccia' | 'cracker' | 'brownie' | 'pizzas' | 'alfajores' | 'rolls' | 'breadcrumbs' |'tam' | 'hamantash' | 'meat-dumplings8' | 'potato-dumplings8' | 'meat-dumplings18' | 'potato-dumplings18' | 'cookies';
+export type ProductId = 'classic' | 'sandwich' | 'chedder-jalapino' | 'focaccia' | 'cracker' | 'brownie' | 'pizzas' | 'alfajores' | 'rolls' | 'breadcrumbs' |'tam' | 'hamantash' | 'meat-dumplings8' | 'potato-dumplings8' | 'meat-dumplings18' | 'potato-dumplings18' | 'cookies' | 'honey-cake' | 'pecan-pie-20' | "pecan-pie-24" | "meat-dumplings-rh-8"; // Add more product IDs as needed
 
 type Tag = {
   key: 'new' | 'limited' | 'bestseller'; // You can add more
@@ -538,6 +538,117 @@ nutrients: {
           isAvailable: true,
                 tags: [{ key: 'new'}]
 
+
+  },
+   {
+    id: 'honey-cake',
+    name: { he: 'עוגת דבש', en: 'honey cake' },
+    description: {
+      he: 'עוגת דבש מרכיבים טובים! לא מכילה סוכר ומבוססת קמח שקדים, העוגה הקלאסית בגרסתה המנחמת והעשירה',
+      en: 'Delicious honey cake made with high-quality ingredients - no sugar, non dairy'
+    },
+            directions: {
+      he: 'ישמר טרי עד 5 ימים',
+      en: 'Keeps fresh for up to 5 days'
+    },
+        ingredients: {
+      he: 'קמח שקדים, קמח קוקוס, קמח טפיוקה, דבש טהור, שמן, ביצים, תה, קינמון, ג׳ינג׳ר יבש, ציפורן',
+      en: 'almond flour, coconut flour, tapioca flour, pure honey, oil, eggs, tea, cinnamon, dried ginger, cardamom.'
+    },
+
+            category: { he: 'מתוקים', en: 'Sweets' },
+    imageUrls: [
+            '/products/honey.jpeg',
+    ],   
+        price: 100.0,
+    isFeatured: true,
+          isAvailable: true,
+                tags: [{ key: 'limited'}]
+
+
+  },
+   {
+    id: 'pecan-pie-20',
+    name: { he: 'פאי פקאן בקוטר 20 ס״מ', en: 'Pecan Pie 20cm' },
+    description: {
+      he: 'פקאנים עטופים קרמל ושמנת, עם טאץ׳ לימוני שמקליל את הביס. קלתית פריכה, עשירה ומפנקת. מגיעה בקוטר 20 ס״מ',
+      en: 'Pecans wrapped in caramel and cream, with a touch of lemon that lightens the bite. A crunchy, rich and indulgent crust. Comes in a 20cm diameter'
+    },
+            directions: {
+      he: 'ישמר טרי עד 5 ימים',
+      en: 'Keeps fresh for up to 5 days'
+    },
+        ingredients: {
+      he: 'פקאנים, סוכר, שמנת, לימון, קמח אורז לבן, קמח דורה, קמח שקדים, קמח טפיוקה, חמאה, ביצים, קליפות פסיליום, וניל',
+      en: 'Pecans, sugar, cream, lemon, sorghum flour, white rice flour, almond meal, tapioca flour, butter, eggs, psylium husks, vanilla.'
+    },
+
+            category: { he: 'מתוקים', en: 'Sweets' },
+    imageUrls: [
+         '/products/pecan1.jpeg',
+      '/products/pecan2.jpeg',
+      '/products/pecan3.jpeg'
+    ],   
+        price: 120.0,
+    isFeatured: true,
+          isAvailable: true,
+                tags: [{ key: 'limited'}]
+
+
+  },
+   {
+    id: 'pecan-pie-24',
+    name: { he: 'פאי פקאן בקוטר 24 ס״מ', en: 'Pecan Pie 24cm' },
+    description: {
+      he: 'פקאנים עטופים קרמל ושמנת, עם טאץ׳ לימוני שמקליל את הביס. קלתית פריכה, עשירה ומפנקת. מגיעה בקוטר 24 ס״מ',
+      en: 'Pecans wrapped in caramel and cream, with a touch of lemon that lightens the bite. A crunchy, rich and indulgent crust. Comes in a 24cm diameter'
+    },
+            directions: {
+      he: 'ישמר טרי עד 5 ימים',
+      en: 'Keeps fresh for up to 5 days'
+    },
+        ingredients: {
+      he: 'פקאנים, סוכר, שמנת, לימון, קמח אורז לבן, קמח דורה, קמח שקדים, קמח טפיוקה, חמאה, ביצים, קליפות פסיליום, וניל',
+      en: 'Pecans, sugar, cream, lemon, sorghum flour, white rice flour, almond meal, tapioca flour, butter, eggs, psylium husks, vanilla.'
+    },
+
+            category: { he: 'מתוקים', en: 'Sweets' },
+    imageUrls: [
+            '/products/pecan1.jpeg',
+      '/products/pecan2.jpeg',
+      '/products/pecan3.jpeg'
+    ],   
+        price: 140.0,
+    isFeatured: true,
+          isAvailable: true,
+                tags: [{ key: 'limited'}]
+
+
+  },
+   {
+    id: 'meat-dumplings-rh-8',
+    name: { he: 'כיסונים מוכנים במילוי בשר (קרעפלך) - 8 יחידות', en: 'Dumpligns filled with ground beef (eastern-europian style) - 8 chilled units' },
+    description: {
+      he: '8 כיסונים מוכנים במילוי בשר ובצל מטוגן (קרעפלך)',
+      en: '8 chilled dumplings filled with ground beef and fried onion'
+    },
+            directions: {
+      he: 'מחממים במיקרו ומוסיפים למרק',
+      en: 'Heat in microwave and add to soup'
+    },
+        ingredients: {
+      he: 'קמח אורז לבן, קמח טפיוקה, קליפות פסיליום, בשר טחון, בצל מטוגן, מלח',
+      en: 'White rice flour, tapioca flour, psylium husks, ground beef, fried onion, salt.'
+    },
+  
+            category: { he: 'מיוחדים', en: 'Specials' },
+    imageUrls: [
+            '/products/dump.jpeg',
+    ],   
+    price: 40.0,
+    isFeatured: true,
+      isAvailable: true,
+      tags: [{ key: 'limited'}]
 
   },
 ];
